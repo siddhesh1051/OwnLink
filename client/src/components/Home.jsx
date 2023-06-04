@@ -5,7 +5,7 @@ import Right from './Right'
 const Home = () => {
     return (
         <>
-            <div className='flex flex-row gap-2  w-screen h-screen bg-[#161a23] text-white'>
+            <div className='flex flex-row gap-2  w-full h-full bg-[#161a23] text-white'>
 
                 <Left />
                 <Right />
