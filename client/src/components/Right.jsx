@@ -28,6 +28,7 @@ const Right = () => {
   const [value, setvalue] = useState('1');
   const [acc, setacc] = useState("Facebook");
   const [open, setOpen] = useState(false);
+  const [LinkModal, setLinkModal] = useState(false);
   const handleChange = (event, newVal) => {
     setvalue(newVal)
   }
@@ -40,7 +41,7 @@ const Right = () => {
   
 
   return (
-    <div className='flex-1 ' >
+    <div className='flex-1' >
 
 
       <TabContext value={value}>
@@ -52,8 +53,8 @@ const Right = () => {
           <Tab label="Appearance" value="3" />
 
         </TabList>
-        <TabPanel value="1">
-          <div className='p-5 rounded-xl bg-[#222430]'>
+        <TabPanel value="1"    >
+          <div className='p-5 rounded-xl bg-[#222430] '>
 
             <div className=' flex justify-center' >
 
@@ -95,7 +96,22 @@ const Right = () => {
           </div>
 
         </TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
+        <TabPanel value="2">
+          <div className='p-5 rounded-xl bg-[#222430] '>
+          <Button
+  disabled={false}
+  onClick={() => setLinkModal(true)}
+  size="lg"
+  color='info'
+  sx={{ width: '100%', mb: 2,borderRadius:'50px',height:'30px' }}
+
+>
+Add Link
+</Button>
+            
+          </div>
+
+        </TabPanel>
         <TabPanel value="3">Item Three</TabPanel>
 
       </TabContext>
@@ -126,6 +142,35 @@ const Right = () => {
               </FormControl>
               
               <Button type="submit">Submit</Button>
+            </Stack>
+          </form>
+        </ModalDialog>
+      </Modal>
+      <Modal open={LinkModal} onClose={() => setLinkModal(false)}>
+        <ModalDialog
+          aria-labelledby="basic-modal-dialog-title"
+          aria-describedby="basic-modal-dialog-description"
+          sx={{ maxWidth: 500 }}
+        >
+          <Typography id="basic-modal-dialog-title" component="h2">
+           {acc}
+          </Typography>
+          <Typography id="basic-modal-dialog-description" textColor="text.tertiary">
+            Enter URL below
+          </Typography>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setLinkModal(false);
+            }}
+          >
+            <Stack spacing={2}>
+              <FormControl>
+                <FormLabel>Link</FormLabel>
+                <Input autoFocus required />
+              </FormControl>
+              
+              <Button type="submit">Add</Button>
             </Stack>
           </form>
         </ModalDialog>
