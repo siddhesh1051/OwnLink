@@ -27,6 +27,8 @@ import Links from './Links';
 import BgImage from './bgImage';
 import SolidColor from './SolidColor';
 import GradientComp from './GradientComp'
+import {add,remove} from '../store/socialSlice'
+import {useDispatch} from 'react-redux'
 
 
 const Right = () => {
@@ -34,6 +36,9 @@ const Right = () => {
   const [acc, setacc] = useState("Facebook");
   const [open, setOpen] = useState(false);
   const [LinkModal, setLinkModal] = useState(false);
+
+  const dispatch = useDispatch()
+
   const handleChange = (event, newVal) => {
     setvalue(newVal)
   }
@@ -119,6 +124,12 @@ const Right = () => {
 
               </div>
               <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
+              <BgImage bg={bg1} />
 
 
 
@@ -130,6 +141,12 @@ const Right = () => {
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
             </div>
             <div className='flex gap-5 flex-wrap'>
+              <GradientComp />
+              <GradientComp />
+              <GradientComp />
+              <GradientComp />
+              <GradientComp />
+              <GradientComp />
               <GradientComp />
             </div>
 
@@ -163,6 +180,7 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
+              dispatch(add({ acc, username: event.target[0].value }));
               setOpen(false);
             }}
           >
