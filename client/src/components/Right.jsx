@@ -13,7 +13,7 @@ import Linkedin from './icons/linkedin.png'
 import Pinterest from './icons/pinterest.png'
 import Snapchat from './icons/snapchat.png'
 import Twitch from './icons/twitch.png'
-
+import bg1 from './img/bg1.png'
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -23,6 +23,11 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Social from './Social';
+import Links from './Links';
+import BgImage from './bgImage';
+import SolidColor from './SolidColor';
+import GradientComp from './GradientComp'
+
 
 const Right = () => {
   const [value, setvalue] = useState('1');
@@ -38,7 +43,7 @@ const Right = () => {
 
   }
 
-  
+
 
   return (
     <div className='flex-1' >
@@ -78,18 +83,18 @@ const Right = () => {
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Facebook"} pic = {Facebook}/>
-                <Social handleAdd={handleAdd} social={"Youtube"} pic = {Youtube}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                <Social handleAdd={handleAdd} social={"Instagram"} pic = {Instagram}/>
-                
-               
-                
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Facebook"} pic={Facebook} />
+                <Social handleAdd={handleAdd} social={"Youtube"} pic={Youtube} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
+
+
+
 
               </div>
             </div>
@@ -97,25 +102,51 @@ const Right = () => {
 
         </TabPanel>
         <TabPanel value="2">
-          <div className='p-5 rounded-xl bg-[#222430] '>
-          <Button
-  disabled={false}
-  onClick={() => setLinkModal(true)}
-  size="lg"
-  color='info'
-  sx={{ width: '100%', mb: 2,borderRadius:'50px',height:'30px' }}
-
->
-Add Link
-</Button>
-            
-          </div>
-
+          <Links setLinkModal={setLinkModal} />
         </TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="3">
+          <div>
+            <div className='flex flex-start'>
+
+              <p className=' font-light text-sm text-gray-400 mb-4 '>  Choose a background image</p>
+            </div>
+            <div className='flex gap-5 flex-wrap'>
+
+
+              <div className='w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-neutral-700 p-[16px] border-[transparent]"'>
+                Upload Image
+                <input type="file" className="hidden" />
+
+              </div>
+              <BgImage bg={bg1} />
+
+
+
+
+
+            </div>
+            <div className='flex flex-start'>
+
+              <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
+            </div>
+            <div className='flex gap-5 flex-wrap'>
+              <GradientComp />
+            </div>
+
+            <div className='flex flex-start'>
+
+              <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Solid Colour</p>
+            </div>
+            
+            
+            <div className='flex gap-5 flex-wrap'>
+              <SolidColor />
+            </div>
+          </div>
+        </TabPanel>
 
       </TabContext>
-     
+
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog
@@ -124,7 +155,7 @@ Add Link
           sx={{ maxWidth: 500 }}
         >
           <Typography id="basic-modal-dialog-title" component="h2">
-           {acc}
+            {acc}
           </Typography>
           <Typography id="basic-modal-dialog-description" textColor="text.tertiary">
             Enter {acc} username below
@@ -140,7 +171,7 @@ Add Link
                 <FormLabel>Username</FormLabel>
                 <Input autoFocus required />
               </FormControl>
-              
+
               <Button type="submit">Submit</Button>
             </Stack>
           </form>
@@ -153,7 +184,7 @@ Add Link
           sx={{ maxWidth: 500 }}
         >
           <Typography id="basic-modal-dialog-title" component="h2">
-           {acc}
+            {acc}
           </Typography>
           <Typography id="basic-modal-dialog-description" textColor="text.tertiary">
             Enter URL below
@@ -169,16 +200,16 @@ Add Link
                 <FormLabel>Link</FormLabel>
                 <Input autoFocus required />
               </FormControl>
-              
+
               <Button type="submit">Add</Button>
             </Stack>
           </form>
         </ModalDialog>
       </Modal>
 
-      
+
     </div>
-    
+
   );
 }
 export default Right
