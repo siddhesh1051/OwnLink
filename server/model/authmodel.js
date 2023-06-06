@@ -10,7 +10,45 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     required: [true, "Password is Required"],
-  }
+  },
+
+  links: {
+    type: Array,
+    default: [],
+    
+
+  },
+  socials: {
+    type: Array,
+    default: [],
+  },
+
+  username: {
+    type: String,
+    required: [true, "Username is Required"],
+    unique: true,
+  },
+
+name: {
+    type: String,
+    required: [true, "Name is Required"],
+  },
+
+bio: {
+    type: String,
+    default: "",
+  },
+
+
+
+
+  // profilePicture: {
+  //   type: String,
+  //   default: "https://res.cloudinary
+  //   .com/dx0wpoeyu/image/upload/v1
+  //   620846388/Profile_Pictures/default_profile_picture
+  //   .png",
+  // },
 
 });
 

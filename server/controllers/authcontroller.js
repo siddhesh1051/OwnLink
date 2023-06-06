@@ -32,5 +32,22 @@ module.exports.login = async (req, res) => {
     }
 }
 
+module.exports.addUsername = async (req, res) => {
+    
+}
+module.exports.addName = async (req, res) => {
+    
+}
+module.exports.addBio = async (req, res) => {
+    
+}
+
+module.exports.addLink = async (req, res) => {
+   
+}
+module.exports.addSocial = async (req, res) => {
+   
+}
+
 
 
