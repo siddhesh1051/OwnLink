@@ -12,10 +12,8 @@ const Left = () => {
   <Screen />
   <i className='speaker'>Speaker</i>
   <b className='camera'>Camera</b>
-  {/* <s>10:24</s> */}
   
-  <span className='actionbtn'>Left action button</span>
-  <span className='actionbtn'>Right action button</span>
+  
 </div>
    
 

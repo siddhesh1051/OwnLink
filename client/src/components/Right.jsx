@@ -68,7 +68,7 @@ const Right = () => {
 
             <div className=' flex justify-center' >
 
-              <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" />
+              <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" style={{width:'80px', height:"80px"}} />
             </div>
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>
