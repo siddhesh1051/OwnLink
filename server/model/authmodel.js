@@ -25,13 +25,14 @@ const userSchema = mongoose.Schema({
 
   username: {
     type: String,
-    required: [true, "Username is Required"],
+    default: "",
     unique: true,
+
   },
 
 name: {
-    type: String,
-    required: [true, "Name is Required"],
+  type: String,
+  default: "",
   },
 
 bio: {
