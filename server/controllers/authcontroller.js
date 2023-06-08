@@ -37,10 +37,14 @@ module.exports.addUsername = async (req, res) => {
   try {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
+
+    console.log(user);
     if (user) {
       const { username } = user;
       const usernamePresent = username!=="";
+      
             if (!usernamePresent) {
+
         await User.findByIdAndUpdate(
           
           user._id,
@@ -50,7 +54,7 @@ module.exports.addUsername = async (req, res) => {
           { new: true }
         );
       } else return res.json({ msg: "username already present" });
-    } else await User.create({ email, username_from_body });
+    } else await User.create({ email, username: username_from_body });
     return res.json({ msg: "username claimed successfully" });
   } catch (error) {
     return res.json({ msg: "Error claiming username" });
@@ -73,11 +77,11 @@ module.exports.addName = async (req, res) => {
           },
           { new: true }
         );
-      } else return res.json({ msg: "username already present" });
-    } else await User.create({ email, name_from_body });
-    return res.json({ msg: "username claimed successfully" });
+      } else return res.json({ msg: "name already present" });
+    } else await User.create({ email, name:name_from_body });
+    return res.json({ msg: "name claimed successfully" });
   } catch (error) {
-    return res.json({ msg: "Error claiming username" });
+    return res.json({ msg: "Error claiming name" });
   }
     
 }
@@ -87,7 +91,7 @@ module.exports.addBio = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       const { bio } = user;
-      const bioPresent = bio!==null;
+      const bioPresent = bio!=="";
             if (!bioPresent) {
         await User.findByIdAndUpdate(
           
@@ -97,11 +101,11 @@ module.exports.addBio = async (req, res) => {
           },
           { new: true }
         );
-      } else return res.json({ msg: "username already present" });
-    } else await User.create({ email, bio_from_body });
-    return res.json({ msg: "lisename claimed successfully" });
+      } else return res.json({ msg: "bio already present" });
+    } else await User.create({ email, bio:bio_from_body });
+    return res.json({ msg: "bio claimed successfully" });
   } catch (error) {
-    return res.json({ msg: "Error claiming username" });
+    return res.json({ msg: "Error claiming bio" });
   }
     
 }
@@ -129,8 +133,7 @@ module.exports.addLink = async (req, res) => {
       link:link,
       type:type
     }] });
-    return res.json({ msg: "link successfully added to liked list." 
-  });
+    return res.json({ msg: "link successfully added to liked list." });
   } catch (error) {
     return res.json({ msg: "Error adding Link" });
   }
@@ -160,12 +163,77 @@ module.exports.addSocial = async (req, res) => {
       link:link,
       type:type
     }] });
-    return res.json({ msg: "Successfully Added" 
-  });
+    return res.json({ msg: "Successfully Added" });
   } catch (error) {
     return res.json({ msg: "Error adding Social to the link list" });
   }
+
+
+  //get api's
+
+  
 }
+
+
+module.exports.getUsername = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", username: user.username });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getName = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", name: user.name });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getBio = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", bio: user.bio });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getLinks = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", links: user.links });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getSocials = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", socials: user.socials });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
 
 
 

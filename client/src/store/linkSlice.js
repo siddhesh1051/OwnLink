@@ -2,21 +2,21 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 const initialState = {
-   socials: [],
+   links: [],
 }
 
-export const getSocials = createAsyncThunk(
-    "ownlink/getSocials",
+export const getLinks = createAsyncThunk(
+    "ownlink/getLinks",
     async (email) => {
       const {
-        data: { socials },
-      } = await axios.get(process.env.REACT_APP_API +`/socials/${email}`);
-      return socials;
+        data: { links },
+      } = await axios.get(process.env.REACT_APP_API +`/links/${email}`);
+      return links;
     }
   );
 
-const socialSlice = createSlice({
-    name: 'social',
+const linkSlice = createSlice({
+    name: 'link',
     initialState,
     reducers: { 
         add(state, action) {
@@ -30,15 +30,15 @@ const socialSlice = createSlice({
     
         extraReducers: (builder) => {
       
-            builder.addCase(getSocials.fulfilled, (state, action) => {
-              state.socials = action.payload;
+            builder.addCase(getLinks.fulfilled, (state, action) => {
+              state.links = action.payload;
             });
         }
     })
 
 
-    export const { add, remove } = socialSlice.actions
-    export default socialSlice.reducer
+    export const { add, remove } = linkSlice.actions
+    export default linkSlice.reducer
 
            
 
