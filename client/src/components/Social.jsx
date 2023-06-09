@@ -1,6 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const Social = ({ handleAdd, social, pic }) => {
+  
+
+
+
   return (
     <div className='flex justify-between w-full items-center  py-2 px-4'>
       <p className='flex'><img src={pic} alt="" className='mr-4' /> {social}</p>

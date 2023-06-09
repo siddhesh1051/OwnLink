@@ -33,24 +33,41 @@ import Links from './Links';
 import BgImage from './bgImage';
 import SolidColor from './SolidColor';
 import GradientComp from './GradientComp'
-import {add,remove} from '../store/socialSlice'
-import {useDispatch} from 'react-redux'
+import {add,remove, setSocials} from '../store/socialSlice'
+import {useDispatch, useSelector} from 'react-redux'
 
 
 const Right = () => {
   const [value, setvalue] = useState(1);
-  const [acc, setacc] = useState("Facebook");
+  const [acc, setacc] = useState("facebook");
   const [open, setOpen] = useState(false);
   const [LinkModal, setLinkModal] = useState(false);
+  const [link, setLink] = useState("");
+  const [type, setType] = useState("");
+
+  const socialVar = useSelector (state => state.social)
+  const socials = socialVar.socials;
+  // console.log(socials)
+
+  const email = "test@gmail.co"
 
   const dispatch = useDispatch()
 
   const handleChange = (event, newVal) => {
     setvalue(newVal)
   }
+  const handleInputChange = (event) => {
+    setLink(event.target.value)
+  }
   const handleAdd = (e) => {
     setacc(e.target.value)
+    
+
+    console.log(acc);
+    setType(e.target.value);
+    console.log(type);
     setOpen(true)
+    
 
   }
 
@@ -65,11 +82,11 @@ const Right = () => {
         <TabList color="primary" variant="plain" sx={{backgroundColor:"#222430"}}>
 
           <Tab label="Bio" value={1} variant={value === 1 ? 'solid' : 'plain'}
-            color={value === 1 ? 'info' : 'info'}  >Bio</Tab>
+            color={value === 1 ? 'info' : 'info'} sx={{fontSize:"20px"}}  >Bio</Tab>
           <Tab label="Links" value={2} variant={value === 2? 'solid' : 'plain'}
-            color={value === 2 ? 'info' : 'info'}  >Links</Tab>
+            color={value === 2 ? 'info' : 'info'} sx={{fontSize:"20px"}} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
-            color={value === 3 ? 'info' : 'info'}>Appearance</Tab>
+            color={value === 3 ? 'info' : 'info'} sx={{fontSize:"20px"}} >Appearance</Tab>
 
         </TabList>
         <TabPanel value={1}    >
@@ -97,19 +114,19 @@ const Right = () => {
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social handleAdd={handleAdd} social={"Instagram"} pic={Instagram} />
-                <Social handleAdd={handleAdd} social={"Facebook"} pic={Facebook} />
-                <Social handleAdd={handleAdd} social={"Youtube"} pic={Youtube} />
-                <Social handleAdd={handleAdd} social={"Snapchat"} pic={Snapchat} />
-                <Social handleAdd={handleAdd} social={"Gmail"} pic={Gmail} />
-                <Social handleAdd={handleAdd} social={"Linkedin"} pic={Linkedin} />
-                <Social handleAdd={handleAdd} social={"Twitter"} pic={Twitter} />
-                <Social handleAdd={handleAdd} social={"Pinterest"} pic={Pinterest} />
-                <Social handleAdd={handleAdd} social={"Telegram"} pic={Telegram} />
-                <Social handleAdd={handleAdd} social={"Twitch"} pic={Twitch} />
-                <Social handleAdd={handleAdd} social={"Behance"} pic={Behance} />
-                <Social handleAdd={handleAdd} social={"Reddit"} pic={Reddit} />
-                <Social handleAdd={handleAdd} social={"Website"} pic={Web} />
+                <Social handleAdd={handleAdd} social={"instagram"} pic={Instagram} />
+                <Social handleAdd={handleAdd} social={"facebook"} pic={Facebook} />
+                <Social handleAdd={handleAdd} social={"youtube"} pic={Youtube} />
+                <Social handleAdd={handleAdd} social={"snapchat"} pic={Snapchat} />
+                <Social handleAdd={handleAdd} social={"gmail"} pic={Gmail} />
+                <Social handleAdd={handleAdd} social={"linkedin"} pic={Linkedin} />
+                <Social handleAdd={handleAdd} social={"twitter"} pic={Twitter} />
+                <Social handleAdd={handleAdd} social={"pinterest"} pic={Pinterest} />
+                <Social handleAdd={handleAdd} social={"telegram"} pic={Telegram} />
+                <Social handleAdd={handleAdd} social={"twitch"} pic={Twitch} />
+                <Social handleAdd={handleAdd} social={"behance"} pic={Behance} />
+                <Social handleAdd={handleAdd} social={"reddit"} pic={Reddit} />
+                <Social handleAdd={handleAdd} social={"web"} pic={Web} />
 
 
 
@@ -193,14 +210,14 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(add({ acc, username: event.target[0].value }));
+              dispatch(setSocials(email,link,type))
               setOpen(false);
             }}
           >
             <Stack spacing={2}>
               <FormControl>
                 <FormLabel>Username</FormLabel>
-                <Input autoFocus required />
+                <Input autoFocus required  value={link} onChange={(e)=>handleInputChange(e)} />
               </FormControl>
 
               <Button type="submit">Submit</Button>

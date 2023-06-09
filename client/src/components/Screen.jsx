@@ -25,7 +25,8 @@ const Screen = () => {
 
   const socials = social.socials;
   const links = link.links;
-  console.log(socials);
+  // console.log(socials);
+
 
 
   useEffect(() => {
@@ -53,11 +54,11 @@ const Screen = () => {
               </div>
       <div className='text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar  p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
       {
-      socials.length!==0 && 
+      socials?.length!==0 && 
       <div className='flex h-full w-full items-center justify-center mx-auto my-0 px-1'>
 
         {
-          socials.length!==0 && socials.map((item) => (
+          socials?.length!==0 && socials?.map((item) => (
             <SocialIcon icon={item.type} link={item.link}/>
           ))
 
@@ -70,12 +71,12 @@ const Screen = () => {
               </div>
 
               {
-               links.length!==0 &&
+               links?.length!==0 &&
                <div className='flex items-center justify-start flex-col text-white gap-1 w-[100%] min-w-[80%] '>
                
                 <h1 className='text-center text-xl mt-2'>Links</h1>
                 {
-                  links.length!==0 && links.map((item) => (
+                  links?.length!==0 && links?.map((item) => (
                     
 
                     <ScreenLink link={item.link} />
