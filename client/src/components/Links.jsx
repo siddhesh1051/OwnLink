@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@mui/joy/Button';
 
 import LinkDiv from './LinkDiv'
+import { useDispatch, useSelector } from 'react-redux';
+import { getLinks } from '../store/linkSlice';
 
 const Links = ({setLinkModal}) => {
+    const link = useSelector(state => state.link)
+    const dispatch  = useDispatch();
+    const email = localStorage.getItem('email');
+    const links = link.links;
+    // console.log(links)
+
+    useEffect(() => {
+     
+        dispatch(getLinks(email))
+    
+     
+    }, [])
+    
+    
     return (
         <div className='p-5 rounded-xl bg-[#222430] '>
             <Button
@@ -17,14 +33,13 @@ const Links = ({setLinkModal}) => {
                 Add Link
             </Button>
 
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
-            <LinkDiv />
+            {
+          links?.length!==0 && links?.map((item) => (
+            <LinkDiv title={item.title} link={item.link}/>
+          ))
+
+        }
+           
 
         </div>
 

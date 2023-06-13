@@ -21,7 +21,7 @@ const Screen = () => {
 
 
   const dispatch = useDispatch();
-  const email = "test@gmail.com"
+  const email = localStorage.getItem('email');
 
   const socials = social.socials;
   const links = link.links;
@@ -79,7 +79,7 @@ const Screen = () => {
                   links?.length!==0 && links?.map((item) => (
                     
 
-                    <ScreenLink link={item.link} />
+                    <ScreenLink link={item.link} title={item.title} />
                   
                   ))
                 }

@@ -44,17 +44,19 @@ const Right = () => {
   const [open, setOpen] = useState(false);
   const [LinkModal, setLinkModal] = useState(false);
   const [link, setLink] = useState("");
+  const [UrlLink, setUrlLink] = useState("");
   const [type, setType] = useState("");
   const [username, setusername] = useState("");
   const [name, setname] = useState("")
   const [bio, setbio] = useState("")
+  const [title, settitle] = useState("")
 
   const socialVar = useSelector(state => state.social)
   const socials = socialVar.socials;
   // console.log(socials)
 
   const email = localStorage.getItem("email")
-  console.log(email)
+  // console.log(email)
 
   const dispatch = useDispatch()
 
@@ -63,6 +65,13 @@ const Right = () => {
   }
   const handleInputChange = (event) => {
     setLink(event.target.value)
+  }
+  const handleLinkInputChange = (event) => {
+    setUrlLink(event.target.value)
+  }
+
+  const handleTitleInputChange = (event) => {
+    settitle(event.target.value)
   }
   const handleAdd = (e) => {
     setacc(e.target.value)
@@ -77,6 +86,17 @@ const Right = () => {
       email,
       link,
       type:acc
+      
+    } )
+    console.log(data)
+  }
+
+ const handleAddlink = async (email,UrlLink,title) => {
+  console.log(email,UrlLink,title)
+    const {data} = await axios.post(process.env.REACT_APP_API + '/addlink',{
+      email,
+      link:UrlLink,
+      title
       
     } )
     console.log(data)
@@ -232,8 +252,6 @@ const Right = () => {
               console.log(acc);
               console.log(email);
               handleDispatch( email, link);
-              // handleDispatch(event,link, acc, email)
-              // dispatch(setSocials( link, acc, email ))
               setOpen(false);
             }}
           >
@@ -261,17 +279,18 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
+              handleAddlink( email, UrlLink, title);
               setLinkModal(false);
             }}
           >
             <Stack spacing={2}>
               <FormControl>
                 <FormLabel>Title</FormLabel>
-                <Input autoFocus required />
+                <Input autoFocus required value={title} onChange={(e) => handleTitleInputChange(e)} />
               </FormControl>
               <FormControl>
                 <FormLabel>Link</FormLabel>
-                <Input autoFocus required />
+                <Input  required value={UrlLink} onChange={(e) => handleLinkInputChange(e)} />
               </FormControl>
 
               <Button type="submit">Add</Button>

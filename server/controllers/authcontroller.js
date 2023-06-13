@@ -112,7 +112,7 @@ module.exports.addBio = async (req, res) => {
 
 module.exports.addLink = async (req, res) => {
   try {
-    const { email, link } = req.body;
+    const { email, link,title } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       const { links } = user;
@@ -124,6 +124,7 @@ module.exports.addLink = async (req, res) => {
           {
             links: [...user.links,{
               link: link,
+              title:title
             }]
           },
           { new: true }
@@ -131,7 +132,7 @@ module.exports.addLink = async (req, res) => {
       } else return res.json({ msg: "link already added to the liked list." });
     } else await User.create({ email, links: [{
       link:link,
-      type:type
+      title:title
     }] });
     return res.json({ msg: "link successfully added to liked list." });
   } catch (error) {
