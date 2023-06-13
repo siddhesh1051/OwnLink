@@ -15,37 +15,12 @@ export const getSocials = createAsyncThunk(
       return socials;
     }
   );
-
-export const setSocials = createAsyncThunk(
-    "ownlink/setSocials",
-    async (email,link,type) => {
-      try {
-        await axios.post(process.env.REACT_APP_API +"/addsocial", {
-          email,
-          link,
-          type
-        });
-      toast.success('Profile Updated Successfully', {
-          position: "bottom-center",
-          autoClose: 2500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-          
-        
-      } catch (error) {
-          toast.error(error, {
-              position: "bottom-center",
-              autoClose: 2500})
-          }
       
-   
-    }
-  );
+
+
+    
+    
+    
 
 const socialSlice = createSlice({
     name: 'social',
@@ -65,9 +40,7 @@ const socialSlice = createSlice({
             builder.addCase(getSocials.fulfilled, (state, action) => {
               state.socials = action.payload;
             });
-            builder.addCase(setSocials.fulfilled, (state, action) => {
-              state.socials = action.payload;
-            });
+          
         }
     })
 

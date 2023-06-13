@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.checkUser = (req, res, next) => {
   const  {token}  = req.body;
-  console.log(token)
+  // console.log(token)
   
   
   if (token) {

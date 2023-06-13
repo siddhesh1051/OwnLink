@@ -50,6 +50,7 @@ const Login = ({ isNew, setisNew }) => {
           toast.success("Logged in Successfully", {
             position: "bottom-right",
           });
+          localStorage.setItem('email',user.email)
           navigate("/");
         }
       }

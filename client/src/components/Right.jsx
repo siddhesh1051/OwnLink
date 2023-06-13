@@ -33,8 +33,9 @@ import Links from './Links';
 import BgImage from './bgImage';
 import SolidColor from './SolidColor';
 import GradientComp from './GradientComp'
-import {add,remove, setSocials} from '../store/socialSlice'
-import {useDispatch, useSelector} from 'react-redux'
+import { add, remove, setSocials } from '../store/socialSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios';
 
 
 const Right = () => {
@@ -44,12 +45,16 @@ const Right = () => {
   const [LinkModal, setLinkModal] = useState(false);
   const [link, setLink] = useState("");
   const [type, setType] = useState("");
+  const [username, setusername] = useState("");
+  const [name, setname] = useState("")
+  const [bio, setbio] = useState("")
 
-  const socialVar = useSelector (state => state.social)
+  const socialVar = useSelector(state => state.social)
   const socials = socialVar.socials;
   // console.log(socials)
 
-  const email = "test@gmail.co"
+  const email = localStorage.getItem("email")
+  console.log(email)
 
   const dispatch = useDispatch()
 
@@ -61,15 +66,25 @@ const Right = () => {
   }
   const handleAdd = (e) => {
     setacc(e.target.value)
-    
-
-    console.log(acc);
-    setType(e.target.value);
-    console.log(type);
     setOpen(true)
-    
+
 
   }
+
+ const handleDispatch = async (email,link) => {
+  console.log(email,link,acc)
+    const {data} = await axios.post(process.env.REACT_APP_API + '/addsocial',{
+      email,
+      link,
+      type:acc
+      
+    } )
+    console.log(data)
+  }
+
+
+  
+
 
 
 
@@ -77,16 +92,16 @@ const Right = () => {
     <div className='flex-1' >
 
 
-      <Tabs size='lg' onChange={handleChange}  aria-label="Plain tabs" defaultValue={value} sx={{color:"white", backgroundColor:"#161a23"}} >
+      <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" }} >
 
-        <TabList color="primary" variant="plain" sx={{backgroundColor:"#222430"}}>
+        <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
 
           <Tab label="Bio" value={1} variant={value === 1 ? 'solid' : 'plain'}
-            color={value === 1 ? 'info' : 'info'} sx={{fontSize:"20px"}}  >Bio</Tab>
-          <Tab label="Links" value={2} variant={value === 2? 'solid' : 'plain'}
-            color={value === 2 ? 'info' : 'info'} sx={{fontSize:"20px"}} >Links</Tab>
+            color={value === 1 ? 'info' : 'info'} sx={{ fontSize: "20px" }}  >Bio</Tab>
+          <Tab label="Links" value={2} variant={value === 2 ? 'solid' : 'plain'}
+            color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px" }} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
-            color={value === 3 ? 'info' : 'info'} sx={{fontSize:"20px"}} >Appearance</Tab>
+            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" }} >Appearance</Tab>
 
         </TabList>
         <TabPanel value={1}    >
@@ -94,19 +109,22 @@ const Right = () => {
 
             <div className=' flex justify-center' >
 
-              <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" style={{width:'80px', height:"80px"}} />
+              <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" style={{ width: '80px', height: "80px" }} />
             </div>
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>
 
-                <TextField id="filled-basic" label="Username" variant="filled" placeholder='Choose a Username' fullWidth  color="secondary" sx={{ input: { color: 'white'} , label:{color: "gray"}  }} />
-                <TextField id="filled-basic" label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white'} , label:{color: "gray"}  }} />
+                <TextField id="filled-basic" label="Username" variant="filled" placeholder='Choose a Username' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
+                <TextField id="filled-basic" label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
 
               </div>
               <div className='mt-1'>
 
-                <TextField id="filled-basic" label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white'} , label:{color: "gray"}  }} />
+                <TextField id="filled-basic" label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
               </div>
+              <button className=' bg-teal-700 rounded-xl py-2 px-4 w-fit self-center' on >
+                Save
+              </button>
             </div>
 
             <div>
@@ -184,8 +202,8 @@ const Right = () => {
 
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Solid Colour</p>
             </div>
-            
-            
+
+
             <div className='flex gap-5 flex-wrap'>
               <SolidColor />
             </div>
@@ -210,14 +228,19 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(setSocials(email,link,type))
+              console.log(link);
+              console.log(acc);
+              console.log(email);
+              handleDispatch( email, link);
+              // handleDispatch(event,link, acc, email)
+              // dispatch(setSocials( link, acc, email ))
               setOpen(false);
             }}
           >
             <Stack spacing={2}>
               <FormControl>
                 <FormLabel>Username</FormLabel>
-                <Input autoFocus required  value={link} onChange={(e)=>handleInputChange(e)} />
+                <Input autoFocus required value={link} onChange={(e) => handleInputChange(e)} />
               </FormControl>
 
               <Button type="submit">Submit</Button>
@@ -231,7 +254,7 @@ const Right = () => {
           aria-describedby="basic-modal-dialog-description"
           sx={{ maxWidth: 500 }}
         >
-         
+
           <Typography id="basic-modal-dialog-title" textColor="text.tertiary">
             Enter Details Below
           </Typography>
@@ -262,4 +285,5 @@ const Right = () => {
 
   );
 }
+
 export default Right

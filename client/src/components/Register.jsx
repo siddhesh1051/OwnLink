@@ -46,6 +46,7 @@ const Register = ({ isNew, setisNew }) => {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
+          
           toast.success("Registration Successfull", {
             position: "bottom-right",
           });

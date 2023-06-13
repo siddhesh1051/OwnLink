@@ -55,7 +55,7 @@ const Screen = () => {
       <div className='text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar  p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
       {
       socials?.length!==0 && 
-      <div className='flex h-full w-full items-center justify-center mx-auto my-0 px-1'>
+      <div className='flex h-full w-full items-center justify-end mx-auto my-0 px-1'>
 
         {
           socials?.length!==0 && socials?.map((item) => (
