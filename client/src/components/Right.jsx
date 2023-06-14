@@ -84,14 +84,21 @@ const Right = () => {
 
     setusername(localStorage.getItem("username"))
     let userData = localStorage.getItem("userData");
-    console.log(JSON.parse(userData))
+    if (userData) {
+      userData = JSON.parse(userData)
+      setusername(userData.currUsername)
+      setname(userData.currName)
+      setbio(userData.currBio)
+    }
+     
+
     
 
 
-  }, [])
+    console.log(currUsername, currName, currBio)
+  }, [dispatch, email, currUsername, currName, currBio])
 
-  console.log(currUsername, currName, currBio)
-
+ 
 
   const handleChange = (event, newVal) => {
     setvalue(newVal)
@@ -217,7 +224,7 @@ const Right = () => {
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>
 
-                <TextField id="filled-basic" value={username} onChange={(e) => handleUsernameInputChange(e)} label="Username" variant="filled" placeholder='Choose a Username' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
+                <TextField id="filled-basic" value={username} onChange={(e) => handleUsernameInputChange(e)} label="Username" variant="filled" placeholder='Choose a Username' required fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
                 <TextField id="filled-basic" value={name} onChange={(e) => handleNameInputChange(e)} label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
 
               </div>
@@ -225,7 +232,7 @@ const Right = () => {
 
                 <TextField id="filled-basic" value={bio} onChange={(e) => handleBioInputChange(e)} label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
               </div>
-              <button className=' bg-teal-700 rounded-xl py-2 px-4 w-fit self-center' onClick={(e) => handleDataSubmit(e)} >
+              <button className=' bg-[#6d42b9] rounded-xl py-2 px-4 w-fit self-center' onClick={(e) => handleDataSubmit(e)} >
                 Save
               </button>
             </div>

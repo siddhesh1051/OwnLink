@@ -35,7 +35,7 @@ const Screen = () => {
     dispatch(getName(email))
     dispatch(getBio(email))
     dispatch(getLinks(email))
-  }, [])
+  }, [social,username,name,bio,link])
 
 
   

@@ -3,21 +3,21 @@ import Button from '@mui/joy/Button';
 
 import LinkDiv from './LinkDiv'
 import { useDispatch, useSelector } from 'react-redux';
-import { getLinks } from '../store/linkSlice';
+import { getLinks, removeLink } from '../store/linkSlice';
 
 const Links = ({setLinkModal}) => {
     const link = useSelector(state => state.link)
     const dispatch  = useDispatch();
     const email = localStorage.getItem('email');
     const links = link.links;
-    // console.log(links)
 
     useEffect(() => {
      
         dispatch(getLinks(email))
+       
     
      
-    }, [])
+    }, [link])
     
     
     return (

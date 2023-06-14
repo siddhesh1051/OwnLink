@@ -146,7 +146,8 @@ module.exports.addSocial = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       const { socials } = user;
-      const socialAlreadyAdded = socials.find(({ link: existingLink }) => existingLink === link);
+      const socialAlreadyAdded = socials.find(({ type: existingType }) => existingType === type);
+      console.log(socialAlreadyAdded)
             if (!socialAlreadyAdded) {
         await User.findByIdAndUpdate(
           
@@ -233,6 +234,64 @@ module.exports.getSocials = async (req, res) => {
     } else return res.json({ msg: "User with given email not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });
+  }
+};
+
+//put requests
+
+module.exports.removeLink = async (req, res) => {
+  try {
+    const { email, link } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      const links = user.links;
+      console.log(links)
+      const linkIndex = links.findIndex(links => links.link === link);
+      console.log(linkIndex)
+      if (linkIndex===-1) {
+        return res.status(400).send({ msg: "link not found." });
+      }
+     
+      links.splice(linkIndex, 1);
+      await User.findByIdAndUpdate(
+        user._id,
+        {
+          links: links,
+        },
+        { new: true }
+      );
+      return res.json({ msg: "link successfully removed.", links });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error removing link from list" });
+  }
+};
+
+module.exports.removeSocial = async (req, res) => {
+  try {
+    const { email, type } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      const socials = user.socials;
+      console.log(socials)
+      const socialIndex = socials.findIndex(socials => socials.type === type);
+      console.log(socialIndex)
+      if (socialIndex===-1) {
+        return res.status(400).send({ msg: "social not found." });
+      }
+     
+      socials.splice(socialIndex, 1);
+      await User.findByIdAndUpdate(
+        user._id,
+        {
+          socials: socials,
+        },
+        { new: true }
+      );
+      return res.json({ msg: "Social successfully removed.", socials });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error removing social from list" });
   }
 };
 

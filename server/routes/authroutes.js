@@ -1,4 +1,4 @@
-const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials } = require("../controllers/authController");
+const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials, removeLink, removeSocial } = require("../controllers/authController");
 const { checkUser } = require("../middlewares/authmiddleware");
 
 const router = require("express").Router();
@@ -17,6 +17,9 @@ router.get("/name/:email", getName);
 router.get("/bio/:email", getBio);
 router.get("/links/:email", getLinks);
 router.get("/socials/:email", getSocials);
+router.put("/removelink", removeLink);
+router.put("/removesocial", removeSocial);
+
 
 
 

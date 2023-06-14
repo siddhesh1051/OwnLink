@@ -15,6 +15,19 @@ export const getLinks = createAsyncThunk(
     }
   );
 
+  export const removeLink = createAsyncThunk(
+    "ownlink/removeLinks",
+    async ({ email,link }) => {
+      const {
+        data: { links },
+      } = await axios.put(process.env.REACT_APP_API +"/removelink", {
+        email,
+        link,
+      });
+      return links;
+    }
+  ); 
+
 const linkSlice = createSlice({
     name: 'link',
     initialState,
