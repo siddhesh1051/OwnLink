@@ -53,11 +53,11 @@ module.exports.addUsername = async (req, res) => {
           },
           { new: true }
         );
-      } else return res.json({ msg: "username already present" });
+      } else return res.json({ msg: "username already present",status:400  }) ;
     } else await User.create({ email, username: username_from_body });
-    return res.json({ msg: "username claimed successfully" });
+    return res.json({ msg: "username claimed successfully",status:200 });
   } catch (error) {
-    return res.json({ msg: "Error claiming username" });
+    return res.json({ msg: "Error claiming username",status:401  });
   }
     
 }
@@ -77,11 +77,11 @@ module.exports.addName = async (req, res) => {
           },
           { new: true }
         );
-      } else return res.json({ msg: "name already present" });
+      } else return res.json({ msg: "name already present",status:400 });
     } else await User.create({ email, name:name_from_body });
-    return res.json({ msg: "name claimed successfully" });
+    return res.json({ msg: "name claimed successfully",status:200 });
   } catch (error) {
-    return res.json({ msg: "Error claiming name" });
+    return res.json({ msg: "Error claiming name",status:401 });
   }
     
 }
@@ -101,11 +101,11 @@ module.exports.addBio = async (req, res) => {
           },
           { new: true }
         );
-      } else return res.json({ msg: "bio already present" });
+      } else return res.json({ msg: "bio already present",status:400 });
     } else await User.create({ email, bio:bio_from_body });
-    return res.json({ msg: "bio claimed successfully" });
+    return res.json({ msg: "bio claimed successfully",status:200 });
   } catch (error) {
-    return res.json({ msg: "Error claiming bio" });
+    return res.json({ msg: "Error claiming bio",status:401 });
   }
     
 }

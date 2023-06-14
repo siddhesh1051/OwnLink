@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Box, TextField } from '@mui/material';
 // import { TabPanel, TabList, TabContext } from '@mui/lab';
 import Tabs from '@mui/joy/Tabs';
@@ -36,6 +36,9 @@ import GradientComp from './GradientComp'
 import { add, remove, setSocials } from '../store/socialSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
+import { getUsername } from '../store/usernameSlice';
+import { getName } from '../store/nameSlice';
+import { getBio } from '../store/bioSlice';
 
 
 const Right = () => {
@@ -52,13 +55,43 @@ const Right = () => {
   const [title, settitle] = useState("")
 
   const socialVar = useSelector(state => state.social)
+  const usernameVar = useSelector(state => state.username)
+  const nameVar = useSelector(state => state.name)
+  const bioVar = useSelector(state => state.bio)
   const socials = socialVar.socials;
-  // console.log(socials)
+  const currUsername = usernameVar.username;
+  const currName = nameVar.name;
+  const currBio = bioVar.bio;
+
+  localStorage.setItem("userData", JSON.stringify({
+    currUsername,
+    currName,
+    currBio
+  }
+  ))
 
   const email = localStorage.getItem("email")
+  const localUsername = localStorage.getItem("username")
+
   // console.log(email)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getUsername(email));
+    dispatch(getName(email));
+    dispatch(getBio(email));
+
+    setusername(localStorage.getItem("username"))
+    let userData = localStorage.getItem("userData");
+    console.log(JSON.parse(userData))
+    
+
+
+  }, [])
+
+  console.log(currUsername, currName, currBio)
+
 
   const handleChange = (event, newVal) => {
     setvalue(newVal)
@@ -69,41 +102,91 @@ const Right = () => {
   const handleLinkInputChange = (event) => {
     setUrlLink(event.target.value)
   }
-
   const handleTitleInputChange = (event) => {
     settitle(event.target.value)
   }
+  const handleUsernameInputChange = (event) => {
+    setusername(event.target.value)
+  }
+  const handleNameInputChange = (event) => {
+    setname(event.target.value)
+  }
+  const handleBioInputChange = (event) => {
+    setbio(event.target.value)
+  }
+
   const handleAdd = (e) => {
     setacc(e.target.value)
     setOpen(true)
 
 
   }
+  const handleDataSubmit = (e) => {
+    e.preventDefault();
+    handleAddUsername(email, username);
+    handleAddName(email, name);
+    handleAddBio(email, bio);
 
- const handleDispatch = async (email,link) => {
-  console.log(email,link,acc)
-    const {data} = await axios.post(process.env.REACT_APP_API + '/addsocial',{
+
+
+  }
+
+
+
+  const handleDispatch = async (email, link) => {
+    console.log(email, link, acc)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addsocial', {
       email,
       link,
-      type:acc
-      
-    } )
+      type: acc
+
+    })
     console.log(data)
   }
 
- const handleAddlink = async (email,UrlLink,title) => {
-  console.log(email,UrlLink,title)
-    const {data} = await axios.post(process.env.REACT_APP_API + '/addlink',{
+  const handleAddlink = async (email, UrlLink, title) => {
+    console.log(email, UrlLink, title)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addlink', {
       email,
-      link:UrlLink,
+      link: UrlLink,
       title
-      
-    } )
+
+    })
+    console.log(data)
+  }
+  const handleAddUsername = async (email, username) => {
+    console.log(email, username)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addusername', {
+      email,
+      username_from_body: username
+
+    })
+    if (data.status === 200) {
+      localStorage.setItem("username", username)
+    }
+    console.log(data)
+  }
+  const handleAddName = async (email, name) => {
+    console.log(email, name)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addname', {
+      email,
+      name_from_body: name
+
+    })
+    console.log(data)
+  }
+  const handleAddBio = async (email, bio) => {
+    console.log(email, bio)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addbio', {
+      email,
+      bio_from_body: bio
+
+    })
     console.log(data)
   }
 
 
-  
+
 
 
 
@@ -134,15 +217,15 @@ const Right = () => {
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>
 
-                <TextField id="filled-basic" label="Username" variant="filled" placeholder='Choose a Username' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
-                <TextField id="filled-basic" label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
+                <TextField id="filled-basic" value={username} onChange={(e) => handleUsernameInputChange(e)} label="Username" variant="filled" placeholder='Choose a Username' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
+                <TextField id="filled-basic" value={name} onChange={(e) => handleNameInputChange(e)} label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
 
               </div>
               <div className='mt-1'>
 
-                <TextField id="filled-basic" label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
+                <TextField id="filled-basic" value={bio} onChange={(e) => handleBioInputChange(e)} label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
               </div>
-              <button className=' bg-teal-700 rounded-xl py-2 px-4 w-fit self-center' on >
+              <button className=' bg-teal-700 rounded-xl py-2 px-4 w-fit self-center' onClick={(e) => handleDataSubmit(e)} >
                 Save
               </button>
             </div>
@@ -251,7 +334,7 @@ const Right = () => {
               console.log(link);
               console.log(acc);
               console.log(email);
-              handleDispatch( email, link);
+              handleDispatch(email, link);
               setOpen(false);
             }}
           >
@@ -279,7 +362,7 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              handleAddlink( email, UrlLink, title);
+              handleAddlink(email, UrlLink, title);
               setLinkModal(false);
             }}
           >
@@ -290,7 +373,7 @@ const Right = () => {
               </FormControl>
               <FormControl>
                 <FormLabel>Link</FormLabel>
-                <Input  required value={UrlLink} onChange={(e) => handleLinkInputChange(e)} />
+                <Input required value={UrlLink} onChange={(e) => handleLinkInputChange(e)} />
               </FormControl>
 
               <Button type="submit">Add</Button>

@@ -50,7 +50,9 @@ const Register = ({ isNew, setisNew }) => {
           toast.success("Registration Successfull", {
             position: "bottom-right",
           });
+          localStorage.setItem('email',user.email)
           navigate("/");
+
         }
       }
     } catch (ex) {
