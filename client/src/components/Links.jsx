@@ -5,7 +5,7 @@ import LinkDiv from './LinkDiv'
 import { useDispatch, useSelector } from 'react-redux';
 import { getLinks, removeLink } from '../store/linkSlice';
 
-const Links = ({setLinkModal}) => {
+const Links = ({setLinkModal,settitle,setUrlLink}) => {
     const link = useSelector(state => state.link)
     const dispatch  = useDispatch();
     const email = localStorage.getItem('email');
@@ -35,7 +35,7 @@ const Links = ({setLinkModal}) => {
 
             {
           links?.length!==0 && links?.map((item) => (
-            <LinkDiv title={item.title} link={item.link}/>
+            <LinkDiv title={item.title} link={item.link}  setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink}/>
           ))
 
         }

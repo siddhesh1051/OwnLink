@@ -110,71 +110,111 @@ module.exports.addBio = async (req, res) => {
     
 }
 
+// module.exports.addLink = async (req, res) => {
+//   try {
+//     const { email, link,title } = req.body;
+//     const user = await User.findOne({ email });
+//     if (user) {
+//       const { links } = user;
+//       const linkAlreadyAdded = links.find(({ link: existingLink }) => existingLink === link);
+//             if (!linkAlreadyAdded) {
+//         await User.findByIdAndUpdate(
+          
+//           user._id,
+//           {
+//             links: [...user.links,{
+//               link: link,
+//               title:title
+//             }]
+//           },
+//           { new: true }
+//         );
+//       } else return res.json({ msg: "link already added to the liked list." });
+//     } else await User.create({ email, links: [{
+//       link:link,
+//       title:title
+//     }] });
+//     return res.json({ msg: "link successfully added to liked list." });
+//   } catch (error) {
+//     return res.json({ msg: "Error adding Link" });
+//   }
+   
+// }
+
 module.exports.addLink = async (req, res) => {
   try {
-    const { email, link,title } = req.body;
+    const { email, link, title } = req.body;
     const user = await User.findOne({ email });
+
     if (user) {
       const { links } = user;
-      const linkAlreadyAdded = links.find(({ link: existingLink }) => existingLink === link);
-            if (!linkAlreadyAdded) {
-        await User.findByIdAndUpdate(
-          
-          user._id,
-          {
-            links: [...user.links,{
-              link: link,
-              title:title
-            }]
-          },
-          { new: true }
+      const linkIndex = links.findIndex(({ link: existingLink }) => existingLink === link);
+
+      if (linkIndex !== -1) {
+        // link found, update the existing link
+        await User.findOneAndUpdate(
+          { _id: user._id},
+          { $set: { "links.$.title": title,"links.$.link": link } },
+         
+
         );
-      } else return res.json({ msg: "link already added to the liked list." });
-    } else await User.create({ email, links: [{
-      link:link,
-      title:title
-    }] });
-    return res.json({ msg: "link successfully added to liked list." });
+        return res.json({ msg: "Successfully Updated" });
+      } else {
+        // link not found, add new link
+        user.links.push({ link, title });
+        await user.save();
+        return res.json({ msg: "Successfully Added" });
+      }
+    } else {
+      // User not found, create a new user with the provided email and social link
+      await User.create({ email, links: [{ link, title }] });
+      return res.json({ msg: "Successfully Added" });
+    }
   } catch (error) {
-    return res.json({ msg: "Error adding Link" });
+    return res.json({ msg: "Error adding/updating social link" });
   }
-   
-}
+};
+
+
 module.exports.addSocial = async (req, res) => {
   try {
-    const { email, link ,type} = req.body;
+    const { email, link, type } = req.body;
     const user = await User.findOne({ email });
+
     if (user) {
       const { socials } = user;
-      const socialAlreadyAdded = socials.find(({ type: existingType }) => existingType === type);
-      console.log(socialAlreadyAdded)
-            if (!socialAlreadyAdded) {
-        await User.findByIdAndUpdate(
-          
-          user._id,
-          {
-            socials: [...user.socials,{
-              link: link,
-              type:type
-            }]
-          },
-          { new: true }
+      const socialIndex = socials.findIndex(({ type: existingType }) => existingType === type);
+
+      if (socialIndex !== -1) {
+        // Social link found, update the existing social link
+        await User.findOneAndUpdate(
+          { _id: user._id, "socials.type": type },
+          { $set: { "socials.$.link": link } }
         );
-      } else return res.json({ msg: "Already Added" });
-    } else await User.create({ email, socials: [{
-      link:link,
-      type:type
-    }] });
-    return res.json({ msg: "Successfully Added" });
+        return res.json({ msg: "Successfully Updated" });
+      } else {
+        // Social link not found, add new social link
+        user.socials.push({ link, type });
+        await user.save();
+        return res.json({ msg: "Successfully Added" });
+      }
+    } else {
+      // User not found, create a new user with the provided email and social link
+      await User.create({ email, socials: [{ link, type }] });
+      return res.json({ msg: "Successfully Added" });
+    }
   } catch (error) {
-    return res.json({ msg: "Error adding Social to the link list" });
+    return res.json({ msg: "Error adding/updating social link" });
   }
+};
+
+
 
 
   //get api's
 
   
-}
+
 
 
 module.exports.getUsername = async (req, res) => {
@@ -294,6 +334,7 @@ module.exports.removeSocial = async (req, res) => {
     return res.json({ msg: "Error removing social from list" });
   }
 };
+
 
 
 

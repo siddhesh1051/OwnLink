@@ -5,7 +5,7 @@ import { removeSocial } from '../store/socialSlice';
 import { Button, FormControl, FormLabel, Modal, ModalDialog, Stack, Typography } from '@mui/joy';
 
 
-const Social = ({ setacc,setOpen, social, pic }) => {
+const Social = ({ setacc,setOpen, social, pic,link,setLink }) => {
 
   const dispatch = useDispatch();
   const email = localStorage.getItem("email")
@@ -30,8 +30,7 @@ const Social = ({ setacc,setOpen, social, pic }) => {
   }
 
   const handleAdd = (e) => {
-    const buttonValue = e.target.value;
-  
+const buttonValue = e.target.value;
   // if (buttonValue !== undefined) {
   //   setacc(buttonValue);
   // }
@@ -41,21 +40,30 @@ const Social = ({ setacc,setOpen, social, pic }) => {
   // }
 
   setacc(social);
+  setOpen(true);  
+}
+
+  const handleEdit = (e) => {
+    setacc(social);
+    
+    socials.map((item) => {
+      if (item.type === social) {
+        setLink(item.link);
+      }
+    })
+
+
     
 
 
-  setOpen(true);
+   
 
 
 
+    setOpen(true);
 
 
-    setOpen(true)
-  }
 
-  const handleEdit = (e) => {
-    setacc(e.target.value)
-    setOpen(true)
   }
 
 
@@ -72,7 +80,7 @@ const Social = ({ setacc,setOpen, social, pic }) => {
 isPresent?.type===social?
 
 <div>
-<button className='px-3 py-2 bg-[#34353e] rounded-lg mr-2 hover:bg-[#262831] hover:rounded-xl duration-150' value={social} onClick={(e) =>  handleAdd(e) }><FiEdit2/></button>
+<button className='px-3 py-2 bg-[#34353e] rounded-lg mr-2 hover:bg-[#262831] hover:rounded-xl duration-150' value={social} onClick={(e) =>  handleEdit(e) }><FiEdit2/></button>
 <button className='px-3 py-2 bg-[#34353e] rounded-lg hover:bg-[#262831] hover:rounded-xl duration-150' value={social} onClick={(e) =>  handleRemoveSocial(e) }><FiTrash2 className=" text-red-400"/></button>
 
 </div>

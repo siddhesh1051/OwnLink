@@ -228,26 +228,26 @@ const Right = () => {
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} pic={Instagram} />
-                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} pic={Facebook} />
-                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} pic={Youtube} />
-                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} pic={Snapchat} />
-                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} pic={Gmail} />
-                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} pic={Linkedin} />
-                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} pic={Twitter} />
-                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} pic={Pinterest} />
-                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} pic={Telegram} />
-                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} pic={Twitch} />
-                <Social setacc={setacc} setOpen={setOpen} social={"behance"} pic={Behance} />
-                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} pic={Reddit} />
-                <Social setacc={setacc} setOpen={setOpen} social={"web"} pic={Web} />
+                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} />
+                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link}  setLink={setLink} pic={Facebook} />
+                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} />
+                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} />
+                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} />
+                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} link={link} setLink={setLink} pic={Linkedin} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} link={link} setLink={setLink} pic={Twitter} />
+                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} link={link} setLink={setLink} pic={Pinterest} />
+                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} link={link} setLink={setLink} pic={Telegram} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} link={link} setLink={setLink} pic={Twitch} />
+                <Social setacc={setacc} setOpen={setOpen} social={"behance"} link={link} setLink={setLink} pic={Behance} />
+                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} link={link} setLink={setLink} pic={Reddit} />
+                <Social setacc={setacc} setOpen={setOpen} social={"web"} link={link} setLink={setLink} pic={Web} />
               </div>
             </div>
           </div>
 
         </TabPanel>
         <TabPanel value={2}>
-          <Links setLinkModal={setLinkModal} />
+          <Links setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} />
         </TabPanel>
         <TabPanel value={3}>
           <div >
