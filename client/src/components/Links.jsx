@@ -17,7 +17,7 @@ const Links = ({setLinkModal}) => {
        
     
      
-    }, [link])
+    }, [])
     
     
     return (

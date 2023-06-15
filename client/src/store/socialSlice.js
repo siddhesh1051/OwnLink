@@ -15,6 +15,19 @@ export const getSocials = createAsyncThunk(
       return socials;
     }
   );
+
+  export const removeSocial = createAsyncThunk(
+    "ownlink/removeSocials",
+    async ({ email,type }) => {
+      const {
+        data: { socials },
+      } = await axios.put(process.env.REACT_APP_API +"/removesocial", {
+        email,
+        type,
+      });
+      return socials;
+    }
+  ); 
       
 
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, Box, TextField } from '@mui/material';
-// import { TabPanel, TabList, TabContext } from '@mui/lab';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
@@ -33,12 +32,12 @@ import Links from './Links';
 import BgImage from './bgImage';
 import SolidColor from './SolidColor';
 import GradientComp from './GradientComp'
-import { add, remove, setSocials } from '../store/socialSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 import { getUsername } from '../store/usernameSlice';
 import { getName } from '../store/nameSlice';
 import { getBio } from '../store/bioSlice';
+import { getSocials } from '../store/socialSlice';
 
 
 const Right = () => {
@@ -90,15 +89,16 @@ const Right = () => {
       setname(userData.currName)
       setbio(userData.currBio)
     }
-     
 
-    
+
+
 
 
     console.log(currUsername, currName, currBio)
-  }, [dispatch, email, currUsername, currName, currBio])
+  }, [currUsername, currName, currBio])
+  // console.log(acc)
 
- 
+
 
   const handleChange = (event, newVal) => {
     setvalue(newVal)
@@ -108,7 +108,7 @@ const Right = () => {
   }
   const handleLinkInputChange = (event) => {
     setUrlLink(event.target.value)
-  }
+  } 
   const handleTitleInputChange = (event) => {
     settitle(event.target.value)
   }
@@ -122,31 +122,19 @@ const Right = () => {
     setbio(event.target.value)
   }
 
-  const handleAdd = (e) => {
-    setacc(e.target.value)
-    setOpen(true)
-
-
-  }
+  
   const handleDataSubmit = (e) => {
     e.preventDefault();
     handleAddUsername(email, username);
     handleAddName(email, name);
     handleAddBio(email, bio);
-
-
-
   }
-
-
-
   const handleDispatch = async (email, link) => {
     console.log(email, link, acc)
     const { data } = await axios.post(process.env.REACT_APP_API + '/addsocial', {
       email,
       link,
       type: acc
-
     })
     console.log(data)
   }
@@ -157,7 +145,6 @@ const Right = () => {
       email,
       link: UrlLink,
       title
-
     })
     console.log(data)
   }
@@ -166,7 +153,6 @@ const Right = () => {
     const { data } = await axios.post(process.env.REACT_APP_API + '/addusername', {
       email,
       username_from_body: username
-
     })
     if (data.status === 200) {
       localStorage.setItem("username", username)
@@ -178,7 +164,6 @@ const Right = () => {
     const { data } = await axios.post(process.env.REACT_APP_API + '/addname', {
       email,
       name_from_body: name
-
     })
     console.log(data)
   }
@@ -187,21 +172,22 @@ const Right = () => {
     const { data } = await axios.post(process.env.REACT_APP_API + '/addbio', {
       email,
       bio_from_body: bio
-
     })
     console.log(data)
   }
 
+  
+  // const handleAdd = (e) => {
 
+  //   setacc(e.target.value)
+   
+  //   setOpen(true)
 
-
-
-
+  // }
+  
 
   return (
     <div className='flex-1' >
-
-
       <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" }} >
 
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
@@ -242,23 +228,19 @@ const Right = () => {
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social handleAdd={handleAdd} social={"instagram"} pic={Instagram} />
-                <Social handleAdd={handleAdd} social={"facebook"} pic={Facebook} />
-                <Social handleAdd={handleAdd} social={"youtube"} pic={Youtube} />
-                <Social handleAdd={handleAdd} social={"snapchat"} pic={Snapchat} />
-                <Social handleAdd={handleAdd} social={"gmail"} pic={Gmail} />
-                <Social handleAdd={handleAdd} social={"linkedin"} pic={Linkedin} />
-                <Social handleAdd={handleAdd} social={"twitter"} pic={Twitter} />
-                <Social handleAdd={handleAdd} social={"pinterest"} pic={Pinterest} />
-                <Social handleAdd={handleAdd} social={"telegram"} pic={Telegram} />
-                <Social handleAdd={handleAdd} social={"twitch"} pic={Twitch} />
-                <Social handleAdd={handleAdd} social={"behance"} pic={Behance} />
-                <Social handleAdd={handleAdd} social={"reddit"} pic={Reddit} />
-                <Social handleAdd={handleAdd} social={"web"} pic={Web} />
-
-
-
-
+                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} pic={Instagram} />
+                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} pic={Facebook} />
+                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} pic={Youtube} />
+                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} pic={Snapchat} />
+                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} pic={Gmail} />
+                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} pic={Linkedin} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} pic={Twitter} />
+                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} pic={Pinterest} />
+                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} pic={Telegram} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} pic={Twitch} />
+                <Social setacc={setacc} setOpen={setOpen} social={"behance"} pic={Behance} />
+                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} pic={Reddit} />
+                <Social setacc={setacc} setOpen={setOpen} social={"web"} pic={Web} />
               </div>
             </div>
           </div>
@@ -269,7 +251,7 @@ const Right = () => {
         </TabPanel>
         <TabPanel value={3}>
           <div >
-            <div className='flex flex-start'>
+            <div className='flex flex-start mt-2'>
 
               <p className=' font-light text-sm text-gray-400 mb-4 '>  Choose a background image</p>
             </div>
@@ -288,11 +270,6 @@ const Right = () => {
               <BgImage bg={bg1} />
               <BgImage bg={bg1} />
               <BgImage bg={bg1} />
-
-
-
-
-
             </div>
             <div className='flex flex-start'>
 
@@ -338,9 +315,9 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              console.log(link);
-              console.log(acc);
-              console.log(email);
+              // console.log(link);
+              // console.log(acc);
+              // console.log(email);
               handleDispatch(email, link);
               setOpen(false);
             }}
