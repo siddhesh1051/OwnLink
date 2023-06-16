@@ -11,7 +11,7 @@ import { getName } from '../store/nameSlice'
 import {  getBioFromUsername } from '../store/bioSlice'
 import { getLinks, getLinksFromUsername } from '../store/linkSlice'
 
-const Fullscreen = () => {
+const Fullscreen_mobile = () => {
   const social = useSelector(state => state.social)
 //   const username = useSelector(state => state.username)
   const name = useSelector(state => state.name)
@@ -42,9 +42,6 @@ const Fullscreen = () => {
   
 
   return (
-    <div className='flex-1'>
-        
-        <div className="iphone-x lg:scale-75   ">
     <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px]'>
       <div className='flex flex-col text-black gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
@@ -91,12 +88,8 @@ const Fullscreen = () => {
               </div>}
 
     </div>
-    <i className='speaker '>Speaker</i>
-  <b className='camera'>Camera</b>
-  
-  </div>
-</div>
+   
   )
 }
 
-export default Fullscreen
+export default Fullscreen_mobile
