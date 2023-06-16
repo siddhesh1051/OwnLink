@@ -16,6 +16,18 @@ export const getSocials = createAsyncThunk(
     }
   );
 
+  export const getSocialsFromUsername = createAsyncThunk(
+    "ownlink/getSocialsFromUsername",
+    async (username) => {
+      const {
+        data: { socials },
+        
+      } = await axios.get(process.env.REACT_APP_API +`/socialsfromusername/${username}`);
+      console.log(socials)
+      return socials;
+    }
+  );
+
   export const removeSocial = createAsyncThunk(
     "ownlink/removeSocials",
     async ({ email,type }) => {
@@ -51,6 +63,12 @@ const socialSlice = createSlice({
         extraReducers: (builder) => {
       
             builder.addCase(getSocials.fulfilled, (state, action) => {
+              state.socials = action.payload;
+            });
+            builder.addCase(getSocialsFromUsername.fulfilled, (state, action) => {
+              state.socials = action.payload;
+            });
+            builder.addCase(removeSocial.fulfilled, (state, action) => {
               state.socials = action.payload;
             });
           

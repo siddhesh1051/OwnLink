@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = {
    bio: "",
+  //  bioUsername: "",
 }
 
 export const getBio = createAsyncThunk(
@@ -14,6 +15,20 @@ export const getBio = createAsyncThunk(
       return bio;
     }
   );
+
+export const getBioFromUsername = createAsyncThunk(
+    "ownlink/getBioFromUsername",
+    async (username) => {
+      const {
+        data: { bio },
+        
+      } = await axios.get(process.env.REACT_APP_API +`/biofromusername/${username}`);
+      console.log(bio)
+      return bio;
+    }
+  );
+
+ 
 
 const bioSlice = createSlice({
     name: 'bio',
@@ -31,6 +46,9 @@ const bioSlice = createSlice({
         extraReducers: (builder) => {
       
             builder.addCase(getBio.fulfilled, (state, action) => {
+              state.bio = action.payload;
+            });
+            builder.addCase(getBioFromUsername.fulfilled, (state, action) => {
               state.bio = action.payload;
             });
         }

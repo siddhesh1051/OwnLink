@@ -153,7 +153,7 @@ module.exports.addLink = async (req, res) => {
       if (linkIndex !== -1) {
         // link found, update the existing link
         await User.findOneAndUpdate(
-          { _id: user._id},
+          { _id: user._id},  
           { $set: { "links.$.title": title,"links.$.link": link } },
          
 
@@ -271,6 +271,55 @@ module.exports.getSocials = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       return res.json({ msg: "success", socials: user.socials });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+// get by username
+
+module.exports.getNameFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", name: user.bio });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+module.exports.getBioFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", bio: user.bio });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getSocialsFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", socials: user.socials });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getLinksFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", links: user.links });
     } else return res.json({ msg: "User with given email not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });

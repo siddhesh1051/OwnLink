@@ -15,6 +15,18 @@ export const getLinks = createAsyncThunk(
     }
   );
 
+  export const getLinksFromUsername = createAsyncThunk(
+    "ownlink/getLinksFromUsername",
+    async (username) => {
+      const {
+        data: { links },
+        
+      } = await axios.get(process.env.REACT_APP_API +`/linksfromusername/${username}`);
+      console.log(links)
+      return links;
+    }
+  );
+
   export const removeLink = createAsyncThunk(
     "ownlink/removeLinks",
     async ({ email,link }) => {
@@ -44,6 +56,12 @@ const linkSlice = createSlice({
         extraReducers: (builder) => {
       
             builder.addCase(getLinks.fulfilled, (state, action) => {
+              state.links = action.payload;
+            });
+            builder.addCase(getLinksFromUsername.fulfilled, (state, action) => {
+              state.links = action.payload;
+            });
+            builder.addCase(removeLink.fulfilled, (state, action) => {
               state.links = action.payload;
             });
         }

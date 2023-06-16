@@ -2,6 +2,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import './App.css';
 import Authentication from './components/Authentication';
 import Home from './components/Home';
+import Screen from './components/Screen';
+import Fullscreen from './components/Fullscreen';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -10,13 +12,14 @@ function App() {
   const navigate = useNavigate();
   const path = window.location.pathname;
   const [user, setuser] = useState("")
+  const username = localStorage.getItem("username");
   useEffect(() => {
     const verifyUser = async () => {
-      if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined) {
-        navigate("/auth");
+      // if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined || path) {
+      //  navigate("/routes/auth");
+      // }
 
-
-      } else {
+    //  else {
 
         const { data } = await axios.post(
           process.env.REACT_APP_API,
@@ -28,13 +31,13 @@ function App() {
 
         if (!data.status) {
           localStorage.removeItem("token");
-          navigate("/auth");
+          navigate("/routes/auth");
           console.log(data.user)
         } else
           setuser(data.user)
       }
 
-    };
+    // };
     verifyUser();
   }, []);
   return (
@@ -43,8 +46,9 @@ function App() {
 
 
       <Routes>
-        <Route path="/auth" element={<Authentication />} />
+        <Route path="/routes/auth" element={<Authentication />} />
         <Route path="/" element={<Home />} />
+        <Route path="/:username" element={<Fullscreen />} />
       </Routes>
 
 

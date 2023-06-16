@@ -1,4 +1,4 @@
-const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials, removeLink, removeSocial } = require("../controllers/authController");
+const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials, removeLink, removeSocial, getBioFromUsername, getNameFromUsername, getLinksFromUsername, getSocialsFromUsername } = require("../controllers/authController");
 const { checkUser } = require("../middlewares/authmiddleware");
 
 const router = require("express").Router();
@@ -14,9 +14,13 @@ router.post("/addlink", addLink);
 router.post("/addsocial", addSocial);
 router.get("/username/:email", getUsername);
 router.get("/name/:email", getName);
+router.get("/namefromusername/:username", getNameFromUsername);
 router.get("/bio/:email", getBio);
+router.get("/biofromusername/:username", getBioFromUsername);
 router.get("/links/:email", getLinks);
+router.get("/linksfromusername/:username", getLinksFromUsername);
 router.get("/socials/:email", getSocials);
+router.get("/socialsfromusername/:username", getSocialsFromUsername);
 router.put("/removelink", removeLink);
 router.put("/removesocial", removeSocial);
 
