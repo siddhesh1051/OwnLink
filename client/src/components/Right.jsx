@@ -39,6 +39,8 @@ import { getName } from '../store/nameSlice';
 import { getBio } from '../store/bioSlice';
 import { TbPencilMinus } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
+// import { getPic } from '../store/picSlice';
+
 
 
 const Right = () => {
@@ -53,21 +55,28 @@ const Right = () => {
   const [name, setname] = useState("")
   const [bio, setbio] = useState("")
   const [title, settitle] = useState("")
-  const [profilePic, setProfilePic] = useState("https://api.multiavatar.com/kitty.svg")
+  const [profilePic, setProfilePic] = useState("")
 
   const socialVar = useSelector(state => state.social)
   const usernameVar = useSelector(state => state.username)
   const nameVar = useSelector(state => state.name)
   const bioVar = useSelector(state => state.bio)
+  // const profilepicVar = useSelector(state => state.pic)
+  // console.log(profilepicVar)
+
+
+
   const socials = socialVar.socials;
   const currUsername = usernameVar.username;
   const currName = nameVar.name;
   const currBio = bioVar.bio;
+  const currProfilePic = profilePic;
 
   localStorage.setItem("userData", JSON.stringify({
     currUsername,
     currName,
-    currBio
+    currBio,
+    currProfilePic
   }
   ))
 
@@ -78,10 +87,16 @@ const Right = () => {
 
   const dispatch = useDispatch()
 
+  
+
   useEffect(() => {
     dispatch(getUsername(email));
     dispatch(getName(email));
     dispatch(getBio(email));
+    // dispatch(getPic(email));
+
+    handleGetProfilePic(email);
+
 
     setusername(localStorage.getItem("username"))
     let userData = localStorage.getItem("userData");
@@ -90,14 +105,15 @@ const Right = () => {
       setusername(userData.currUsername)
       setname(userData.currName)
       setbio(userData.currBio)
+      setProfilePic(userData.currProfilePic)
     }
 
 
 
 
 
-    // console.log(currUsername, currName, currBio)
-  }, [currUsername, currName, currBio])
+    console.log(currUsername, currName, currBio,currProfilePic)
+  }, [currUsername, currName, currBio,currProfilePic])
   // console.log(acc)
 
   const handleImageUpload = async (e) => {
@@ -109,7 +125,6 @@ const Right = () => {
     formData.append('upload_preset', 'ownlink')
     formData.append('cloud_name', 'dvdox1fzz')
     
-    // axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData)
     toast
       .promise(
         axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
@@ -123,6 +138,7 @@ const Right = () => {
       .then((res) => {
         console.log(res.data.url)
         setProfilePic(res.data.url)
+        handleAddProfilePic(email, res.data.url)
       }
       
       )
@@ -160,6 +176,7 @@ const Right = () => {
     handleAddUsername(email, username);
     handleAddName(email, name);
     handleAddBio(email, bio);
+   
   }
   const handleDispatch = async (email, link) => {
     console.log(email, link, acc)
@@ -180,6 +197,7 @@ const Right = () => {
     })
     console.log(data)
   }
+
   const handleAddUsername = async (email, username) => {
     console.log(email, username)
     const { data } = await axios.post(process.env.REACT_APP_API + '/addusername', {
@@ -206,6 +224,22 @@ const Right = () => {
       bio_from_body: bio
     })
     console.log(data)
+  }
+  const handleAddProfilePic = async (email, profilePic) => {
+    console.log(email, profilePic)
+    const { data } = await axios.post(process.env.REACT_APP_API + '/addprofilepic', {
+      email,
+      profile_pic_from_body: profilePic
+    })
+    console.log(data)
+  }
+
+  const handleGetProfilePic = async (email) => {
+    // console.log(email)
+    const {data}  = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    // console.log(data)
+    setProfilePic(data.profilePic)
+
   }
 
   

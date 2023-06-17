@@ -10,7 +10,7 @@ import { getName } from '../store/nameSlice'
 import { getBio } from '../store/bioSlice'
 import { getLinks } from '../store/linkSlice'
 
-const Screen = () => {
+const Screen = () => { 
   const social = useSelector(state => state.social)
   const username = useSelector(state => state.username)
   const name = useSelector(state => state.name)
