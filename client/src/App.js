@@ -8,6 +8,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Fullscreen_mobile from './components/Fullscreen_mobile';
+import  { Toaster } from 'react-hot-toast';
 
 function App() {
   const navigate = useNavigate();
@@ -27,13 +28,27 @@ function App() {
   }, []);
 
   const isMobile = width <= 768;
-  useEffect(() => {
-    const verifyUser = async () => {
-      // if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined || path) {
-      //  navigate("/routes/auth");
-      // }
 
-      //  else {
+  useEffect(() => {
+    const path = window.location.pathname;
+    const username = path.substring(1); // Remove the leading '/'
+  
+    if (path!== "/"+username) {
+      verifyUser();
+    }
+    if(path==="/"){
+      verifyUser();
+    }
+
+  }, []);
+    const verifyUser = async () => {
+      if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined ) {
+          navigate("/routes/auth");
+
+      }
+
+       else {
+        
 
       const { data } = await axios.post(
         process.env.REACT_APP_API,
@@ -51,11 +66,11 @@ function App() {
         setuser(data.user)
     }
 
-    // };
-    verifyUser();
-  }, []);
+    };
+  
   return (
     <div className="App">
+      <Toaster/>
 
 
 
@@ -85,6 +100,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
+
     </div>
 
 

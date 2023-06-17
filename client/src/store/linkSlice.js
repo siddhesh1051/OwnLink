@@ -22,7 +22,7 @@ export const getLinks = createAsyncThunk(
         data: { links },
         
       } = await axios.get(process.env.REACT_APP_API +`/linksfromusername/${username}`);
-      console.log(links)
+      // console.log(links)
       return links;
     }
   );

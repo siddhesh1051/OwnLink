@@ -37,7 +37,8 @@ import axios from 'axios';
 import { getUsername } from '../store/usernameSlice';
 import { getName } from '../store/nameSlice';
 import { getBio } from '../store/bioSlice';
-import { getSocials } from '../store/socialSlice';
+import { TbPencilMinus } from 'react-icons/tb';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Right = () => {
@@ -52,6 +53,7 @@ const Right = () => {
   const [name, setname] = useState("")
   const [bio, setbio] = useState("")
   const [title, settitle] = useState("")
+  const [profilePic, setProfilePic] = useState("https://api.multiavatar.com/kitty.svg")
 
   const socialVar = useSelector(state => state.social)
   const usernameVar = useSelector(state => state.username)
@@ -94,12 +96,42 @@ const Right = () => {
 
 
 
-    console.log(currUsername, currName, currBio)
+    // console.log(currUsername, currName, currBio)
   }, [currUsername, currName, currBio])
   // console.log(acc)
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]
+    // console.log(file)
 
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('upload_preset', 'ownlink')
+    formData.append('cloud_name', 'dvdox1fzz')
+    
+    // axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData)
+    toast
+      .promise(
+        axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
+        {
+          loading: 'Uploading...',
+          success: <b>"Profile Picture Updated"</b>,
+          error: <b>Upload failed!</b>,
+        }
+      )
 
+      .then((res) => {
+        console.log(res.data.url)
+        setProfilePic(res.data.url)
+      }
+      
+      )
+      .catch((err) => console.log(err))
+
+    
+   
+
+  }
   const handleChange = (event, newVal) => {
     setvalue(newVal)
   }
@@ -204,8 +236,16 @@ const Right = () => {
           <div className='p-5 rounded-xl rounded-t-none bg-[#222430] '>
 
             <div className=' flex justify-center' >
-
-              <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" style={{ width: '80px', height: "80px" }} />
+            <div className="image" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',overflow:'hidden' }}>
+            <label htmlFor="imginput">
+                    <img src={profilePic} 
+                    style={{ width: '100px', height:'100px',  borderRadius: '50%', marginTop: '25px', position: 'relative', cursor: 'pointer' }} alt=""
+                    
+                    />
+                    <div className='overlayImage z-10 ' ><TbPencilMinus className=''/></div>
+                </label>
+                <input type="file" id='imginput' accept='image/png' hidden  onChange={(e)=>handleImageUpload(e)} />
+                </div>
             </div>
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>

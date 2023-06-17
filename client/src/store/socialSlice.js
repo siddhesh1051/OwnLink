@@ -23,7 +23,7 @@ export const getSocials = createAsyncThunk(
         data: { socials },
         
       } = await axios.get(process.env.REACT_APP_API +`/socialsfromusername/${username}`);
-      console.log(socials)
+      // console.log(socials)
       return socials;
     }
   );

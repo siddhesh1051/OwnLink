@@ -11,6 +11,7 @@ export const getName = createAsyncThunk(
       const {
         data: { name },
       } = await axios.get(process.env.REACT_APP_API +`/name/${email}`);
+      // console.log(name)
       return name;
     }
   );
@@ -27,6 +28,7 @@ export const getName = createAsyncThunk(
     }
   );
 
+ 
 const nameSlice = createSlice({
     name: 'name',
     initialState,
@@ -48,6 +50,7 @@ const nameSlice = createSlice({
             builder.addCase(getNameFromUsername.fulfilled, (state, action) => {
               state.name = action.payload;
             });
+           
         }
     })
 

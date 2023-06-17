@@ -3,8 +3,10 @@ const jwt = require("jsonwebtoken");
 
 module.exports.checkUser = (req, res, next) => {
   const  {token}  = req.body;
-  // console.log(token)
-  
+//   const excluded = ['http://localhost:3000/gents', 'http://localhost:3000/sd'];
+// if (excluded.indexOf(req.url) > -1) return next();
+
+
   
   if (token) {
     jwt.verify(

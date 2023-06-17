@@ -184,3 +184,24 @@
     background-image: linear-gradient(45deg, #12107b 0%, #a8a7d1 100%);
 
   }
+
+  .overlayImage{
+   width: 100px;
+   height: 100px;
+   background-color: #45464A;
+   position: absolute;
+   opacity: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: -100px;
+    /* object-fit: cover; */
+
+  }
+.overlayImage:hover{
+  opacity: 0.6;
+}

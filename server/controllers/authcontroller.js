@@ -110,36 +110,36 @@ module.exports.addBio = async (req, res) => {
     
 }
 
-// module.exports.addLink = async (req, res) => {
-//   try {
-//     const { email, link,title } = req.body;
-//     const user = await User.findOne({ email });
-//     if (user) {
-//       const { links } = user;
-//       const linkAlreadyAdded = links.find(({ link: existingLink }) => existingLink === link);
-//             if (!linkAlreadyAdded) {
-//         await User.findByIdAndUpdate(
+module.exports.addProfilePic = async (req, res) => {
+    
+  try {
+    const { email, profile_pic_from_body } = req.body;
+    const user = await User.findOne({ email });
+
+    console.log(user);
+    if (user) {
+      const { profilePic } = user;
+      const usernamePresent = profilePic!=="";
+      
+            if (!usernamePresent) {
+
+        await User.findByIdAndUpdate(
           
-//           user._id,
-//           {
-//             links: [...user.links,{
-//               link: link,
-//               title:title
-//             }]
-//           },
-//           { new: true }
-//         );
-//       } else return res.json({ msg: "link already added to the liked list." });
-//     } else await User.create({ email, links: [{
-//       link:link,
-//       title:title
-//     }] });
-//     return res.json({ msg: "link successfully added to liked list." });
-//   } catch (error) {
-//     return res.json({ msg: "Error adding Link" });
-//   }
-   
-// }
+          user._id,
+          {
+            profilePic:  profile_pic_from_body,
+          },
+          { new: true }
+        );
+      } else return res.json({ msg: "pic already present",status:400  }) ;
+    } else await User.create({ email, profilePic: profile_pic_from_body });
+    return res.json({ msg: "pic claimed successfully",status:200 });
+  } catch (error) {
+    return res.json({ msg: "Error claiming pic",status:401  });
+  }
+}
+
+
 
 module.exports.addLink = async (req, res) => {
   try {
@@ -252,6 +252,17 @@ module.exports.getBio = async (req, res) => {
     return res.json({ msg: "Error fetching username." });
   }
 };
+module.exports.getProfilePic = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", profilePic: user.profilePic });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
 
 module.exports.getLinks = async (req, res) => {
   try {
@@ -284,8 +295,8 @@ module.exports.getNameFromUsername = async (req, res) => {
     const { username } = req.params;
     const user = await User.findOne({ username });
     if (user) {
-      return res.json({ msg: "success", name: user.bio });
-    } else return res.json({ msg: "User with given email not found." });
+      return res.json({ msg: "success", name: user.name });
+    } else return res.json({ msg: "User with given username not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });
   }
@@ -296,7 +307,18 @@ module.exports.getBioFromUsername = async (req, res) => {
     const user = await User.findOne({ username });
     if (user) {
       return res.json({ msg: "success", bio: user.bio });
-    } else return res.json({ msg: "User with given email not found." });
+    } else return res.json({ msg: "User with given username not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+module.exports.getProfilePicFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", profilePic: user.profilePic });
+    } else return res.json({ msg: "User with given username not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });
   }
@@ -308,7 +330,7 @@ module.exports.getSocialsFromUsername = async (req, res) => {
     const user = await User.findOne({ username });
     if (user) {
       return res.json({ msg: "success", socials: user.socials });
-    } else return res.json({ msg: "User with given email not found." });
+    } else return res.json({ msg: "User with given username not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });
   }
@@ -320,7 +342,18 @@ module.exports.getLinksFromUsername = async (req, res) => {
     const user = await User.findOne({ username });
     if (user) {
       return res.json({ msg: "success", links: user.links });
-    } else return res.json({ msg: "User with given email not found." });
+    } else return res.json({ msg: "User with given username not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+module.exports.getEmailFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", email: user.email });
+    } else return res.json({ msg: "User with given usernmae not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching username." });
   }

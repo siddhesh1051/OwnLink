@@ -23,7 +23,7 @@ export const getBioFromUsername = createAsyncThunk(
         data: { bio },
         
       } = await axios.get(process.env.REACT_APP_API +`/biofromusername/${username}`);
-      console.log(bio)
+      // console.log(bio)
       return bio;
     }
   );
