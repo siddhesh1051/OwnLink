@@ -37,8 +37,9 @@ import axios from 'axios';
 import { getUsername } from '../store/usernameSlice';
 import { getName } from '../store/nameSlice';
 import { getBio } from '../store/bioSlice';
-import { TbPencilMinus } from 'react-icons/tb';
+import { TbPencilMinus, TbSquareRoundedNumber9Filled } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
+import { getLinks } from '../store/linkSlice';
 // import { getPic } from '../store/picSlice';
 
 
@@ -56,6 +57,7 @@ const Right = () => {
   const [bio, setbio] = useState("")
   const [title, settitle] = useState("")
   const [profilePic, setProfilePic] = useState("")
+  const [linkImage, setLinkImage] = useState("")
 
   const socialVar = useSelector(state => state.social)
   const usernameVar = useSelector(state => state.username)
@@ -87,12 +89,13 @@ const Right = () => {
 
   const dispatch = useDispatch()
 
-  
+
 
   useEffect(() => {
     dispatch(getUsername(email));
     dispatch(getName(email));
     dispatch(getBio(email));
+    dispatch(getLinks(email));
     // dispatch(getPic(email));
 
     handleGetProfilePic(email);
@@ -112,8 +115,8 @@ const Right = () => {
 
 
 
-    console.log(currUsername, currName, currBio,currProfilePic)
-  }, [currUsername, currName, currBio,currProfilePic])
+    // console.log(currUsername, currName, currBio, currProfilePic)
+  }, [currUsername, currName, currBio, currProfilePic])
   // console.log(acc)
 
   const handleImageUpload = async (e) => {
@@ -124,30 +127,54 @@ const Right = () => {
     formData.append('file', file)
     formData.append('upload_preset', 'ownlink')
     formData.append('cloud_name', 'dvdox1fzz')
-    
-    toast
-      .promise(
-        axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
-        {
-          loading: 'Uploading...',
-          success: <b>"Profile Picture Updated"</b>,
-          error: <b>Upload failed!</b>,
-        }
-      )
+
+    toast.promise(
+      axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
+      {
+        loading: 'Uploading...',
+        success: <b>"Profile Picture Updated"</b>,
+        error: <b>Upload failed!</b>,
+      }
+    )
 
       .then((res) => {
         console.log(res.data.url)
         setProfilePic(res.data.url)
         handleAddProfilePic(email, res.data.url)
       }
-      
+
       )
       .catch((err) => console.log(err))
-
-    
-   
-
   }
+
+  const handleLinkImageUpload = async (e) => {
+    const linkfile = e.target.files[0]
+    // console.log(file)
+
+    const formData = new FormData()
+    formData.append('file', linkfile)
+    formData.append('upload_preset', 'ownlink')
+    formData.append('cloud_name', 'dvdox1fzz')
+
+    toast.promise(
+      axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
+      {
+        loading: 'Uploading...',
+        success: <b>"Background Image Uploaded"</b>,
+        error: <b>Upload failed!</b>,
+      }
+    )
+
+      .then((res) => {
+        console.log(res.data.url)
+        setLinkImage(res.data.url)
+        // handleAddProfilePic(email, res.data.url)
+      }
+
+      )
+      .catch((err) => console.log(err))
+  }
+
   const handleChange = (event, newVal) => {
     setvalue(newVal)
   }
@@ -156,7 +183,7 @@ const Right = () => {
   }
   const handleLinkInputChange = (event) => {
     setUrlLink(event.target.value)
-  } 
+  }
   const handleTitleInputChange = (event) => {
     settitle(event.target.value)
   }
@@ -170,13 +197,13 @@ const Right = () => {
     setbio(event.target.value)
   }
 
-  
+
   const handleDataSubmit = (e) => {
     e.preventDefault();
     handleAddUsername(email, username);
     handleAddName(email, name);
     handleAddBio(email, bio);
-   
+
   }
   const handleDispatch = async (email, link) => {
     console.log(email, link, acc)
@@ -188,12 +215,14 @@ const Right = () => {
     console.log(data)
   }
 
-  const handleAddlink = async (email, UrlLink, title) => {
-    console.log(email, UrlLink, title)
+  const handleAddlink = async (email, UrlLink, title,linkImage) => {
+    // console.log(email, UrlLink, title,linkImage)
+   
     const { data } = await axios.post(process.env.REACT_APP_API + '/addlink', {
       email,
       link: UrlLink,
-      title
+      title,
+      linkImage
     })
     console.log(data)
   }
@@ -236,21 +265,22 @@ const Right = () => {
 
   const handleGetProfilePic = async (email) => {
     // console.log(email)
-    const {data}  = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
     // console.log(data)
     setProfilePic(data.profilePic)
 
   }
+ 
 
-  
+
   // const handleAdd = (e) => {
 
   //   setacc(e.target.value)
-   
+
   //   setOpen(true)
 
   // }
-  
+
 
   return (
     <div className='flex-1' >
@@ -270,16 +300,14 @@ const Right = () => {
           <div className='p-5 rounded-xl rounded-t-none bg-[#222430] '>
 
             <div className=' flex justify-center' >
-            <div className="image" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',overflow:'hidden' }}>
-            <label htmlFor="imginput">
-                    <img src={profilePic} 
-                    style={{ width: '100px', height:'100px',  borderRadius: '50%', marginTop: '25px', position: 'relative', cursor: 'pointer' }} alt=""
-                    
-                    />
-                    <div className='overlayImage z-10 ' ><TbPencilMinus className=''/></div>
+              <div className="image" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden' }}>
+                <label htmlFor="imginput">
+                <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"100px",height:"100px"} } />
+
+                  <div className='overlayImage z-10 ' ><TbPencilMinus className='' /></div>
                 </label>
-                <input type="file" id='imginput' accept='image/png' hidden  onChange={(e)=>handleImageUpload(e)} />
-                </div>
+                <input type="file" id='imginput' accept='image/png,image/jpg,image/jpeg' hidden onChange={(e) => handleImageUpload(e)} />
+              </div>
             </div>
             <div className=' flex justify-center gap-4 flex-col' >
               <div className='flex justify-start gap-4  mt-8 '>
@@ -303,7 +331,7 @@ const Right = () => {
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
                 <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} />
-                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link}  setLink={setLink} pic={Facebook} />
+                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link} setLink={setLink} pic={Facebook} />
                 <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} />
                 <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} />
                 <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} />
@@ -321,7 +349,7 @@ const Right = () => {
 
         </TabPanel>
         <TabPanel value={2}>
-          <Links setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} />
+          <Links setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} setLinkImage={setLinkImage} linkImage={linkImage} />
         </TabPanel>
         <TabPanel value={3}>
           <div >
@@ -420,7 +448,7 @@ const Right = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              handleAddlink(email, UrlLink, title);
+              handleAddlink(email, UrlLink, title,linkImage);
               setLinkModal(false);
             }}
           >
@@ -433,6 +461,21 @@ const Right = () => {
                 <FormLabel>Link</FormLabel>
                 <Input required value={UrlLink} onChange={(e) => handleLinkInputChange(e)} />
               </FormControl>
+              <FormControl>
+                <FormLabel>Select Background Image</FormLabel>
+                <Input type='file' onChange={(e) => handleLinkImageUpload(e)} accept="image/png,image/jpg,image/jpeg,image/gif" />
+              </FormControl>{
+                linkImage?.length === 0 || linkImage=== undefined ?
+                 null
+                  :  <div>
+                  <Typography id="basic-modal-dialog-title" textColor="text.tertiary">
+                    Preview
+                  </Typography>
+                  <div className='flex justify-center items-cente'>
+
+                  <img src={linkImage} alt="" className='h-[200px] ' />
+                  </div>
+                </div>}
 
               <Button type="submit">Add</Button>
             </Stack>

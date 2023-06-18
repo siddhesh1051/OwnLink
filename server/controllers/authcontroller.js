@@ -38,7 +38,7 @@ module.exports.addUsername = async (req, res) => {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
 
-    console.log(user);
+    // console.log(user);
     if (user) {
       const { username } = user;
       const usernamePresent = username!=="";
@@ -116,7 +116,7 @@ module.exports.addProfilePic = async (req, res) => {
     const { email, profile_pic_from_body } = req.body;
     const user = await User.findOne({ email });
 
-    console.log(user);
+    // console.log(user);
     if (user) {
       const { profilePic } = user;
       const usernamePresent = profilePic!=="";
@@ -143,7 +143,7 @@ module.exports.addProfilePic = async (req, res) => {
 
 module.exports.addLink = async (req, res) => {
   try {
-    const { email, link, title } = req.body;
+    const { email, link, title,linkImage } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
@@ -154,20 +154,20 @@ module.exports.addLink = async (req, res) => {
         // link found, update the existing link
         await User.findOneAndUpdate(
           { _id: user._id},  
-          { $set: { "links.$.title": title,"links.$.link": link } },
+          { $set: { "links.$.title": title,"links.$.link": link,"links.$.linkImage": linkImage } },
          
 
         );
         return res.json({ msg: "Successfully Updated" });
       } else {
         // link not found, add new link
-        user.links.push({ link, title });
+        user.links.push({ link, title,linkImage });
         await user.save();
         return res.json({ msg: "Successfully Added" });
       }
     } else {
       // User not found, create a new user with the provided email and social link
-      await User.create({ email, links: [{ link, title }] });
+      await User.create({ email, links: [{ link, title,linkImage }] });
       return res.json({ msg: "Successfully Added" });
     }
   } catch (error) {
@@ -367,9 +367,9 @@ module.exports.removeLink = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       const links = user.links;
-      console.log(links)
+      // console.log(links)
       const linkIndex = links.findIndex(links => links.link === link);
-      console.log(linkIndex)
+      // console.log(linkIndex)
       if (linkIndex===-1) {
         return res.status(400).send({ msg: "link not found." });
       }
@@ -395,9 +395,9 @@ module.exports.removeSocial = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) {
       const socials = user.socials;
-      console.log(socials)
+      // console.log(socials)
       const socialIndex = socials.findIndex(socials => socials.type === type);
-      console.log(socialIndex)
+      // console.log(socialIndex)
       if (socialIndex===-1) {
         return res.status(400).send({ msg: "social not found." });
       }

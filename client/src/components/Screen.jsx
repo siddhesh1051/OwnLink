@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Avatar } from '@mui/material';
 import SocialIcon from './SocialIcon'
@@ -9,6 +9,7 @@ import { getUsername } from '../store/usernameSlice';
 import { getName } from '../store/nameSlice'
 import { getBio } from '../store/bioSlice'
 import { getLinks } from '../store/linkSlice'
+import axios from 'axios';
 
 const Screen = () => { 
   const social = useSelector(state => state.social)
@@ -16,6 +17,9 @@ const Screen = () => {
   const name = useSelector(state => state.name)
   const bio = useSelector(state => state.bio)
   const link = useSelector(state => state.link)
+
+  const [profilePic, setProfilePic] = useState("")
+
 
 
   
@@ -35,7 +39,17 @@ const Screen = () => {
     dispatch(getName(email))
     dispatch(getBio(email))
     dispatch(getLinks(email))
+
+    handleGetProfilePic(email);
   }, [])
+
+  const handleGetProfilePic = async (email) => {
+    // console.log(email)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    // console.log(data)
+    setProfilePic(data.profilePic)
+
+  }
  
 
   
@@ -44,7 +58,7 @@ const Screen = () => {
     <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px]'>
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
-                <Avatar alt="Remy Sharp" src="https://api.multiavatar.com/kitty.svg" sx={{width:"80px",height:"80px"} } />
+                <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"90px",height:"90px"} } />
         </div>
                 <h2 >{username.username?`@${username.username}`:null}</h2>
                 
@@ -79,7 +93,7 @@ const Screen = () => {
                   links?.length!==0 && links?.map((item) => (
                     
 
-                    <ScreenLink link={item.link} title={item.title} />
+                    <ScreenLink link={item.link} title={item.title} linkImage= {item?.linkImage}/>
                   
                   ))
                 }

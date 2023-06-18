@@ -5,7 +5,7 @@ import LinkDiv from './LinkDiv'
 import { useDispatch, useSelector } from 'react-redux';
 import { getLinks, removeLink } from '../store/linkSlice';
 
-const Links = ({setLinkModal,settitle,setUrlLink}) => {
+const Links = ({setLinkModal,settitle,setUrlLink,setLinkImage,linkImage}) => {
     const link = useSelector(state => state.link)
     const dispatch  = useDispatch();
     const email = localStorage.getItem('email');
@@ -24,7 +24,10 @@ const Links = ({setLinkModal,settitle,setUrlLink}) => {
         <div className='p-5 rounded-xl bg-[#222430] '>
             <Button
                 disabled={false}
-                onClick={() => setLinkModal(true)}
+                onClick={() => { setUrlLink("")
+                settitle("")
+                setLinkImage("");
+                setLinkModal(true)}}
                 size="lg"
                 color='info'
                 sx={{ width: '100%', mb: 2, borderRadius: '50px', height: '30px' }}
@@ -35,7 +38,7 @@ const Links = ({setLinkModal,settitle,setUrlLink}) => {
 
             {
           links?.length!==0 && links?.map((item) => (
-            <LinkDiv title={item.title} link={item.link}  setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink}/>
+            <LinkDiv title={item.title} link={item.link} linkImage={item.linkImage} setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} setLinkImage={setLinkImage} />
           ))
 
         }
