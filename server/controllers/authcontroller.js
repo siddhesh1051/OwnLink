@@ -208,6 +208,27 @@ module.exports.addSocial = async (req, res) => {
   }
 };
 
+module.exports.addBg = async (req, res) => {
+  try {
+    const { email, bg } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      // User found, update the existing bg
+      user.bg = bg;
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, bg });
+      return res.json({ msg: "Successfully Added" });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error adding/updating background" });
+  }
+};
+
+
 
 
 
@@ -260,7 +281,18 @@ module.exports.getProfilePic = async (req, res) => {
       return res.json({ msg: "success", profilePic: user.profilePic });
     } else return res.json({ msg: "User with given email not found." });
   } catch (error) {
-    return res.json({ msg: "Error fetching username." });
+    return res.json({ msg: "Error fetching profilepic." });
+  }
+};
+module.exports.getBg = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ msg: "success", bg: user.bg });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching bg." });
   }
 };
 
@@ -320,7 +352,18 @@ module.exports.getProfilePicFromUsername = async (req, res) => {
       return res.json({ msg: "success", profilePic: user.profilePic });
     } else return res.json({ msg: "User with given username not found." });
   } catch (error) {
-    return res.json({ msg: "Error fetching username." });
+    return res.json({ msg: "Error fetching profile pic." });
+  }
+};
+module.exports.getBgFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", bg: user.bg });
+    } else return res.json({ msg: "User with given usernambge not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching bg." });
   }
 };
 

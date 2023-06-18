@@ -10,6 +10,8 @@ import { getName } from '../store/nameSlice'
 import { getBio } from '../store/bioSlice'
 import { getLinks } from '../store/linkSlice'
 import axios from 'axios';
+import bg1 from './img/bg1.png'
+import { getBg } from '../store/bgSlice';
 
 const Screen = () => { 
   const social = useSelector(state => state.social)
@@ -17,9 +19,14 @@ const Screen = () => {
   const name = useSelector(state => state.name)
   const bio = useSelector(state => state.bio)
   const link = useSelector(state => state.link)
+  const bgVar = useSelector(state => state.bg.bg)
+  
 
   const [profilePic, setProfilePic] = useState("")
+  const [bg, setBg] = useState("")
 
+  console.log(bgVar)
+  console.log(bg)
 
 
   
@@ -40,6 +47,7 @@ const Screen = () => {
     dispatch(getBio(email))
     dispatch(getLinks(email))
 
+    handleGetBg(email)
     handleGetProfilePic(email);
   }, [])
 
@@ -47,15 +55,28 @@ const Screen = () => {
     // console.log(email)
     const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
     // console.log(data)
-    setProfilePic(data.profilePic)
+    setProfilePic(data.profilePic) 
 
   }
- 
+  const handleGetBg = async (email) => {
+    // console.log(email)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/bg/${email}`)
+    // console.log(data)
+    setBg(data.bg)
 
+  }
+
+  var bgStyle = {
+    
+    backgroundImage: `url(${bg})`,
+    backgroundSize: 'cover',
+  };
+ 
+ 
   
 
   return (
-    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px]'>
+    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px]' style={bgStyle}>
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
                 <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"90px",height:"90px"} } />

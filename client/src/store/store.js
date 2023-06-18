@@ -6,6 +6,7 @@ import linkReducer from './linkSlice';
 import bioReducer from './bioSlice';
 import emailReducer from './emailSlice';
 import picReducer from './picSlice'
+import bgReducer from './bgSlice'
 
 
 
@@ -17,7 +18,8 @@ const store = configureStore({
         link: linkReducer,
         bio: bioReducer,
         email: emailReducer,
-        pic: picReducer
+        pic: picReducer,
+        bg: bgReducer,
 
 
     }

@@ -18,7 +18,6 @@ import Snapchat from './icons/snapchat.png'
 import Twitch from './icons/twitch.png'
 import Gmail from './icons/gmail.png'
 import Behance from './icons/behance.png'
-import bg1 from './img/bg1.png'
 import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -40,6 +39,7 @@ import { getBio } from '../store/bioSlice';
 import { TbPencilMinus, TbSquareRoundedNumber9Filled } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
+import Appearence from './Appearence';
 // import { getPic } from '../store/picSlice';
 
 
@@ -132,7 +132,7 @@ const Right = () => {
       axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData),
       {
         loading: 'Uploading...',
-        success: <b>"Profile Picture Updated"</b>,
+        success: <b>Profile Picture Updated</b>,
         error: <b>Upload failed!</b>,
       }
     )
@@ -352,51 +352,7 @@ const Right = () => {
           <Links setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} setLinkImage={setLinkImage} linkImage={linkImage} />
         </TabPanel>
         <TabPanel value={3}>
-          <div >
-            <div className='flex flex-start mt-2'>
-
-              <p className=' font-light text-sm text-gray-400 mb-4 '>  Choose a background image</p>
-            </div>
-            <div className='flex gap-5 flex-wrap'>
-
-
-              <div className='w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-neutral-700 p-[16px] border-[transparent]"'>
-                Upload Image
-                <input type="file" className="hidden" />
-
-              </div>
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-              <BgImage bg={bg1} />
-            </div>
-            <div className='flex flex-start'>
-
-              <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
-            </div>
-            <div className='flex gap-5 flex-wrap'>
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-            </div>
-
-            <div className='flex flex-start'>
-
-              <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Solid Colour</p>
-            </div>
-
-
-            <div className='flex gap-5 flex-wrap'>
-              <SolidColor />
-            </div>
-          </div>
+          <Appearence/>
         </TabPanel>
 
       </Tabs>

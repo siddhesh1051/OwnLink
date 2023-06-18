@@ -39,11 +39,11 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-
-
-
-
   profilePic: {
+    type: String,
+    default: "",
+  },
+  bg: {
     type: String,
     default: "",
   },
