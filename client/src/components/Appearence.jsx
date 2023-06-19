@@ -72,11 +72,13 @@ const Appearence = () => {
             <div className='flex gap-5 flex-wrap'>
 
 
-              <div className='w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-neutral-700 p-[16px] border-[transparent]"'>
+              {/* <div className='w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-neutral-700 p-[16px] border-[transparent]"'>
                 Upload Image
                 <input type="file" className="hidden" />
 
-              </div>
+              </div> */}
+
+                
             
                 {
                     backgroundimages.map((item) => (

@@ -77,11 +77,11 @@ const Login = ({ isNew, setisNew }) => {
       <form className='flex-1 flex justify-start items-start'>
 
 
-        <div className='modal-left flex-1 flex flex-col gap-2 justify-start items-start'>
+        <div className='modal-left flex-1 flex flex-col gap-2 justify-start lg:items-start items-center'>
           <img src={Sparkle} alt="" className=' w-24 h-24 ml-6' />
-          <h1 className=' text-3xl font-medium text-black mx-8'>Back to your <span className=' text-5xl font-bold text-black'>digital life</span></h1>
-          <p className=' text-xl text-[#979696] mx-8'>Choose one of the options to go.</p>
-          <input className="inputBox"
+          <h1 className=' text-3xl font-medium text-black mx-8'>Get your <span className=' text-5xl font-bold text-black'>OwnLink</span></h1>
+          <p className=' lg:text-lg text-lg text-[#979696] mx-8'>Welcome Back 👋</p>
+          <input className="inputBox m-1 lg:ml-8 lg:w-[70%] w-[90%]"
             type="email"
             placeholder="Email Address"
             name='email'
@@ -93,7 +93,7 @@ const Login = ({ isNew, setisNew }) => {
           {
             errors.email && touched.email ? <div className='text-red-500 ml-10 -mt-3'>{"*" + errors.email}</div> : null
           }
-          <input className="inputBox"
+          <input className="inputBox m-1 lg:ml-8 lg:w-[70%] w-[90%]"
             type="password"
             placeholder="Password"
             name='password'
@@ -106,8 +106,8 @@ const Login = ({ isNew, setisNew }) => {
             errors.password && touched.password ? <div className='text-red-500 ml-10 -mt-3'>{"*" + errors.password}</div> : null
           }
 
-          <button type='button' onClick={()=>{onLogin(values)}} className='bg-[#0266ff] text-white text-lg w-32 h-14 rounded-xl mx-8 mt-2'>Log in</button>
-          <p className='ml-8'>Don't have an account <span className='text-[#0266ff] cursor-pointer ml-1 font-semibold' onClick={() => { setisNew(!isNew) }}>Sign up</span></p>
+          <button variant='solid' type='button' onClick={()=>{onLogin(values)}} className='bg-[#0266ff] hover:bg-[#074bb1] active:scale-95 text-white text-lg  w-[90%] lg:w-[70%] h-12 rounded-lg mx-8 mt-2 duration-300'>Log in</button>
+          <p className='lg:ml-8 mt-2 lg:mt-1 mb-6 lg:mb-1' >Don't have an account <span className='text-[#0266ff] cursor-pointer ml-1 font-semibold' onClick={() => { setisNew(!isNew) }}>Sign up</span></p>
         </div>
 
       </form>

@@ -3,6 +3,7 @@
 }
 .App {
   text-align: center;
+  scroll-behavior: smooth;
 }
 
 .App-logo {
@@ -52,10 +53,7 @@
 }
 
 .inputBox{
-  width: 90%;
   height: 60px;
-  margin: 4px;
-  margin-left: 32px;
   border-radius: 15px;
   padding: 0 20px;
   background: #fff; 
@@ -205,3 +203,5 @@
 .overlayImage:hover{
   opacity: 0.6;
 }
+
+

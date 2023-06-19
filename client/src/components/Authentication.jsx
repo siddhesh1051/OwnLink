@@ -11,17 +11,17 @@ const Authentication = () => {
   const [isNew, setisNew] = useState(false)
 
   return (
-    <div className='flex w-screen h-screen bg-[#eef2f5]'>
+    <div className='flex bg-[#E6E8EC] h-full'>
 
 
-      <div className='container bg-white flex justify-start items-center mx-32 my-10 rounded-xl '  >
+      <div className='container bg-white flex justify-center items-center h-full mx-[8%] my-10 rounded-xl lg:rounded-none p-1 lg:p-0'  >
         {
           isNew ? <Register isNew={isNew} setisNew={setisNew} />
             
           :<Login isNew={isNew} setisNew={setisNew} />
         }
-        <div className='modal-right flex-[0.9] overflow-y-hidden'>
-          <img className='hero rounded-tr-xl rounded-br-xl' src={Hero} alt="" />
+        <div className=' modal-right lg:flex-[1.3] lg:overflow-y-hidden lg:flex hidden '>
+          <img className='hero' src={Hero} alt="" />
         </div>
       </div>
 
