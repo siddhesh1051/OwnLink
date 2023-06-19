@@ -28,9 +28,6 @@ import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import Social from './Social';
 import Links from './Links';
-import BgImage from './bgImage';
-import SolidColor from './SolidColor';
-import GradientComp from './GradientComp'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 import { getUsername } from '../store/usernameSlice';
@@ -40,8 +37,6 @@ import { TbPencilMinus, TbSquareRoundedNumber9Filled } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
-// import { getPic } from '../store/picSlice';
-
 
 
 const Right = () => {
@@ -200,9 +195,17 @@ const Right = () => {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
+    try{
     handleAddUsername(email, username);
     handleAddName(email, name);
     handleAddBio(email, bio);
+
+    toast.success("Saved")
+      
+    }
+    catch{
+      toast.error("Something Went Wrong !!")
+    }
 
   }
   const handleDispatch = async (email, link) => {
@@ -235,6 +238,9 @@ const Right = () => {
     })
     if (data.status === 200) {
       localStorage.setItem("username", username)
+    }
+    if( localUsername!==username && data.status === 401){
+      toast.error(data.msg)
     }
     console.log(data)
   }

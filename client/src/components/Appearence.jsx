@@ -21,9 +21,27 @@ const Appearence = () => {
         }),
         {
           loading: 'Saving...',
-          success: <b>Background Image Changed</b>,
-          error: <b>Something Went Wrong !!</b>,
-        }
+          success:"Background Image Changed",
+          error: "Something Went Wrong !!",
+        },
+        setSelected(bg)
+      )
+        .catch((err) => console.log(err))
+    }
+
+    const handleSelectGradient = async (e,gradColors) => {
+      e.preventDefault();
+      toast.promise(
+        axios.post(process.env.REACT_APP_API + `/addbg`, {
+            email,
+            bg: gradColors
+        }),
+        {
+          loading: 'Saving...',
+          success:"Background Image Changed",
+          error: "Something Went Wrong !!",
+        },
+        setSelected(gradColors)
       )
         .catch((err) => console.log(err))
     }
@@ -72,13 +90,10 @@ const Appearence = () => {
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
             </div>
             <div className='flex gap-5 flex-wrap'>
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
-              <GradientComp />
+              <GradientComp gradColors="linear-gradient(to right top, #742399, #1864d9)" handleSelectGradient={handleSelectGradient} />
+              <GradientComp gradColors="linear-gradient(to right top, #5e215a, #745635)" handleSelectGradient={handleSelectGradient}/>
+              <GradientComp gradColors="linear-gradient(to right top, #090a0b, #d2ddff)" handleSelectGradient={handleSelectGradient}/>
+              <GradientComp gradColors="linear-gradient(to right top, #226b25, #42256d)" handleSelectGradient={handleSelectGradient}/>
             </div>
 
             <div className='flex flex-start'>
@@ -88,7 +103,10 @@ const Appearence = () => {
 
 
             <div className='flex gap-5 flex-wrap'>
-              <SolidColor />
+              <SolidColor gradColors="linear-gradient(to right top, #DF531D, #DF531D)" handleSelectGradient={handleSelectGradient}/>
+              <SolidColor gradColors="linear-gradient(to right top, #1D831C, #1D831C)" handleSelectGradient={handleSelectGradient}/>
+              <SolidColor gradColors="linear-gradient(to right top, #B64294, #B64294)" handleSelectGradient={handleSelectGradient}/>
+              <SolidColor gradColors="linear-gradient(to right top, #3C3AB1, #3C3AB1)" handleSelectGradient={handleSelectGradient}/>
             </div>
           </div>
   )

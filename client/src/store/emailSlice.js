@@ -13,8 +13,8 @@ const initialState = {
         data: { email },
         
       } = await axios.get(process.env.REACT_APP_API +`/email/${username}`);
-      console.log(email)
-      return email;
+      // console.log(email)
+      return email; 
     }
   );
 

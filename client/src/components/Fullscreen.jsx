@@ -12,6 +12,7 @@ import {  getBioFromUsername } from '../store/bioSlice'
 import { getLinks, getLinksFromUsername } from '../store/linkSlice'
 import { getEmailFromUsername } from '../store/emailSlice'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Fullscreen = () => {
   const social = useSelector(state => state.social)
@@ -20,7 +21,11 @@ const Fullscreen = () => {
   const bio = useSelector(state => state.bio)
   const link = useSelector(state => state.link)
   const emailFromUsername = useSelector(state => state.email?.email)
+  const bgVar = useSelector(state => state.bg?.bg)
+
   const [profilePic, setProfilePic] = useState("")
+  const [bg, setBg] = useState("")
+
 
   
 
@@ -34,8 +39,8 @@ const Fullscreen = () => {
 
   const socials = social.socials;
   const links = link.links;
-  console.log(emailFromUsername);
-
+  // console.log(emailFromUsername);
+ 
 
 
   useEffect(() => {
@@ -44,20 +49,42 @@ const Fullscreen = () => {
     dispatch(getLinksFromUsername(username))
     dispatch(getEmailFromUsername(username))
     dispatch(getNameFromUsername(username))
-    handleGetProfilePic(email)
+    handleGetProfilePicfromusername(username)
+    handleGetBgfromusername(username)
+    
 
   }, [])
  
 
-  const handleGetProfilePic = async (email) => {
+  const handleGetProfilePicfromusername = async (username) => {
     // console.log(email)
-    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepicfromusername/${username}`)
     // console.log(data)
     setProfilePic(data.profilePic)
 
   }
+  const handleGetBgfromusername = async (username) => {
+    // console.log(email)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/bgfromusername/${username}`)
+    // console.log(data)
+    setBg(data.bg)
 
-  return (
+  }
+  const isBg = bg.includes("http")
+  console.log(isBg)
+
+  var bgStyle = {  
+    
+    backgroundImage: `url(${bg})`,
+    backgroundSize: 'cover',
+  };
+  var gradStyle = {
+    
+    backgroundImage: `${bg}`,
+    backgroundSize: 'cover',
+  };
+
+  return ( 
     
     <div className='flex-1 bg-black '>
 
@@ -83,7 +110,7 @@ const Fullscreen = () => {
     </button>
 </main>
         :<div className="iphone-x lg:scale-75   ">
-    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px]'>
+    <div className={` 'screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px] '`} style={isBg?bgStyle:gradStyle}>
       <div className='flex flex-col text-black gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
                 <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"90px",height:"90px"} } />

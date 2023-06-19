@@ -23,7 +23,7 @@ export const getName = createAsyncThunk(
         data: { name },
         
       } = await axios.get(process.env.REACT_APP_API +`/namefromusername/${username}`);
-      console.log(name)
+      // console.log(name)
       return name;
     }
   );

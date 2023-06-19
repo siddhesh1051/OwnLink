@@ -61,84 +61,114 @@ module.exports.addUsername = async (req, res) => {
   }
     
 }
+
+module.exports.addUsername = async (req, res) => {
+  try {
+    const { email, username_from_body } = req.body;
+    const user = await User.findOne({ email });
+    // console.log(user)
+    const existingUsername = await User.findOne({ username:username_from_body });
+    // console.log(existingUsername)
+
+    if (user) {
+      // User found, update the existing bg
+      if(existingUsername){
+        return res.json({ msg: "Username Already Claimed",status:401 });
+      }else{
+      user.username = username_from_body;
+      await user.save();
+      return res.json({ msg: "Successfully Updated",status:200 });
+      }
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, username_from_body });
+      return res.json({ msg: "Successfully Added",status:200 });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error adding/updating background",status:400 });
+  }
+};
+
 module.exports.addName = async (req, res) => {
   try {
     const { email, name_from_body } = req.body;
     const user = await User.findOne({ email });
+
     if (user) {
-      const { name } = user;
-      const namePresent = name!=="";
-            if (!namePresent) {
-        await User.findByIdAndUpdate(
-          
-          user._id,
-          {
-            name:  name_from_body,
-          },
-          { new: true }
-        );
-      } else return res.json({ msg: "name already present",status:400 });
-    } else await User.create({ email, name:name_from_body });
-    return res.json({ msg: "name claimed successfully",status:200 });
+      // User found, update the existing bg
+      user.name = name_from_body;
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, name_from_body });
+      return res.json({ msg: "Successfully Added" });
+    }
   } catch (error) {
-    return res.json({ msg: "Error claiming name",status:401 });
+    return res.json({ msg: "Error adding/updating background" });
   }
-    
-}
+};
+
 module.exports.addBio = async (req, res) => {
   try {
     const { email, bio_from_body } = req.body;
     const user = await User.findOne({ email });
+
     if (user) {
-      const { bio } = user;
-      const bioPresent = bio!=="";
-            if (!bioPresent) {
-        await User.findByIdAndUpdate(
-          
-          user._id,
-          {
-            bio: bio_from_body,
-          },
-          { new: true }
-        );
-      } else return res.json({ msg: "bio already present",status:400 });
-    } else await User.create({ email, bio:bio_from_body });
-    return res.json({ msg: "bio claimed successfully",status:200 });
+      // User found, update the existing bg
+      user.bio = bio_from_body;
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, name_from_body });
+      return res.json({ msg: "Successfully Added" });
+    }
   } catch (error) {
-    return res.json({ msg: "Error claiming bio",status:401 });
+    return res.json({ msg: "Error adding/updating background" });
   }
-    
-}
+};
 
 module.exports.addProfilePic = async (req, res) => {
-    
   try {
     const { email, profile_pic_from_body } = req.body;
     const user = await User.findOne({ email });
 
-    // console.log(user);
-    if (user) {
-      const { profilePic } = user;
-      const usernamePresent = profilePic!=="";
-      
-            if (!usernamePresent) {
-
-        await User.findByIdAndUpdate(
-          
-          user._id,
-          {
-            profilePic:  profile_pic_from_body,
-          },
-          { new: true }
-        );
-      } else return res.json({ msg: "pic already present",status:400  }) ;
-    } else await User.create({ email, profilePic: profile_pic_from_body });
-    return res.json({ msg: "pic claimed successfully",status:200 });
+    if (user) { 
+      // User found, update the existing bg
+      user.profilePic = profile_pic_from_body;
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, profile_pic_from_body });
+      return res.json({ msg: "Successfully Added" });
+    }
   } catch (error) {
-    return res.json({ msg: "Error claiming pic",status:401  });
+    return res.json({ msg: "Error adding/updating background" });
   }
-}
+};
 
+
+module.exports.addBg = async (req, res) => {
+  try {
+    const { email, bg } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      // User found, update the existing bg
+      user.bg = bg;
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and bg
+      await User.create({ email, bg });
+      return res.json({ msg: "Successfully Added" });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error adding/updating background" });
+  }
+};
 
 
 module.exports.addLink = async (req, res) => {
@@ -207,28 +237,6 @@ module.exports.addSocial = async (req, res) => {
     return res.json({ msg: "Error adding/updating social link" });
   }
 };
-
-module.exports.addBg = async (req, res) => {
-  try {
-    const { email, bg } = req.body;
-    const user = await User.findOne({ email });
-
-    if (user) {
-      // User found, update the existing bg
-      user.bg = bg;
-      await user.save();
-      return res.json({ msg: "Successfully Updated" });
-    } else {
-      // User not found, create a new user with the provided email and bg
-      await User.create({ email, bg });
-      return res.json({ msg: "Successfully Added" });
-    }
-  } catch (error) {
-    return res.json({ msg: "Error adding/updating background" });
-  }
-};
-
-
 
 
 

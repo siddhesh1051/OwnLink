@@ -49,7 +49,7 @@ const Screen = () => {
 
     handleGetBg(email)
     handleGetProfilePic(email);
-  }, [])
+  }, [bg,bgVar ])
 
   const handleGetProfilePic = async (email) => {
     // console.log(email)
@@ -66,17 +66,26 @@ const Screen = () => {
 
   }
 
-  var bgStyle = {
+  const isBg = bg.includes("http")
+  console.log(isBg)
+
+  var bgStyle = {  
     
     backgroundImage: `url(${bg})`,
     backgroundSize: 'cover',
   };
+  var gradStyle = {
+    
+    backgroundImage: `${bg}`,
+    backgroundSize: 'cover',
+  };
+
  
  
   
 
   return (
-    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px]' style={bgStyle}>
+    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px]' style={isBg?bgStyle:gradStyle}>
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
                 <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"90px",height:"90px"} } />
