@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Sparkle from './img/sparkle.png'
 import { useFormik } from 'formik'
 import { validationSchema } from '../schema/index.jsx'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import toast from 'react-hot-toast'
 
 const Login = ({ isNew, setisNew }) => {
 
@@ -24,7 +23,7 @@ const Login = ({ isNew, setisNew }) => {
     });
 
   const onLogin = async (values, action) => {
-    console.log('Form data login', values);
+    // console.log('Form data login', values);
     try {
       const { data } = await axios.post(
         process.env.REACT_APP_API + "/login",
@@ -33,13 +32,13 @@ const Login = ({ isNew, setisNew }) => {
           password: values.password,
         }
       );
-      console.log(data);
+      // console.log(data);
 
       const token = data.token;
       const user = data.user;
 
       localStorage.setItem('token', token);
-      console.log(user);
+      // console.log(user);
 
       if (data) {
         if (data.errors) {
@@ -47,15 +46,16 @@ const Login = ({ isNew, setisNew }) => {
           if (email) generateError(email);
           else if (password) generateError(password);
         } else {
-          toast.success("Logged in Successfully", {
-            position: "bottom-right",
-          });
+          toast.success("Login Successfull")
           localStorage.setItem('email',user.email)
           navigate("/");
         }
       }
     } catch (ex) {
-      console.log(ex);
+     toast.error("Invalid Credentials",{
+
+     })
+
     }
 
     // action.resetForm();

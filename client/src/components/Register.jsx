@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Sparkle from './img/sparkle.png'
 import { useFormik } from 'formik'
 import { validationSchema } from '../schema/index.jsx'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import toast from 'react-hot-toast'
 
 const Register = ({ isNew, setisNew }) => {
   const navigate = useNavigate();
@@ -18,9 +17,7 @@ const Register = ({ isNew, setisNew }) => {
     password: '',
   }
   const generateError = (error) =>
-    toast.error(error, {
-      position: "bottom-right",
-    });
+    toast.error(error)
 
   const onRegister = async (values, action) => {
     console.log('Form data register', values);
@@ -47,9 +44,7 @@ const Register = ({ isNew, setisNew }) => {
           else if (password) generateError(password);
         } else {
           
-          toast.success("Registration Successfull", {
-            position: "bottom-right",
-          });
+          toast.success("Registration Successfull")
           localStorage.setItem('email',user.email)
           navigate("/");
 

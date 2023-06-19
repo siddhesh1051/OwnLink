@@ -70,7 +70,7 @@ const Fullscreen = () => {
     setBg(data.bg)
 
   }
-  const isBg = bg.includes("http")
+  const isBg = bg?.includes("http")
   console.log(isBg)
 
   var bgStyle = {  
