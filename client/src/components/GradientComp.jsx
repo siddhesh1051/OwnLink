@@ -25,7 +25,7 @@ var gradStyle ={
 }
 
   return (
-    <div className={`${gradColors===bgVar?'border-[3px]':null} + w-[150px] h-[266px] rounded-[14px] cursor-pointer flex justify-center items-center duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white hover:shadow-lg   `} style={gradStyle} onClick={(e)=>handleSelectGradient(e,gradColors)}>
+    <div className={`${gradColors===bgVar?'border-[3px]':null} + w-[150px] h-[266px] rounded-[14px] cursor-pointer flex justify-center items-center duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white hover:shadow-lg active:scale-95 `} style={gradStyle} onClick={(e)=>handleSelectGradient(e,gradColors)}>
             </div>
   )
 }

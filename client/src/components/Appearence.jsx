@@ -1,16 +1,28 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import BgImage from './bgImage';
 import bg1 from './img/bg1.png'
 import GradientComp from './GradientComp';
 import SolidColor from './SolidColor';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBg } from '../store/bgSlice';
+import { LuArrowDownRight, LuArrowRight } from 'react-icons/lu';
 
 
 const Appearence = () => {
 
     const [selected, setSelected] = useState("");
     const email = localStorage.getItem('email');
+    const dispatch = useDispatch();
+    const bgVar = useSelector(state => state.bg?.bg)
+  
+  
+   
+    useEffect(() => {
+      dispatch(getBg(email))
+     
+    }, [selected]) 
 
     const handleSelect = async (e,bg) => {
       e.preventDefault();
@@ -45,10 +57,35 @@ const Appearence = () => {
       )
         .catch((err) => console.log(err))
     }
-  
 
-    
+    const handleBgupload = async (e) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append('file', e.target.files[0]);
+      formData.append('upload_preset', 'ownlink')
+      toast.promise(
+        axios.post('https://api.cloudinary.com/v1_1/dvdox1fzz/image/upload', formData)
+        .then((res) => {
+          axios.post(process.env.REACT_APP_API + `/addbg`, {
+            email,
+            bg: res.data.secure_url
+        })
+        .then((res) => {
+          setSelected(res.data.bg)
+        })
+        .catch((err) => console.log(err))
+        }),
+        {
+          loading: 'Saving...',
+          success:"Background Image Changed",
+          error: "Something Went Wrong !!",
+        },
+      )
+        .catch((err) => console.log(err))
+    }
 
+
+   
     const backgroundimages = [ 
         {id: 1, image: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg"},
         {id: 2, image: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116971/Background%20Images/zrlojuzmf4fqxhrswgui.jpg"},
@@ -71,13 +108,18 @@ const Appearence = () => {
             </div>
             <div className='flex gap-5 flex-wrap'>
 
+                <label htmlFor="bginput">
 
-              {/* <div className='w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-neutral-700 p-[16px] border-[transparent]"'>
+              <div className={`w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-[#333333] p-[16px] border-[transparent] duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white shadow-xl  `}>
                 Upload Image
-                <input type="file" className="hidden" />
+              </div>
 
-              </div> */}
+                </label>
 
+                <input type="file" id='bginput' hidden onChange={(e)=>{
+                  handleBgupload(e)
+                }} />
+                
                 
             
                 {
@@ -85,6 +127,10 @@ const Appearence = () => {
                         <BgImage bg={item.image} setSelected={setSelected} selected={selected} handleSelect={handleSelect} />
                     ))
                 }
+                    <a className='flex justify-center items-center duration-200 cursor-pointer text-violet-400 mx-3' href='https://www.setaswall.com/1080x1920-wallpapers'  rel="noopener noreferrer" target='_blank'>
+
+                <div className=' duration-200 cursor-pointer mr-1 hover:mr-3'>View More </div><LuArrowRight className='inline text-xl hover:ml-2 duration-200'/>
+                    </a>
 
             </div>
             <div className='flex flex-start'>

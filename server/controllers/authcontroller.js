@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const createToken = (id) => {
     return jwt.sign({id},process.env.JWT_SECRET,
-        {expiresIn:3*24*60*60})
+        {expiresIn:3*24*60*60*60})
 }
 
 
@@ -12,24 +12,27 @@ module.exports.register = async (req, res) => {
         const {email,password}  = req.body;
         const user = await User.create({email,password});
         const token = createToken(user._id);
+        // console.log(token);
         res.status(201).json({user,token});
-    }
+      }
     catch(err){
-        
-        res.status(400).json({err});
+      // console.log(err);
+      res.status(400).json({err});
     }
-}
+  }
 
 module.exports.login = async (req, res) => {
-    try{
+  try{
         const {email,password}  = req.body;
         const user = await User.login(email,password);
         const token = createToken(user._id);
+        // console.log(token);
         res.status(200).json({user,token});
     }
     catch(err){
+      // console.log(err);
         res.status(400).json({err});
-    }
+      }
 }
 
 module.exports.addUsername = async (req, res) => {

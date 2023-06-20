@@ -295,11 +295,11 @@ const Right = () => {
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
 
           <Tab label="Bio" value={1} variant={value === 1 ? 'solid' : 'plain'}
-            color={value === 1 ? 'info' : 'info'} sx={{ fontSize: "20px" }}  >Bio</Tab>
+            color={value === 1 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'} }}  >Bio</Tab>
           <Tab label="Links" value={2} variant={value === 2 ? 'solid' : 'plain'}
-            color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px" }} >Links</Tab>
+            color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'}}} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
-            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" }} >Appearance</Tab>
+            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'} }} >Appearance</Tab>
 
         </TabList>
         <TabPanel value={1}    >
@@ -326,7 +326,7 @@ const Right = () => {
 
                 <TextField id="filled-basic" value={bio} onChange={(e) => handleBioInputChange(e)} label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
               </div>
-              <button className=' bg-[#6d42b9] rounded-xl py-2 px-4 w-fit self-center' onClick={(e) => handleDataSubmit(e)} >
+              <button className=' bg-[#6d42b9] duration-300 ease-in-out rounded-xl py-2 px-4 w-fit self-center active:scale-90 active:bg-[#341866] hover:bg-[#482584] ' onClick={(e) => handleDataSubmit(e)} >
                 Save
               </button>
             </div>

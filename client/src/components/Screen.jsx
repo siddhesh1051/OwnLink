@@ -10,8 +10,7 @@ import { getName } from '../store/nameSlice'
 import { getBio } from '../store/bioSlice'
 import { getLinks } from '../store/linkSlice'
 import axios from 'axios';
-import bg1 from './img/bg1.png'
-import { getBg } from '../store/bgSlice';
+
 
 const Screen = () => { 
   const social = useSelector(state => state.social)
@@ -25,8 +24,8 @@ const Screen = () => {
   const [profilePic, setProfilePic] = useState("")
   const [bg, setBg] = useState("")
 
-  console.log(bgVar)
-  console.log(bg)
+  // console.log(bgVar)
+  // console.log(bg)
 
 
   
@@ -39,7 +38,14 @@ const Screen = () => {
   // console.log(socials);
 
 
+  
+  const handleGetProfilePic = async (email) => {
+    // console.log(email)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    // console.log(data)
+    setProfilePic(data.profilePic) 
 
+  }
   useEffect(() => {
     dispatch(getUsername(email)) 
     dispatch(getSocials(email))
@@ -49,15 +55,9 @@ const Screen = () => {
 
     handleGetBg(email)
     handleGetProfilePic(email);
-  }, [bg,bgVar ])
+  }, [bg,bgVar])
 
-  const handleGetProfilePic = async (email) => {
-    // console.log(email)
-    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
-    // console.log(data)
-    setProfilePic(data.profilePic) 
 
-  }
   const handleGetBg = async (email) => {
     // console.log(email)
     const { data } = await axios.get(process.env.REACT_APP_API + `/bg/${email}`)

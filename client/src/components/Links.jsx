@@ -30,7 +30,7 @@ const Links = ({setLinkModal,settitle,setUrlLink,setLinkImage,linkImage}) => {
                 setLinkModal(true)}}
                 size="lg"
                 color='info'
-                sx={{ width: '100%', mb: 2, borderRadius: '50px', height: '30px' }}
+                sx={{ width: '100%', transitionDuration:'300ms', mb: 2, borderRadius: '50px', height: '30px',":active":{scale:'0.95'} }}
 
             >
                 Add Link
