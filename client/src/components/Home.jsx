@@ -22,7 +22,7 @@ const Home = () => {
                 <Right ref={ref} />
             </div>
 
-                <div className='lg:hidden fixed right-3 bottom-3 flex justify-center items-center bg-[#3c3c44] rounded-full px-5 py-3 text-lg text-white shadow-[3px_-5px_57px_30px_#1A202C] active:scale-95 duration-150' onClick={handlePreview}>Preview <LuArrowUp className='ml-1 text-xl'/></div>
+                <div className='lg:hidden fixed right-3 bottom-3 flex justify-center items-center bg-[#3c3c44] rounded-full px-5 py-3 text-lg text-white shadow-[-4.0px_-8.0px_24.0px_rgba(0,0,0,0.68)]  active:scale-95 duration-150' onClick={handlePreview}>Preview <LuArrowUp className='ml-1 text-xl'/></div>
         </>
     )
 }

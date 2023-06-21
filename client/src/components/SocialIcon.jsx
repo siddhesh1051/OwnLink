@@ -16,6 +16,7 @@ import pinterest from './icons/pinterest.png'
 
 const SocialIcon = ({icon,link}) => {
   const getIcon = (name) => {
+    console.log("inside geticon", name)
     if(name==='instagram') return instagram;
     if(name==='facebook') return facebook;
     if(name==='youtube') return youtube;
@@ -29,15 +30,18 @@ const SocialIcon = ({icon,link}) => {
     if(name==='twitch') return twitch;
     if(name==='telegram') return telegram;
     if(name==='pinterest') return pinterest;
+
     
     
   }
+
+  
   return (
 
 
     <div className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
             <a href={link} target='_blank'>
-              <img src={getIcon(icon)} alt="" className='scale-110' />
+              <img src={getIcon(icon)} alt="" className='' />
             </a>
         </div>
   )
