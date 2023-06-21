@@ -5,7 +5,7 @@ import { removeSocial } from '../store/socialSlice';
 import { Button, FormControl, FormLabel, Modal, ModalDialog, Stack, Typography } from '@mui/joy';
 
 
-const Social = ({ setacc,setOpen, social, pic,link,setLink }) => {
+const Social = ({ setacc,setOpen, social, pic,link,setLink ,setUpdate,update}) => {
 
   const dispatch = useDispatch();
   const email = localStorage.getItem("email")
@@ -27,6 +27,8 @@ const Social = ({ setacc,setOpen, social, pic,link,setLink }) => {
     dispatch(
       removeSocial({ email, type: social })  
     )
+    setUpdate(!update);
+
   }
 
   const handleAdd = (e) => {
@@ -40,7 +42,8 @@ const buttonValue = e.target.value;
   // }
 
   setacc(social);
-  setOpen(true);  
+  setOpen(true); 
+   
 }
 
   const handleEdit = (e) => {
@@ -52,28 +55,11 @@ const buttonValue = e.target.value;
       }
     })
 
-
-    
-
-
-   
-
-
-
     setOpen(true);
-
-
+    setUpdate(!update);
 
   }
-
-
-
-
-  
-  
-
-
-  return (
+ return (
     <div className='flex justify-between w-full items-center py-2 px-4 duration-150 rounded-lg hover:bg-[#1d1e27] '>
       <p className='flex'><img src={pic} alt="" className='mr-4' /> {social}</p>
 {     

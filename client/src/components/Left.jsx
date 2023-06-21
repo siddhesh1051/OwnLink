@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-const Left = ({handleCustomize},ref) => {
+const Left = ({handleCustomize,update},ref) => {
 
   const [clicked, setclicked] = useState(false)
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const Left = ({handleCustomize},ref) => {
             </div>
 
       <div className="iphone-x scale-75" ref={ref}>
-        <Screen />
+        <Screen update={update} />
         <i className='speaker'>Speaker</i>
         <b className='camera'>Camera</b>
 

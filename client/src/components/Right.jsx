@@ -39,7 +39,7 @@ import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
 
 
-const Right = ({text},ref) => {
+const Right = ({text,update,setUpdate},ref) => {
   const [value, setvalue] = useState(1);
   const [acc, setacc] = useState("facebook");
   const [open, setOpen] = useState(false);
@@ -200,13 +200,15 @@ const Right = ({text},ref) => {
     handleAddName(email, name);
     handleAddBio(email, bio);
 
+    
     toast.success("Saved")
-      
-    }
-    catch{
-      toast.error("Something Went Wrong !!")
-    }
-
+    
+  }
+  catch{
+    toast.error("Something Went Wrong !!")
+  }
+  
+  setUpdate(!update);
   }
   const handleDispatch = async (email, link) => {
     console.log(email, link, acc)
@@ -216,6 +218,8 @@ const Right = ({text},ref) => {
       type: acc
     })
     console.log(data)
+    setUpdate(!update);
+
   }
 
   const handleAddlink = async (email, UrlLink, title,linkImage) => {
@@ -228,6 +232,8 @@ const Right = ({text},ref) => {
       linkImage
     })
     console.log(data)
+    setUpdate(!update);
+
   }
 
   const handleAddUsername = async (email, username) => {
@@ -243,6 +249,7 @@ const Right = ({text},ref) => {
       toast.error(data.msg)
     }
     console.log(data)
+    setUpdate(!update);
   }
   const handleAddName = async (email, name) => {
     console.log(email, name)
@@ -251,6 +258,7 @@ const Right = ({text},ref) => {
       name_from_body: name
     })
     console.log(data)
+    setUpdate(!update);
   }
   const handleAddBio = async (email, bio) => {
     console.log(email, bio)
@@ -259,6 +267,7 @@ const Right = ({text},ref) => {
       bio_from_body: bio
     })
     console.log(data)
+    setUpdate(!update);
   }
   const handleAddProfilePic = async (email, profilePic) => {
     console.log(email, profilePic)
@@ -266,7 +275,9 @@ const Right = ({text},ref) => {
       email,
       profile_pic_from_body: profilePic
     })
-    console.log(data)
+    // console.log(data)
+    setUpdate(!update);
+
   }
 
   const handleGetProfilePic = async (email) => {
@@ -329,19 +340,19 @@ const Right = ({text},ref) => {
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} />
-                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link} setLink={setLink} pic={Facebook} />
-                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} />
-                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} />
-                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} />
-                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} link={link} setLink={setLink} pic={Linkedin} />
-                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} link={link} setLink={setLink} pic={Twitter} />
-                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} link={link} setLink={setLink} pic={Pinterest} />
-                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} link={link} setLink={setLink} pic={Telegram} />
-                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} link={link} setLink={setLink} pic={Twitch} />
-                <Social setacc={setacc} setOpen={setOpen} social={"behance"} link={link} setLink={setLink} pic={Behance} />
-                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} link={link} setLink={setLink} pic={Reddit} />
-                <Social setacc={setacc} setOpen={setOpen} social={"web"} link={link} setLink={setLink} pic={Web} />
+                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link} setLink={setLink} pic={Facebook} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} link={link} setLink={setLink} pic={Linkedin} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} link={link} setLink={setLink} pic={Twitter} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} link={link} setLink={setLink} pic={Pinterest} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} link={link} setLink={setLink} pic={Telegram} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} link={link} setLink={setLink} pic={Twitch} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"behance"} link={link} setLink={setLink} pic={Behance} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} link={link} setLink={setLink} pic={Reddit} setUpdate={setUpdate} update={update}/>
+                <Social setacc={setacc} setOpen={setOpen} social={"web"} link={link} setLink={setLink} pic={Web} setUpdate={setUpdate} update={update}/>
               </div>
             </div>
           </div>

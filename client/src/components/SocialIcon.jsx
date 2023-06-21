@@ -16,7 +16,7 @@ import pinterest from './icons/pinterest.png'
 
 const SocialIcon = ({icon,link}) => {
   const getIcon = (name) => {
-    console.log("inside geticon", name)
+    // console.log("inside geticon", name)
     if(name==='instagram') return instagram;
     if(name==='facebook') return facebook;
     if(name==='youtube') return youtube;

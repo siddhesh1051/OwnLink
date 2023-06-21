@@ -9,7 +9,7 @@ const Links = ({setLinkModal,settitle,setUrlLink,setLinkImage,linkImage}) => {
     const link = useSelector(state => state.link)
     const dispatch  = useDispatch();
     const email = localStorage.getItem('email');
-    const links = link.links;
+    const links = link?.links;
 
     useEffect(() => {
      

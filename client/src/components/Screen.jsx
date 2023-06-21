@@ -12,7 +12,7 @@ import { getLinks } from '../store/linkSlice'
 import axios from 'axios';
 
 
-const Screen = () => {
+const Screen = ({update}) => {
   const social = useSelector(state => state.social)
   const username = useSelector(state => state.username)
   const name = useSelector(state => state.name)
@@ -37,15 +37,12 @@ const Screen = () => {
   const links = link.links;
   // console.log(socials);
 
+  const [socialsState, setSocialsState] = useState(socials);
+  const [linksState, setLinksState] = useState(links);
 
 
-  const handleGetProfilePic = async (email) => {
-    // console.log(email)
-    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
-    // console.log(data)
-    setProfilePic(data.profilePic)
 
-  }
+  
   useEffect(() => {
     dispatch(getUsername(email))
     dispatch(getSocials(email))
@@ -53,18 +50,25 @@ const Screen = () => {
     dispatch(getBio(email))
     dispatch(getLinks(email))
 
+
+
     handleGetBg(email)
     handleGetProfilePic(email);
-  },[] )
+  },[bg,bgVar,profilePic,update ] )
 
-  console.log(socials)
-;
 
   const handleGetBg = async (email) => {
     // console.log(email)
     const { data } = await axios.get(process.env.REACT_APP_API + `/bg/${email}`)
     // console.log(data)
     setBg(data.bg)
+
+  }
+  const handleGetProfilePic = async (email) => {
+    // console.log(email)
+    const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
+    // console.log(data)
+    setProfilePic(data.profilePic)
 
   }
 

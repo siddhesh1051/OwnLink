@@ -12,7 +12,8 @@ import {  getBioFromUsername } from '../store/bioSlice'
 import { getLinks, getLinksFromUsername } from '../store/linkSlice'
 import { getEmailFromUsername } from '../store/emailSlice'
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import HorizontalSlider from 'react-horizontal-slider'
+
 
 const Fullscreen = () => {
   const social = useSelector(state => state.social)
@@ -53,7 +54,7 @@ const Fullscreen = () => {
     handleGetBgfromusername(username)
     
 
-  }, [])
+  }, [bg,bgVar])
  
 
   const handleGetProfilePicfromusername = async (username) => {
@@ -111,16 +112,19 @@ const Fullscreen = () => {
 </main>
         :<div className="iphone-x lg:scale-75   ">
     <div className={` 'screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px] '`} style={isBg?bgStyle:gradStyle}>
-      <div className='flex flex-col text-black gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
+      <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>
                 <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"90px",height:"90px"} } />
         </div>
-                <h2 className='text-black'>{ `@${username}`}</h2>
+                <h2 className='text-white'>{ `@${username}`}</h2>
                 
                 <p className='mt-2'>{bio.bio?`${bio.bio}`:null} </p>
                 
                
               </div>
+
+
+
               <div className='text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar whitespace-nowrap p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
         <div className='flex h-full w-full items-center justify-start mx-auto my-0 px-1'>
           {
@@ -147,6 +151,8 @@ const Fullscreen = () => {
                 }
                
               </div>}
+
+              
 
     </div>
     <i className='speaker '>Speaker</i>
