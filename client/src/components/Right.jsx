@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import { Avatar, Box, TextField } from '@mui/material';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
@@ -33,13 +33,13 @@ import axios from 'axios';
 import { getUsername } from '../store/usernameSlice';
 import { getName } from '../store/nameSlice';
 import { getBio } from '../store/bioSlice';
-import { TbPencilMinus, TbSquareRoundedNumber9Filled } from 'react-icons/tb';
+import { TbPencilMinus } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
 
 
-const Right = () => {
+const Right = ({text},ref) => {
   const [value, setvalue] = useState(1);
   const [acc, setacc] = useState("facebook");
   const [open, setOpen] = useState(false);
@@ -61,7 +61,7 @@ const Right = () => {
   // const profilepicVar = useSelector(state => state.pic)
   // console.log(profilepicVar)
 
-
+ 
 
   const socials = socialVar.socials;
   const currUsername = usernameVar.username;
@@ -279,18 +279,11 @@ const Right = () => {
  
 
 
-  // const handleAdd = (e) => {
-
-  //   setacc(e.target.value)
-
-  //   setOpen(true)
-
-  // }
 
 
   return (
-    <div className='flex-1' >
-      <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" }} >
+    <div className='flex-1' ref={ref} >
+      <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" ,marginRight:"10px",marginLeft:"10px" }} >
 
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
 
@@ -299,7 +292,7 @@ const Right = () => {
           <Tab label="Links" value={2} variant={value === 2 ? 'solid' : 'plain'}
             color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'}}} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
-            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'} }} >Appearance</Tab>
+            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'}, }} >Appearance</Tab>
 
         </TabList>
         <TabPanel value={1}    >
@@ -316,7 +309,7 @@ const Right = () => {
               </div>
             </div>
             <div className=' flex justify-center gap-4 flex-col' >
-              <div className='flex justify-start gap-4  mt-8 '>
+              <div ref={ref} className='flex justify-start gap-4  mt-8 '>
 
                 <TextField id="filled-basic" value={username} onChange={(e) => handleUsernameInputChange(e)} label="Username" variant="filled" placeholder='Choose a Username' required fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
                 <TextField id="filled-basic" value={name} onChange={(e) => handleNameInputChange(e)} label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
@@ -451,4 +444,4 @@ const Right = () => {
   );
 }
 
-export default Right
+export default forwardRef(Right);

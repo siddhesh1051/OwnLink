@@ -102,15 +102,15 @@ const Appearence = () => {
 
   return (
     <div >
-            <div className='flex flex-start mt-2'>
+            <div className='flex mt-2 justify-center'>
 
               <p className=' font-light text-sm text-gray-400 mb-4 '>  Choose a background image</p>
             </div>
-            <div className='flex gap-5 flex-wrap'>
+            <div className='flex gap-5 flex-wrap  justify-center'>
 
                 <label htmlFor="bginput">
 
-              <div className={`w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-[#333333] p-[16px] border-[transparent] duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white shadow-xl  `}>
+              <div className={`w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-[#333333] p-[16px] border-[transparent] duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white shadow-xl hover:bg-[#4040w40]  `}>
                 Upload Image
               </div>
 
@@ -133,24 +133,24 @@ const Appearence = () => {
                     </a>
 
             </div>
-            <div className='flex flex-start'>
+            <div className='flex mt-2 justify-center'>
 
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
             </div>
-            <div className='flex gap-5 flex-wrap'>
+            <div className='flex gap-5 flex-wrap  justify-center'>
               <GradientComp gradColors="linear-gradient(to right top, #742399, #1864d9)" handleSelectGradient={handleSelectGradient} />
               <GradientComp gradColors="linear-gradient(to right top, #5e215a, #745635)" handleSelectGradient={handleSelectGradient}/>
               <GradientComp gradColors="linear-gradient(to right top, #090a0b, #d2ddff)" handleSelectGradient={handleSelectGradient}/>
               <GradientComp gradColors="linear-gradient(to right top, #226b25, #42256d)" handleSelectGradient={handleSelectGradient}/>
             </div>
 
-            <div className='flex flex-start'>
+            <div className='flex mt-2 justify-center'>
 
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Solid Colour</p>
             </div>
 
 
-            <div className='flex gap-5 flex-wrap'>
+            <div className='flex gap-5 flex-wrap  justify-center'>
               <SolidColor gradColors="linear-gradient(to right top, #DF531D, #DF531D)" handleSelectGradient={handleSelectGradient}/>
               <SolidColor gradColors="linear-gradient(to right top, #1D831C, #1D831C)" handleSelectGradient={handleSelectGradient}/>
               <SolidColor gradColors="linear-gradient(to right top, #B64294, #B64294)" handleSelectGradient={handleSelectGradient}/>
