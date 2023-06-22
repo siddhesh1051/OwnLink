@@ -174,39 +174,73 @@ module.exports.addBg = async (req, res) => {
 };
 
 
+// module.exports.addLink = async (req, res) => {
+//   try {
+//     const { email, link, title,linkImage } = req.body;
+//     const user = await User.findOne({ email });
+
+//     if (user) {
+//       const { links } = user;
+//       const linkIndex = links.findIndex(({ link: existingLink }) => existingLink === link);
+
+//       if (linkIndex !== -1) {
+//         // link found, update the existing link
+//         await User.findOneAndUpdate(
+//           { _id: user._id},  
+//           { $set: { "links.$.title": title,"links.$.link": link,"links.$.linkImage": linkImage } },
+         
+
+//         );
+//         return res.json({ msg: "Successfully Updated" });
+//       } else {
+//         // link not found, add new link
+//         user.links.push({ link, title,linkImage });
+//         await user.save();
+//         return res.json({ msg: "Successfully Added" });
+//       }
+//     } else {
+//       // User not found, create a new user with the provided email and social link
+//       await User.create({ email, links: [{ link, title,linkImage }] });
+//       return res.json({ msg: "Successfully Added" });
+//     }
+//   } catch (error) {
+//     return res.json({ msg: "Error adding/updating social link" });
+//   }
+// };
+
 module.exports.addLink = async (req, res) => {
   try {
-    const { email, link, title,linkImage } = req.body;
+    const { email, link, title, linkImage } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
       const { links } = user;
-      const linkIndex = links.findIndex(({ link: existingLink }) => existingLink === link);
+      const linkIndex = links.findIndex(({ title: existingTitle }) => existingTitle === title);
 
       if (linkIndex !== -1) {
-        // link found, update the existing link
+        // Link found, update the existing link
         await User.findOneAndUpdate(
-          { _id: user._id},  
-          { $set: { "links.$.title": title,"links.$.link": link,"links.$.linkImage": linkImage } },
-         
-
+          { _id: user._id, "links.title": title },
+          { $set: { "links.$.title": title, "links.$.link": link, "links.$.linkImage": linkImage } }
         );
         return res.json({ msg: "Successfully Updated" });
       } else {
-        // link not found, add new link
-        user.links.push({ link, title,linkImage });
+        // Link not found, add new link
+        user.links.push({ link, title, linkImage });
         await user.save();
         return res.json({ msg: "Successfully Added" });
       }
     } else {
       // User not found, create a new user with the provided email and social link
-      await User.create({ email, links: [{ link, title,linkImage }] });
+      await User.create({ email, links: [{ link, title, linkImage }] });
       return res.json({ msg: "Successfully Added" });
     }
   } catch (error) {
     return res.json({ msg: "Error adding/updating social link" });
   }
 };
+
+
 
 
 module.exports.addSocial = async (req, res) => {

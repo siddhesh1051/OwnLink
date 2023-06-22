@@ -17,8 +17,8 @@ const Left = ({handleCustomize,update},ref) => {
     localStorage.removeItem("email");
     localStorage.removeItem("username");
     localStorage.removeItem("userData");
-    navigate("/routes/auth");
     toast.success("Logged out Successfully");
+    navigate("/routes/auth");
   };
 
 
@@ -28,7 +28,7 @@ const Left = ({handleCustomize,update},ref) => {
     <div className='flex-1 flex flex-col  justify-start p-2'>
       <div className='flex lg:justify-between lg:flex-row flex-col items-center gap-2 lg:gap-0  '>
 
-        <button className='px-4 py-2 ml-3mt-2  bg-red-500 text-white rounded-lg hover:bg-red-700 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button>
+        <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-red-700 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button>
         <div className='mt-2 mr-1'>
 
           {clicked ? <LuCheck className='inline text-2xl mr-3 text-violet-400 duration-300   ' /> :

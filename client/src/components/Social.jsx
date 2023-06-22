@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
 import {FiTrash2,FiEdit2,FiPlus} from 'react-icons/fi'
 import { removeSocial } from '../store/socialSlice';
-import { Button, FormControl, FormLabel, Modal, ModalDialog, Stack, Typography } from '@mui/joy';
-
 
 const Social = ({ setacc,setOpen, social, pic,link,setLink ,setUpdate,update}) => {
 
