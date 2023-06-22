@@ -1,8 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
+export const STATUSES = Object.freeze({
+  IDLE: 'idle',
+  ERROR: 'error',
+  LOADING: 'loading',
+
+
+});
+
+
 const initialState = {
    links: [],
+   status: STATUSES.IDLE,
 }
 
 export const getLinks = createAsyncThunk(
@@ -57,13 +67,32 @@ const linkSlice = createSlice({
       
             builder.addCase(getLinks.fulfilled, (state, action) => {
               state.links = action.payload;
+              state.status = STATUSES.IDLE;
+
             });
             builder.addCase(getLinksFromUsername.fulfilled, (state, action) => {
               state.links = action.payload;
+              state.status = STATUSES.IDLE;
+
             });
             builder.addCase(removeLink.fulfilled, (state, action) => {
               state.links = action.payload;
+              state.status = STATUSES.IDLE;
             });
+
+            builder.addCase(getLinks.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+            builder.addCase(getLinksFromUsername.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+            builder.addCase(removeLink.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+            
         }
     })
 

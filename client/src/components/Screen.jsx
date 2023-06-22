@@ -10,7 +10,8 @@ import { getName } from '../store/nameSlice'
 import { getBio } from '../store/bioSlice'
 import { getLinks } from '../store/linkSlice'
 import axios from 'axios';
-
+import Skeleton from 'react-loading-skeleton';
+import { STATUSES } from '../store/store';
 
 const Screen = ({update}) => {
   const social = useSelector(state => state.social)
@@ -19,6 +20,12 @@ const Screen = ({update}) => {
   const bio = useSelector(state => state.bio)
   const link = useSelector(state => state.link)
   const bgVar = useSelector(state => state.bg.bg)
+  const usernameStatus = useSelector(state => state.username.status)
+  const bioStatus = useSelector(state => state.bio.status)
+  const linkStatus = useSelector(state => state.link.status)
+  // console.log(status)
+
+  const [profileStatus, setProfileStatus] = useState(STATUSES.IDLE)  
 
 
   const [profilePic, setProfilePic] = useState("")
@@ -36,9 +43,6 @@ const Screen = ({update}) => {
   const socials = social.socials;
   const links = link.links;
   // console.log(socials);
-
-  const [socialsState, setSocialsState] = useState(socials);
-  const [linksState, setLinksState] = useState(links);
 
 
 
@@ -66,15 +70,14 @@ const Screen = ({update}) => {
   }
   const handleGetProfilePic = async (email) => {
     // console.log(email)
+    setProfileStatus(STATUSES.LOADING)
     const { data } = await axios.get(process.env.REACT_APP_API + `/profilepic/${email}`)
     // console.log(data)
+    setProfileStatus(STATUSES.IDLE)
     setProfilePic(data.profilePic)
 
   }
 
-  const updateSocials = async (email) => {
-    dispatch(getSocials(email));
-  }
 
   const isBg = bg?.includes("http")
   console.log(isBg)
@@ -93,16 +96,17 @@ const Screen = ({update}) => {
 
 
 
-
   return (
     <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus ' style={isBg ? bgStyle : gradStyle}>
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center'>{profileStatus === STATUSES.LOADING ? <Skeleton circle={true} height={90} width={90} /> : 
           <Avatar alt="Remy Sharp" src={profilePic} sx={{ width: "90px", height: "90px" }} />
-        </div>
-        <h2 >{username.username ? `@${username.username}` : null}</h2>
-
-        <p className='mt-2'>{bio.bio ? `${bio.bio}` : null} </p>
+  }
+        </div>{
+          usernameStatus === STATUSES.LOADING ? <Skeleton width={200} height={20} /> : 
+        <h2  >{username.username ? `@${username.username}` : null }</h2>}
+        {bioStatus === STATUSES.LOADING ? <Skeleton  height={20} count={2} /> : 
+        <p className='mt-2'>{bio.bio ? `${bio.bio}` : null} </p>}
 
 
       </div>
@@ -137,8 +141,9 @@ const Screen = ({update}) => {
           {
             links?.length !== 0 && links?.map((item) => (
 
+              linkStatus===STATUSES.LOADING ?<Skeleton width={310} height={180} borderRadius={10} style={{marginBottom:'10px'}}/>
 
-              <ScreenLink link={item.link} title={item.title} linkImage={item?.linkImage} />
+              :<ScreenLink link={item.link} title={item.title} linkImage={item?.linkImage} />
 
             ))
           }

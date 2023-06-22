@@ -1,9 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
-import { toast } from 'react-toastify';
+
+export const STATUSES = Object.freeze({
+  IDLE: 'idle',
+  ERROR: 'error',
+  LOADING: 'loading',
+
+
+});
 
 const initialState = {
    socials: [],
+    status: STATUSES.IDLE,
 }
 
 export const getSocials = createAsyncThunk(
@@ -64,13 +72,43 @@ const socialSlice = createSlice({
       
             builder.addCase(getSocials.fulfilled, (state, action) => {
               state.socials = action.payload;
+              state.status = STATUSES.IDLE;
             });
             builder.addCase(getSocialsFromUsername.fulfilled, (state, action) => {
               state.socials = action.payload;
+              state.status = STATUSES.IDLE;
             });
             builder.addCase(removeSocial.fulfilled, (state, action) => {
               state.socials = action.payload;
+              state.status = STATUSES.IDLE;
             });
+            builder.addCase(getSocials.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(getSocialsFromUsername.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(removeSocial.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(getSocials.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+            builder.addCase(getSocialsFromUsername.pending, (state, action) => {
+
+              state.status = STATUSES.LOADING;
+            }
+            );
+            builder.addCase(removeSocial.pending, (state, action) => {
+
+              state.status = STATUSES.LOADING;
+            }
+            );
+            
           
         }
     })

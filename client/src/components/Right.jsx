@@ -37,6 +37,7 @@ import { TbPencilMinus } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
+import {motion} from 'framer-motion'
 
 
 const Right = ({text,update,setUpdate},ref) => {
@@ -293,7 +294,9 @@ const Right = ({text,update,setUpdate},ref) => {
 
 
   return (
-    <div className='flex-1' ref={ref} >
+    <motion.div className='flex-1' ref={ref} animate={{ x:0 }}
+    initial={{ x:1000} }
+    transition={{ duration: 0.5 }} >
       <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" ,marginRight:"10px",marginLeft:"10px" }} >
 
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
@@ -450,7 +453,7 @@ const Right = ({text,update,setUpdate},ref) => {
       </Modal>
 
 
-    </div>
+    </motion.div>
 
   );
 }

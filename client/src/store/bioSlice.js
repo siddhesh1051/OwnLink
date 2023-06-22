@@ -1,9 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
+export const STATUSES = Object.freeze({
+  IDLE: 'idle',
+  ERROR: 'error',
+  LOADING: 'loading',
+
+
+});
+
+
 const initialState = {
    bio: "",
-  //  bioUsername: "",
+  status: STATUSES.IDLE,
 }
 
 export const getBio = createAsyncThunk(
@@ -47,10 +56,28 @@ const bioSlice = createSlice({
       
             builder.addCase(getBio.fulfilled, (state, action) => {
               state.bio = action.payload;
+              state.status = STATUSES.IDLE;
             });
             builder.addCase(getBioFromUsername.fulfilled, (state, action) => {
               state.bio = action.payload;
+              state.status = STATUSES.IDLE;
             });
+            builder.addCase(getBio.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(getBioFromUsername.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(getBio.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+            builder.addCase(getBioFromUsername.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
         }
     })
 

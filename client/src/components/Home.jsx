@@ -2,7 +2,7 @@ import React ,{useRef, useState} from 'react'
 import Left from './Left'
 import Right from './Right'
 import { LuArrowUp } from 'react-icons/lu';
-import { ref } from 'yup';
+import { motion } from 'framer-motion'
 
 const Home = () => {
 

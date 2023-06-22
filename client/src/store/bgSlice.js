@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initialState = {
    bg: "",
-  //  bioUsername: "",
+  
 }
 
 export const getBg = createAsyncThunk(

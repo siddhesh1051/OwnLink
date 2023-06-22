@@ -1,6 +1,10 @@
 import React ,{useEffect, useState}from 'react'
 import landImg from './img/bg1.png'
 import "../../src/App.css"
+import { STATUSES } from '../store/store'
+import { useSelector } from 'react-redux'
+import Links from './Links'
+import Skeleton from 'react-loading-skeleton'
 
 const ScreenLink = ({ link, title, linkImage }) => {
 
@@ -16,12 +20,18 @@ const ScreenLink = ({ link, title, linkImage }) => {
 
   }
 
+  const linkStatus = useSelector(state => state.link.status)
+
   // useEffect(() => {
   //  setisBg(linkImage === undefined || linkImage === "")
   // }, [])
   
 
   return (
+    <>
+    {
+    linkStatus === STATUSES.LOADING ? <Skeleton className='w-full h-full' /> :
+
     <div className={`flex text-white mt-2 w-[87%] min-w-[80%] rounded-xl aspect-video relative cursor-pointer min-h-[150px] `}  >
 
         <div className='aspect-video relative '>
@@ -47,6 +57,8 @@ const ScreenLink = ({ link, title, linkImage }) => {
 
           </div>
     </div>
+          }
+          </>
   )
 }
 

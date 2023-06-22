@@ -1,18 +1,30 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
+
+export const STATUSES = Object.freeze({
+  IDLE: 'idle',
+  ERROR: 'error',
+  LOADING: 'loading',
+
+
+});
+
 const initialState = {
    username: "",
+   status: STATUSES.IDLE,
 }
 
 export const getUsername = createAsyncThunk(
     "ownlink/getUsername",
+    
     async (email) => {
       const {
         data: { username },
       } = await axios.get(process.env.REACT_APP_API +`/username/${email}`);
       return username;
     }
+    
   );
 
 const usernameSlice = createSlice({
@@ -32,7 +44,21 @@ const usernameSlice = createSlice({
       
             builder.addCase(getUsername.fulfilled, (state, action) => {
               state.username = action.payload;
+              state.status = STATUSES.IDLE;
             });
+           
+            builder.addCase(getUsername.rejected, (state, action) => {
+              state.status = STATUSES.ERROR;
+            }
+            );
+            builder.addCase(getUsername.pending, (state, action) => {
+              state.status = STATUSES.LOADING;
+            }
+            );
+
+          
+
+
         }
     })
 

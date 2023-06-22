@@ -8,7 +8,13 @@ import emailReducer from './emailSlice';
 import picReducer from './picSlice'
 import bgReducer from './bgSlice'
 
-
+export const STATUSES = Object.freeze({
+    IDLE: 'idle',
+    ERROR: 'error',
+    LOADING: 'loading',
+  
+  
+  });
 
 const store = configureStore({
     reducer: {

@@ -12,6 +12,9 @@ import reddit from './icons/reddit.png'
 import twitch from './icons/twitch.png'
 import telegram from './icons/telegram.png'
 import pinterest from './icons/pinterest.png'
+import { STATUSES } from '../store/store'
+import { useSelector } from 'react-redux'
+import Skeleton from 'react-loading-skeleton'
 
 
 const SocialIcon = ({icon,link}) => {
@@ -35,15 +38,29 @@ const SocialIcon = ({icon,link}) => {
     
   }
 
+  const socialStatus = useSelector(state => state.social.status)
+
+  
+
   
   return (
 
 
-    <div className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
+    <>
+
+{    
+    socialStatus === STATUSES.LOADING ?
+
+            <Skeleton circle={true} height={40} width={40} style={{marginLeft:'6px'}} />
+            :
+
+     <div className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
             <a href={link} target='_blank'>
               <img src={getIcon(icon)} alt="" className='' />
             </a>
         </div>
+}
+    </>
   )
 }
 
