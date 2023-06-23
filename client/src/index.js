@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-      <SkeletonTheme baseColor="#5C5C61" highlightColor="#525252">
+      <SkeletonTheme baseColor="#5C5C61" highlightColor="#BEBEBE">
         
       <Router>
 

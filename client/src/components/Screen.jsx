@@ -12,6 +12,7 @@ import { getLinks } from '../store/linkSlice'
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { STATUSES } from '../store/store';
+import { motion } from 'framer-motion';
 
 const Screen = ({update}) => {
   const social = useSelector(state => state.social)
@@ -97,7 +98,15 @@ const Screen = ({update}) => {
 
 
   return (
-    <div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus ' style={isBg ? bgStyle : gradStyle}>
+    <motion.div className='screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus ' style={isBg ? bgStyle : gradStyle}   
+    initial={{ scale: 0,opacity:0 }}
+    animate={{  scale: 1,opacity:1 }}
+    transition={{
+      type: "spring",
+      stiffness: 260,
+      damping: 30,
+      delay:0.5
+         }} >
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
         <div className='flex justify-center items-center'>{profileStatus === STATUSES.LOADING ? <Skeleton circle={true} height={90} width={90} /> : 
           <Avatar alt="Remy Sharp" src={profilePic} sx={{ width: "90px", height: "90px" }} />
@@ -150,7 +159,7 @@ const Screen = ({update}) => {
 
         </div>}
 
-    </div>
+    </motion.div>
   )
 }
 

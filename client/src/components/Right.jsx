@@ -37,10 +37,10 @@ import { TbPencilMinus } from 'react-icons/tb';
 import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 
 
-const Right = ({text,update,setUpdate},ref) => {
+const Right = ({ text, update, setUpdate }, ref) => {
   const [value, setvalue] = useState(1);
   const [acc, setacc] = useState("facebook");
   const [open, setOpen] = useState(false);
@@ -62,7 +62,7 @@ const Right = ({text,update,setUpdate},ref) => {
   // const profilepicVar = useSelector(state => state.pic)
   // console.log(profilepicVar)
 
- 
+
 
   const socials = socialVar.socials;
   const currUsername = usernameVar.username;
@@ -196,20 +196,20 @@ const Right = ({text,update,setUpdate},ref) => {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
-    try{
-    handleAddUsername(email, username);
-    handleAddName(email, name);
-    handleAddBio(email, bio);
+    try {
+      handleAddUsername(email, username);
+      handleAddName(email, name);
+      handleAddBio(email, bio);
 
-    
-    toast.success("Saved")
-    
-  }
-  catch{
-    toast.error("Something Went Wrong !!")
-  }
-  
-  setUpdate(!update);
+
+      toast.success("Saved")
+
+    }
+    catch {
+      toast.error("Something Went Wrong !!")
+    }
+
+    setUpdate(!update);
   }
   const handleDispatch = async (email, link) => {
     console.log(email, link, acc)
@@ -223,9 +223,9 @@ const Right = ({text,update,setUpdate},ref) => {
 
   }
 
-  const handleAddlink = async (email, UrlLink, title,linkImage) => {
+  const handleAddlink = async (email, UrlLink, title, linkImage) => {
     // console.log(email, UrlLink, title,linkImage)
-   
+
     const { data } = await axios.post(process.env.REACT_APP_API + '/addlink', {
       email,
       link: UrlLink,
@@ -246,7 +246,7 @@ const Right = ({text,update,setUpdate},ref) => {
     if (data.status === 200) {
       localStorage.setItem("username", username)
     }
-    if( localUsername!==username && data.status === 401){
+    if (localUsername !== username && data.status === 401) {
       toast.error(data.msg)
     }
     console.log(data)
@@ -288,75 +288,120 @@ const Right = ({text,update,setUpdate},ref) => {
     setProfilePic(data.profilePic)
 
   }
- 
+
 
 
 
 
   return (
-    <motion.div className='flex-1' ref={ref} animate={{ x:0 }}
-    initial={{ x:1000} }
-    transition={{ duration: 0.5 }} >
-      <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23" ,marginRight:"10px",marginLeft:"10px" }} >
+    <motion.div className='flex-1' ref={ref} animate={{ x: 0 }}
+      initial={{ x: 1000 }}
+      transition={{ duration: 0.5 }} >
+      <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23", marginRight: "10px", marginLeft: "10px" }} >
 
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
 
           <Tab label="Bio" value={1} variant={value === 1 ? 'solid' : 'plain'}
-            color={value === 1 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'} }}  >Bio</Tab>
+            color={value === 1 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' } }}  >Bio</Tab>
           <Tab label="Links" value={2} variant={value === 2 ? 'solid' : 'plain'}
-            color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'}}} >Links</Tab>
+            color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' } }} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
-            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px" , transitionDuration:'200ms' ,":hover":{backgroundColor:'#0F1015', color:'#7200F0'}, }} >Appearance</Tab>
+            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' }, }} >Appearance</Tab>
 
         </TabList>
         <TabPanel value={1}    >
           <div className='p-5 rounded-xl rounded-t-none bg-[#222430] '>
 
-            <div className=' flex justify-center' >
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              transition={{
+                delay: 0.6,
+                duration: 0.3
+              }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{once:true}}
+
+              className=' flex justify-center' >
               <div className="image" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden' }}>
                 <label htmlFor="imginput">
-                <Avatar alt="Remy Sharp" src={profilePic} sx={{width:"100px",height:"100px"} } />
+                  <Avatar alt="Remy Sharp" src={profilePic} sx={{ width: "100px", height: "100px" }} />
 
                   <div className='overlayImage z-10 ' ><TbPencilMinus className='' /></div>
                 </label>
                 <input type="file" id='imginput' accept='image/png,image/jpg,image/jpeg' hidden onChange={(e) => handleImageUpload(e)} />
               </div>
-            </div>
+            </motion.div>
             <div className=' flex justify-center gap-4 flex-col' >
-              <div ref={ref} className='flex justify-start gap-4  mt-8 '>
+              <motion.div 
+              initial={{ y: 20, opacity: 0 }}
+              transition={{
+                delay: 0.7,
+                duration: 0.3
+              }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{once:true}}
+
+              ref={ref}
+               className='flex justify-start gap-4  mt-8 '>
 
                 <TextField id="filled-basic" value={username} onChange={(e) => handleUsernameInputChange(e)} label="Username" variant="filled" placeholder='Choose a Username' required fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
                 <TextField id="filled-basic" value={name} onChange={(e) => handleNameInputChange(e)} label="Name" variant="filled" placeholder='Full Name' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
 
-              </div>
-              <div className='mt-1'>
+              </motion.div>
+              <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              transition={{
+                delay: 0.8,
+                duration: 0.3
+              }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{once:true}}
+
+              className='mt-1'>
 
                 <TextField id="filled-basic" value={bio} onChange={(e) => handleBioInputChange(e)} label="Description" variant="filled" placeholder='Description' fullWidth color="secondary" sx={{ input: { color: 'white' }, label: { color: "gray" } }} />
-              </div>
-              <button className=' bg-[#6d42b9] duration-300 ease-in-out rounded-xl py-2 px-4 w-fit self-center active:scale-90 active:bg-[#341866] hover:bg-[#482584] ' onClick={(e) => handleDataSubmit(e)} >
+              </motion.div>
+              <motion.button
+              initial={{ opacity: 0 }}
+              transition={{
+                delay: 1,
+                duration: 0.3
+              }}
+              whileInView={{  opacity: 1 }}
+              viewport={{once:true}}
+
+              className=' bg-[#6d42b9] duration-300 ease-in-out rounded-xl py-2 px-4 w-fit self-center active:scale-90 active:bg-[#341866] hover:bg-[#482584] ' onClick={(e) => handleDataSubmit(e)} >
                 Save
-              </button>
+              </motion.button>
             </div>
 
             <div>
-              <div className='flex justify-center mt-4 flex-col bg-[#202229] rounded-2xl p-2'>
+              <motion.div 
+                initial={{ y: 20, opacity: 0 }}
+                transition={{
+                  delay: 1.1,
+                  duration: 0.3
+                }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{once:true}}
+              className='flex justify-center mt-4 flex-col bg-[#202229] rounded-2xl p-2'>
 
                 <h1 className=' self-start m-2 mb-2 p-2'>Add Social Profiles</h1>
 
-                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link} setLink={setLink} pic={Facebook} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} link={link} setLink={setLink} pic={Linkedin} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} link={link} setLink={setLink} pic={Twitter} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} link={link} setLink={setLink} pic={Pinterest} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} link={link} setLink={setLink} pic={Telegram} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} link={link} setLink={setLink} pic={Twitch} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"behance"} link={link} setLink={setLink} pic={Behance} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} link={link} setLink={setLink} pic={Reddit} setUpdate={setUpdate} update={update}/>
-                <Social setacc={setacc} setOpen={setOpen} social={"web"} link={link} setLink={setLink} pic={Web} setUpdate={setUpdate} update={update}/>
-              </div>
+                <Social setacc={setacc} setOpen={setOpen} social={"instagram"} link={link} setLink={setLink} pic={Instagram} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"facebook"} link={link} setLink={setLink} pic={Facebook} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"youtube"} link={link} setLink={setLink} pic={Youtube} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"snapchat"} link={link} setLink={setLink} pic={Snapchat} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"gmail"} link={link} setLink={setLink} pic={Gmail} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"linkedin"} link={link} setLink={setLink} pic={Linkedin} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitter"} link={link} setLink={setLink} pic={Twitter} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"pinterest"} link={link} setLink={setLink} pic={Pinterest} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"telegram"} link={link} setLink={setLink} pic={Telegram} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"twitch"} link={link} setLink={setLink} pic={Twitch} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"behance"} link={link} setLink={setLink} pic={Behance} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"reddit"} link={link} setLink={setLink} pic={Reddit} setUpdate={setUpdate} update={update} />
+                <Social setacc={setacc} setOpen={setOpen} social={"web"} link={link} setLink={setLink} pic={Web} setUpdate={setUpdate} update={update} />
+              </motion.div>
             </div>
           </div>
 
@@ -365,7 +410,7 @@ const Right = ({text,update,setUpdate},ref) => {
           <Links setLinkModal={setLinkModal} settitle={settitle} setUrlLink={setUrlLink} setLinkImage={setLinkImage} linkImage={linkImage} />
         </TabPanel>
         <TabPanel value={3}>
-          <Appearence/>
+          <Appearence />
         </TabPanel>
 
       </Tabs>
@@ -417,7 +462,7 @@ const Right = ({text,update,setUpdate},ref) => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              handleAddlink(email, UrlLink, title,linkImage);
+              handleAddlink(email, UrlLink, title, linkImage);
               setLinkModal(false);
             }}
           >
@@ -434,17 +479,17 @@ const Right = ({text,update,setUpdate},ref) => {
                 <FormLabel>Select Background Image</FormLabel>
                 <Input type='file' onChange={(e) => handleLinkImageUpload(e)} accept="image/png,image/jpg,image/jpeg,image/gif" />
               </FormControl>{
-                linkImage?.length === 0 || linkImage=== undefined ?
-                 null
-                  :  <div>
-                  <Typography id="basic-modal-dialog-title" textColor="text.tertiary">
-                    Preview
-                  </Typography>
-                  <div className='flex justify-center items-cente'>
+                linkImage?.length === 0 || linkImage === undefined ?
+                  null
+                  : <div>
+                    <Typography id="basic-modal-dialog-title" textColor="text.tertiary">
+                      Preview
+                    </Typography>
+                    <div className='flex justify-center items-cente'>
 
-                  <img src={linkImage} alt="" className='h-[200px] ' />
-                  </div>
-                </div>}
+                      <img src={linkImage} alt="" className='h-[200px] ' />
+                    </div>
+                  </div>}
 
               <Button type="submit">Add</Button>
             </Stack>

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBg } from '../store/bgSlice';
 import { LuArrowDownRight, LuArrowRight } from 'react-icons/lu';
+import { motion } from 'framer-motion';
 
 
 const Appearence = () => {
@@ -110,9 +111,22 @@ const Appearence = () => {
 
                 <label htmlFor="bginput">
 
-              <div className={`w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-[#333333] p-[16px] border-[transparent] duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white shadow-xl hover:bg-[#4040w40]  `}>
+              <motion.div 
+              initial={{opacity:0 }}
+              // animate={{  y: 0,opacity:1 }}
+              transition={{
+                delay:0,
+                duration:0.3
+                   }}
+                  //  whileHover={{scale:1.05}}
+                  //  whileTap={{scale:0.95}}
+                   whileInView={{opacity:1}}
+                   viewport={{once:true}}
+
+                   className={`w-[150px] h-[266px]  cursor-pointer flex justify-center max-w-[160px] min-w-[120px] items-center rounded-[14px] bg-[#333333] p-[16px] border-[transparent] duration-300 ease-in-out transform hover:scale-105 hover:border-[1px] hover:border-white shadow-xl hover:bg-[#4040w40]  `}
+                    >
                 Upload Image
-              </div>
+              </motion.div>
 
                 </label>
 
@@ -123,13 +137,26 @@ const Appearence = () => {
                 
             
                 {
-                    backgroundimages.map((item) => (
-                        <BgImage bg={item.image} setSelected={setSelected} selected={selected} handleSelect={handleSelect} />
+                    backgroundimages.map((item,index) => (
+                        <BgImage bg={item.image} setSelected={setSelected} selected={selected} handleSelect={handleSelect} index={index} />
                     ))
                 }
                     <a className='flex justify-center items-center duration-200 cursor-pointer text-violet-400 mx-3' href='https://www.setaswall.com/1080x1920-wallpapers'  rel="noopener noreferrer" target='_blank'>
 
-                <div className=' duration-200 cursor-pointer mr-1 hover:mr-3'>View More </div><LuArrowRight className='inline text-xl hover:ml-2 duration-200'/>
+                <motion.div 
+                initial={{opacity:0 }}
+                // animate={{  y: 0,opacity:1 }}
+                transition={{
+                  delay:0.4,
+                  duration:0.3
+                     }}
+                    //  whileHover={{scale:1.05}}
+                    //  whileTap={{scale:0.95}}
+                     whileInView={{opacity:1}}
+                     viewport={{once:true}}
+
+                     className=' duration-200 cursor-pointer mr-1 hover:mr-3' >
+                      View More </motion.div><LuArrowRight className='inline text-xl hover:ml-2 duration-200'/>
                     </a>
 
             </div>
@@ -138,10 +165,10 @@ const Appearence = () => {
               <p className=' font-light text-sm text-gray-400 my-4 '>  or Choose a Gradient</p>
             </div>
             <div className='flex gap-5 flex-wrap  justify-center'>
-              <GradientComp gradColors="linear-gradient(to right top, #742399, #1864d9)" handleSelectGradient={handleSelectGradient} />
-              <GradientComp gradColors="linear-gradient(to right top, #5e215a, #745635)" handleSelectGradient={handleSelectGradient}/>
-              <GradientComp gradColors="linear-gradient(to right top, #090a0b, #d2ddff)" handleSelectGradient={handleSelectGradient}/>
-              <GradientComp gradColors="linear-gradient(to right top, #226b25, #42256d)" handleSelectGradient={handleSelectGradient}/>
+              <GradientComp gradColors="linear-gradient(to right top, #742399, #1864d9)" handleSelectGradient={handleSelectGradient} index={1} />
+              <GradientComp gradColors="linear-gradient(to right top, #5e215a, #745635)" handleSelectGradient={handleSelectGradient} index={2}/>
+              <GradientComp gradColors="linear-gradient(to right top, #090a0b, #d2ddff)" handleSelectGradient={handleSelectGradient} index={3}/>
+              <GradientComp gradColors="linear-gradient(to right top, #226b25, #42256d)" handleSelectGradient={handleSelectGradient} index={4}/>
             </div>
 
             <div className='flex mt-2 justify-center'>
@@ -151,10 +178,10 @@ const Appearence = () => {
 
 
             <div className='flex gap-5 flex-wrap  justify-center'>
-              <SolidColor gradColors="linear-gradient(to right top, #DF531D, #DF531D)" handleSelectGradient={handleSelectGradient}/>
-              <SolidColor gradColors="linear-gradient(to right top, #1D831C, #1D831C)" handleSelectGradient={handleSelectGradient}/>
-              <SolidColor gradColors="linear-gradient(to right top, #B64294, #B64294)" handleSelectGradient={handleSelectGradient}/>
-              <SolidColor gradColors="linear-gradient(to right top, #3C3AB1, #3C3AB1)" handleSelectGradient={handleSelectGradient}/>
+              <SolidColor gradColors="linear-gradient(to right top, #DF531D, #DF531D)" handleSelectGradient={handleSelectGradient} index={1}/>
+              <SolidColor gradColors="linear-gradient(to right top, #1D831C, #1D831C)" handleSelectGradient={handleSelectGradient} index={2}/>
+              <SolidColor gradColors="linear-gradient(to right top, #B64294, #B64294)" handleSelectGradient={handleSelectGradient} index={3}/>
+              <SolidColor gradColors="linear-gradient(to right top, #3C3AB1, #3C3AB1)" handleSelectGradient={handleSelectGradient} index={4}/>
             </div>
           </div>
   )

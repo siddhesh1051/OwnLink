@@ -5,6 +5,28 @@
   text-align: center;
   scroll-behavior: smooth;
 }
+::-webkit-scrollbar {
+  border-radius: 20px;
+  width: 7px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #161A23; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #474747; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2c2c2c; 
+}
+
 
 .App-logo {
   height: 40vmin;
