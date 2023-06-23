@@ -43,7 +43,7 @@ const Left = ({ handleCustomize, update }, ref) => {
     <motion.div
       animate={{ x: 0 }}
       initial={{ x: -1000 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
 
       className='flex-1 flex flex-col  justify-start p-2'>
       <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0  '>
@@ -85,14 +85,14 @@ const Left = ({ handleCustomize, update }, ref) => {
         </div>
       </div>
 
-      <motion.div className="iphone-x scale-75 " ref={ref} >
+      <div className="iphone-x scale-75 " ref={ref} >
 
         <Screen update={update} />
         <i className='speaker'>Speaker</i>
         <b className='camera'>Camera</b>
 
 
-      </motion.div>
+      </div>
 
       <Modal open={open} onClose={() => setOpen(false)} >
         <ModalDialog

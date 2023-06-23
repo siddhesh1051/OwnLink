@@ -5,8 +5,9 @@ import { STATUSES } from '../store/store'
 import { useSelector } from 'react-redux'
 import Links from './Links'
 import Skeleton from 'react-loading-skeleton'
+import { motion } from 'framer-motion';
 
-const ScreenLink = ({ link, title, linkImage }) => {
+const ScreenLink = ({ link, title, linkImage,index }) => {
 
   // const [isBg, setisBg] = useState(false)
 
@@ -32,7 +33,15 @@ const ScreenLink = ({ link, title, linkImage }) => {
     {
     linkStatus === STATUSES.LOADING ? <Skeleton className='w-full h-full' /> :
 
-    <div className={`flex text-white mt-2 w-[87%] min-w-[80%] rounded-xl aspect-video relative cursor-pointer min-h-[150px] `}  >
+    <motion.div 
+    initial={{ y: 20, opacity: 0 }}
+    transition={{
+      delay: index*0.1,
+      duration: 0.3
+    }}
+    whileInView={{ y: 0, opacity: 1 }}
+    viewport={{once:true}}
+    className={`flex text-white mt-2 w-[87%] min-w-[80%] rounded-xl aspect-video relative cursor-pointer min-h-[150px] `}  >
 
         <div className='aspect-video relative '>
           {/* {
@@ -56,7 +65,7 @@ const ScreenLink = ({ link, title, linkImage }) => {
            */}
 
           </div>
-    </div>
+    </motion.div>
           }
           </>
   )

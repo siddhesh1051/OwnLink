@@ -108,27 +108,56 @@ const Screen = ({update}) => {
       delay:0.5
          }} >
       <div className='flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]'>
-        <div className='flex justify-center items-center'>{profileStatus === STATUSES.LOADING ? <Skeleton circle={true} height={90} width={90} /> : 
+        <motion.div
+           initial={{ y: 20, opacity: 0 }}
+           transition={{
+             delay: 0.6,
+             duration: 0.3
+           }}
+           whileInView={{ y: 0, opacity: 1 }}
+           viewport={{once:true}}
+        className='flex justify-center items-center'>{profileStatus === STATUSES.LOADING ? <Skeleton circle={true} height={90} width={90} /> : 
           <Avatar alt="Remy Sharp" src={profilePic} sx={{ width: "90px", height: "90px" }} />
   }
-        </div>{
+        </motion.div>{
           usernameStatus === STATUSES.LOADING ? <Skeleton width={200} height={20} /> : 
-        <h2  >{username.username ? `@${username.username}` : null }</h2>}
+        <motion.h2  
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0.7,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{once:true}}  >{username.username ? `@${username.username}` : null }</motion.h2>}
         {bioStatus === STATUSES.LOADING ? <Skeleton  height={20} count={2} /> : 
-        <p className='mt-2'>{bio.bio ? `${bio.bio}` : null} </p>}
+        <motion.p
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0.8,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{once:true}} className='mt-2'>{bio.bio ? `${bio.bio}` : null} </motion.p>}
 
 
       </div>
-      <div className='text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar  p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
-        <div className='flex h-full w-full items-center justify-start mx-auto my-0 px-1'>
+      <motion.div
+       initial={{ y: 20, opacity: 0 }}
+       transition={{
+         delay: 1,
+         duration: 0.3
+       }}
+       whileInView={{ y: 0, opacity: 1 }}
+       viewport={{once:true}} className='text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar  p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
+        <motion.div className='flex h-full w-full items-center justify-start mx-auto my-0 px-1'>
           {
-            socials?.length !== 0 && socials?.map((item) => (
+            socials?.length !== 0 && socials?.map((item,index) => (
               
-              <SocialIcon icon={item.type} link={item.link} />
+              <SocialIcon icon={item.type} link={item.link} index={index} />
             ))
           }
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
 {/* <div className='text-white w-[90%] min-h-[80px] overflow-x-auto p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]'>
         {socials?.length !== 0 ? (
@@ -144,20 +173,36 @@ const Screen = ({update}) => {
 
       {
         links?.length !== 0 &&
-        <div className='flex items-center justify-start flex-col text-white gap-1 w-[100%] min-w-[80%] '>
+        <motion.div 
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 1.2,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        
+       className='flex items-center justify-start flex-col text-white gap-1 w-[100%] min-w-[80%] '>
 
-          <h1 className='text-center text-xl mt-2'>Links</h1>
+          <motion.h1
+          initial={{ y: 20, opacity: 0 }}
+          transition={{
+            delay: 0.9,
+            duration: 0.3
+          }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{once:true}} className='text-center text-xl mt-2'>Links</motion.h1>
           {
-            links?.length !== 0 && links?.map((item) => (
+            links?.length !== 0 && links?.map((item,index) => (
 
               linkStatus===STATUSES.LOADING ?<Skeleton width={310} height={180} borderRadius={10} style={{marginBottom:'10px'}}/>
 
-              :<ScreenLink link={item.link} title={item.title} linkImage={item?.linkImage} />
+              :<ScreenLink link={item.link} title={item.title} linkImage={item?.linkImage} index={index}/>
 
             ))
           }
 
-        </div>}
+        </motion.div>}
 
     </motion.div>
   )

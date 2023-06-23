@@ -15,9 +15,10 @@ import pinterest from './icons/pinterest.png'
 import { STATUSES } from '../store/store'
 import { useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
+import { motion } from 'framer-motion';
 
 
-const SocialIcon = ({icon,link}) => {
+const SocialIcon = ({icon,link,index}) => {
   const getIcon = (name) => {
     // console.log("inside geticon", name)
     if(name==='instagram') return instagram;
@@ -54,11 +55,19 @@ const SocialIcon = ({icon,link}) => {
             <Skeleton circle={true} height={40} width={40} style={{marginLeft:'6px'}} />
             :
 
-     <div className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
+     <motion.div 
+     initial={{ y: 20, opacity: 0 }}
+     transition={{
+       delay: index*0.2,
+       duration: 0.3
+     }}
+     whileInView={{ y: 0, opacity: 1 }}
+     viewport={{once:true}}
+     className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
             <a href={link} target='_blank'>
               <img src={getIcon(icon)} alt="" className='' />
             </a>
-        </div>
+        </motion.div>
 }
     </>
   )

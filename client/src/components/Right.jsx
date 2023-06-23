@@ -294,9 +294,9 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
 
   return (
-    <motion.div className='flex-1' ref={ref} animate={{ x: 0 }}
+    <motion.div  ref={ref}  className='flex-1'animate={{ x: 0 }}
       initial={{ x: 1000 }}
-      transition={{ duration: 0.5 }} >
+      transition={{ duration: 0.6 }} >
       <Tabs size='lg' onChange={handleChange} aria-label="Plain tabs" defaultValue={value} sx={{ color: "white", backgroundColor: "#161a23", marginRight: "10px", marginLeft: "10px" }} >
 
         <TabList color="primary" variant="plain" sx={{ backgroundColor: "#222430" }}>
