@@ -79,7 +79,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
   ))
 
   const email = localStorage.getItem("email")
-
+  const localUsername = localStorage.getItem("username")
 
   // console.log(email)
 
@@ -107,12 +107,12 @@ const Right = ({ text, update, setUpdate }, ref) => {
       setProfilePic(userData.currProfilePic)
     }
 
-
-
+    
+    localStorage.getItem("username")
 
 
     // console.log(currUsername, currName, currBio, currProfilePic)
-  }, [currUsername, currName, currBio, currProfilePic])
+  }, [currUsername, currName, currBio, currProfilePic,update])
   // console.log(acc)
 
   const handleImageUpload = async (e) => {
@@ -143,7 +143,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
       .catch((err) => console.log(err))
   }
 
-  
+
   const handleLinkImageUpload = async (e) => {
     const linkfile = e.target.files[0]
     // console.log(file)

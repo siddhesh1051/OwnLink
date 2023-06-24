@@ -1,4 +1,4 @@
-import React, { useState, useRef, forwardRef } from 'react'
+import React, { useState, useRef, forwardRef, useEffect } from 'react'
 import Screen from './Screen'
 import '../../src/App.css'
 import { BiLinkExternal } from 'react-icons/bi'
@@ -34,10 +34,11 @@ const Left = ({ handleCustomize, update }, ref) => {
     let url = link
     saveAs(url, username + ".png");
   }
+  const username = localStorage.getItem("username")
 
     useEffect(() => {
-      const username = localStorage.getItem("username")
-      
+      username = localStorage.getItem("username")
+
 
     }, [update])
     
