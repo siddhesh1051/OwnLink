@@ -34,7 +34,7 @@ const Left = ({ handleCustomize, update }, ref) => {
     let url = link
     saveAs(url, username + ".png");
   }
-  const username = localStorage.getItem("username")
+  let username = localStorage.getItem("username")
 
     useEffect(() => {
       username = localStorage.getItem("username")

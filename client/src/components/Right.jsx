@@ -79,7 +79,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
   ))
 
   const email = localStorage.getItem("email")
-  const localUsername = localStorage.getItem("username")
+  let localUsername = localStorage.getItem("username")
 
   // console.log(email)
 
