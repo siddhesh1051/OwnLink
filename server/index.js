@@ -36,7 +36,7 @@ mongoose
       
       origin: ["https://ownlink.vercel.app"],
       methods: ["GET", "POST","PUT","DELETE"],
-      // credentials: true,
+      credentials: true,
     })
   );
 
@@ -50,4 +50,3 @@ mongoose
 
 
 
-  
