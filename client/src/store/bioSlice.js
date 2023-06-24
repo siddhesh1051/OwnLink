@@ -9,7 +9,6 @@ export const STATUSES = Object.freeze({
 
 });
 
-
 const initialState = {
    bio: "",
   status: STATUSES.IDLE,
