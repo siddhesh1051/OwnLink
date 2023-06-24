@@ -22,5 +22,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.2"
+  },
+  "engines": {
+    "node": ">=14.20.1"
   }
 }
