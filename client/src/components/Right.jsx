@@ -143,6 +143,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
       .catch((err) => console.log(err))
   }
 
+  
   const handleLinkImageUpload = async (e) => {
     const linkfile = e.target.files[0]
     // console.log(file)
