@@ -47,13 +47,13 @@ const Register = ({ isNew, setisNew }) => {
           toast.success("Registration Successfull")
           localStorage.setItem('email',user.email)
           navigate("/");
+          window.location.reload();
 
         }
       }
     } catch (ex) {
       console.log(ex);
     }
-
     action.resetForm();
   }
 

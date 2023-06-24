@@ -35,9 +35,13 @@ const Left = ({ handleCustomize, update }, ref) => {
     saveAs(url, username + ".png");
   }
 
+    useEffect(() => {
+      const username = localStorage.getItem("username")
+      
 
+    }, [update])
+    
 
-  const username = localStorage.getItem("username")
   const profileLink = `${process.env.REACT_APP_CLIENT_API}/${username}`
   return (
     <motion.div
