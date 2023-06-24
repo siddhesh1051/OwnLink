@@ -50,25 +50,41 @@ const userSchema = mongoose.Schema({
 
 });
 
+// userSchema.pre("save", async function (next) {
+//   const salt = await bcrypt.genSalt();
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
+
+// userSchema.statics.login = async function (email, password) {
+//   const user = await this.findOne({ email });
+//   console.log(user);
+//   if (user) {
+//     console.log(user.password)
+//     console.log(password)
+//     const auth = await bcrypt.compare(password, user.password);
+//     console.log(auth)
+//     if (auth) {
+//       return user;
+//     }
+//     throw Error("incorrect password");
+//   }
+//   throw Error("incorrect email");
+// };
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
+  if (!this.isModified) {
+    next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  next();
 });
 
-userSchema.statics.login = async function (email, password) {
-  const user = await this.findOne({ email });
-  // console.log(user);
-  if (user) {
-    const auth = await bcrypt.compare(password, user.password);
-    // console.log(auth)
-    if (auth) {
-      return user;
-    }
-    throw Error("incorrect password");
-  }
-  throw Error("incorrect email");
-};
 
 
 module.exports = mongoose.model("user", userSchema);

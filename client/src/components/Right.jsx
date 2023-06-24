@@ -423,10 +423,10 @@ const Right = ({ text, update, setUpdate }, ref) => {
           sx={{ maxWidth: 500 }}
         >
           <Typography id="basic-modal-dialog-title" component="h2">
-            {acc}
+            {acc.charAt(0).toUpperCase() + acc.slice(1)}
           </Typography>
           <Typography id="basic-modal-dialog-description" textColor="text.tertiary">
-            Enter {acc} username below
+            Enter {acc.charAt(0).toUpperCase() + acc.slice(1)} profile link below
           </Typography>
           <form
             onSubmit={(event) => {
@@ -440,7 +440,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
           >
             <Stack spacing={2}>
               <FormControl>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>URL</FormLabel>
                 <Input autoFocus required value={link} onChange={(e) => handleInputChange(e)} />
               </FormControl>
 

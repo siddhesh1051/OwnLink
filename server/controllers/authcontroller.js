@@ -1,42 +1,93 @@
 const User = require("../model/authmodel");
 const jwt = require("jsonwebtoken");
+const asyncHandler = require("express-async-handler");
 
 const createToken = (id) => {
-    return jwt.sign({id},process.env.JWT_SECRET,
-        {expiresIn:3*24*60*60})
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d'
+  })
 }
 
 
-module.exports.register = async (req, res) => {
-    try{
-        const {email,password}  = req.body;
-        const user = await User.create({email,password});
-        const token = createToken(user._id);
-        // console.log(token);
-        res.status(201).json({user,token});
-      }
-    catch(err){
-      // console.log(err);
-      res.status(400).json({err});
-    }
+// module.exports.register = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await User.create({ email, password });
+//     const token = createToken(user._id);
+//     // console.log(token);
+//     res.status(201).json({ user, token });
+//   }
+//   catch (err) {
+//     // console.log(err);
+//     res.status(400).json({ err });
+//   }
+// }
+module.exports.register = asyncHandler(async (req, res) => {
+  const { email, password} = req.body;
+
+  if ( !email || !password) {
+    res.status(400);
+    throw new Error("Please Enter all the Feilds");
   }
 
-module.exports.login = async (req, res) => {
-  try{
-        const {email,password}  = req.body;
-        const user = await User.login(email,password);
-        const token = createToken(user._id);
-        // console.log(token);
-        res.status(200).json({user,token});
-    }
-    catch(err){
-      // console.log(err);
-        res.status(400).json({err});
-      }
-}
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+
+  const user = await User.create({
+    
+    email,
+    password
+   
+  });
+
+  if (user) {
+    res.status(201).json({user,token: createToken(user._id),});
+  } else {
+    res.status(400);
+    throw new Error("User not found");
+  }
+})
+
+module.exports.login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+     user,
+      token: createToken(user._id),
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid Email or Password");
+  }
+});
+
+// module.exports.login = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await User.login(email, password);
+//     const token = createToken(user._id);
+//     // console.log(token);
+//     res.status(200).json({ user, token });
+//   }
+//   catch (err) {
+//     // console.log(err);
+//     res.status(400).json({ err });
+//   }
+// }
+
+// module.exports.register = async (req, res) => {
+  
+// };
 
 module.exports.addUsername = async (req, res) => {
-    
+
   try {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
@@ -44,25 +95,25 @@ module.exports.addUsername = async (req, res) => {
     // console.log(user);
     if (user) {
       const { username } = user;
-      const usernamePresent = username!=="";
-      
-            if (!usernamePresent) {
+      const usernamePresent = username !== "";
+
+      if (!usernamePresent) {
 
         await User.findByIdAndUpdate(
-          
+
           user._id,
           {
-            username:  username_from_body,
+            username: username_from_body,
           },
           { new: true }
         );
-      } else return res.json({ msg: "username already present",status:400  }) ;
+      } else return res.json({ msg: "username already present", status: 400 });
     } else await User.create({ email, username: username_from_body });
-    return res.json({ msg: "username claimed successfully",status:200 });
+    return res.json({ msg: "username claimed successfully", status: 200 });
   } catch (error) {
-    return res.json({ msg: "Error claiming username",status:401  });
+    return res.json({ msg: "Error claiming username", status: 401 });
   }
-    
+
 }
 
 module.exports.addUsername = async (req, res) => {
@@ -70,25 +121,25 @@ module.exports.addUsername = async (req, res) => {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
     // console.log(user)
-    const existingUsername = await User.findOne({ username:username_from_body });
+    const existingUsername = await User.findOne({ username: username_from_body });
     // console.log(existingUsername)
 
     if (user) {
       // User found, update the existing bg
-      if(existingUsername){
-        return res.json({ msg: "Username Already Claimed",status:401 });
-      }else{
-      user.username = username_from_body;
-      await user.save();
-      return res.json({ msg: "Successfully Updated",status:200 });
+      if (existingUsername) {
+        return res.json({ msg: "Username Already Claimed", status: 401 });
+      } else {
+        user.username = username_from_body;
+        await user.save();
+        return res.json({ msg: "Successfully Updated", status: 200 });
       }
     } else {
       // User not found, create a new user with the provided email and bg
       await User.create({ email, username_from_body });
-      return res.json({ msg: "Successfully Added",status:200 });
+      return res.json({ msg: "Successfully Added", status: 200 });
     }
   } catch (error) {
-    return res.json({ msg: "Error adding/updating background",status:400 });
+    return res.json({ msg: "Error adding/updating background", status: 400 });
   }
 };
 
@@ -137,7 +188,7 @@ module.exports.addProfilePic = async (req, res) => {
     const { email, profile_pic_from_body } = req.body;
     const user = await User.findOne({ email });
 
-    if (user) { 
+    if (user) {
       // User found, update the existing bg
       user.profilePic = profile_pic_from_body;
       await user.save();
@@ -188,7 +239,7 @@ module.exports.addBg = async (req, res) => {
 //         await User.findOneAndUpdate(
 //           { _id: user._id},  
 //           { $set: { "links.$.title": title,"links.$.link": link,"links.$.linkImage": linkImage } },
-         
+
 
 //         );
 //         return res.json({ msg: "Successfully Updated" });
@@ -277,9 +328,9 @@ module.exports.addSocial = async (req, res) => {
 
 
 
-  //get api's
+//get api's
 
-  
+
 
 
 
@@ -458,10 +509,10 @@ module.exports.removeLink = async (req, res) => {
       // console.log(links)
       const linkIndex = links.findIndex(links => links.link === link);
       // console.log(linkIndex)
-      if (linkIndex===-1) {
+      if (linkIndex === -1) {
         return res.status(400).send({ msg: "link not found." });
       }
-     
+
       links.splice(linkIndex, 1);
       await User.findByIdAndUpdate(
         user._id,
@@ -486,10 +537,10 @@ module.exports.removeSocial = async (req, res) => {
       // console.log(socials)
       const socialIndex = socials.findIndex(socials => socials.type === type);
       // console.log(socialIndex)
-      if (socialIndex===-1) {
+      if (socialIndex === -1) {
         return res.status(400).send({ msg: "social not found." });
       }
-     
+
       socials.splice(socialIndex, 1);
       await User.findByIdAndUpdate(
         user._id,

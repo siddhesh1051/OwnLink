@@ -59,7 +59,7 @@ const buttonValue = e.target.value;
   }
  return (
     <div className='flex justify-between w-full items-center py-2 px-4 duration-150 rounded-lg hover:bg-[#1d1e27] '>
-      <p className='flex'><img src={pic} alt="" className='mr-4' /> {social}</p>
+      <p className='flex'><img src={pic} alt="" className='mr-4' /> {social.charAt(0).toUpperCase() + social.slice(1)}</p>
 {     
 isPresent?.type===social?
 
