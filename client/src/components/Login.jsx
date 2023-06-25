@@ -3,7 +3,7 @@ import Hero from './img/hero.jpg'
 import "../../src/App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import ReactGA from 'react-ga'
 import Sparkle from './img/sparkle.png'
 import { useFormik } from 'formik'
 import { validationSchema } from '../schema/index.jsx'
@@ -61,6 +61,12 @@ const Login = ({ isNew, setisNew }) => {
 
     // action.resetForm();
   }
+
+
+  useEffect(() => {
+   ReactGA.pageview(window.location.pathname);
+  }, [])
+  
 
 
 

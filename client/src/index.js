@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { Analytics } from '@vercel/analytics/react';
 
 
 
@@ -25,6 +26,7 @@ root.render(
       <Router>
 
         <App />
+        <Analytics/>
 
       </Router>
       </SkeletonTheme>

@@ -9,6 +9,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Fullscreen_mobile from './components/Fullscreen_mobile';
 import  { Toaster } from 'react-hot-toast';
+import ReactGA from 'react-ga'
+
+const TRACKING_ID = "UA-260769446-1";
+ReactGA.initialize(TRACKING_ID);
 
 function App() {
   const navigate = useNavigate();
@@ -30,7 +34,10 @@ function App() {
   const isMobile = width <= 768;
 
   useEffect(() => {
+
+    
     const path = window.location.pathname;
+    ReactGA.pageview(path);
     const username = path.substring(1); // Remove the leading '/'
   
     if (path!== "/"+username) {
