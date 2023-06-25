@@ -49,6 +49,7 @@ const Login = ({ isNew, setisNew }) => {
           toast.success("Login Successfull")
           localStorage.setItem('email',user.email)
           navigate("/");
+          window.location.reload();
         }
       }
     } catch (ex) {
