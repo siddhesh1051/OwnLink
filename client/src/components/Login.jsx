@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Hero from './img/hero.jpg'
 import "../../src/App.css"
 import axios from "axios";
