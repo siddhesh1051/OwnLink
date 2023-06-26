@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema({
 
   bio: {
     type: String,
-    default: "",
+    default: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
   },
   profilePic: {
     type: String,
