@@ -56,7 +56,7 @@ const ScreenLink = ({ link, title, linkImage,index }) => {
               </div>
               </a>
            
-            :
+          
           {/* //   <a href={link} target='_blank' className=''   >
 
 
