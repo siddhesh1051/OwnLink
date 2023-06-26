@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
 import {FiTrash2,FiEdit2,FiPlus} from 'react-icons/fi'
 import { removeSocial } from '../store/socialSlice';
 
-const Social = ({ setacc,setOpen, social, pic,link,setLink ,setUpdate,update}) => {
+const Social = ({ setacc,setOpen, social, pic,setLink ,setUpdate,update}) => {
 
   const dispatch = useDispatch();
   const email = localStorage.getItem("email")

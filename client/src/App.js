@@ -2,7 +2,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import './App.css';
 import Authentication from './components/Authentication';
 import Home from './components/Home';
-import Screen from './components/Screen';
 import Fullscreen from './components/Fullscreen';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';

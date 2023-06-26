@@ -30,7 +30,7 @@ const Screen = ({update}) => {
 
 
   const [profilePic, setProfilePic] = useState("")
-  const [bg, setBg] = useState("")
+  const [bg, setBg] = useState("https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg")
 
   // console.log(bgVar)
   // console.log(bg)

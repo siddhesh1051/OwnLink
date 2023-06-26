@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react'
-import { Avatar, Box, TextField } from '@mui/material';
+import { Avatar, TextField } from '@mui/material';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
@@ -195,6 +195,31 @@ const Right = ({ text, update, setUpdate }, ref) => {
   }
 
 
+  const handleNavigation = (UrlLink) => {
+    let url = UrlLink.toLowerCase();
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+     let newurl = `https://${url}`;
+      UrlLink=  newurl;
+    }
+    return UrlLink;
+  };
+  const handleSocialNavigation = (UrlLink,acc) => {
+    let url = UrlLink.toLowerCase();
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      if(acc==="gmail"){
+        let newurl = `mailto:${url}`;
+        UrlLink=  newurl;
+      }
+      else{
+
+     let newurl = `https://${url}`;
+      UrlLink=  newurl;
+    }
+    }
+    return UrlLink;
+  };
+
+
   const handleDataSubmit = (e) => {
     e.preventDefault();
     try {
@@ -212,8 +237,12 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
     setUpdate(!update);
   }
+
   const handleDispatch = async (email, link) => {
-    console.log(email, link, acc)
+      link = handleSocialNavigation(link,acc);
+      // console.log(email, link,acc)
+  
+    // console.log(email, link, acc)
     const { data } = await axios.post(process.env.REACT_APP_API + '/addsocial', {
       email,
       link,
@@ -224,8 +253,13 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
   }
 
+ 
+
   const handleAddlink = async (email, UrlLink, title, linkImage) => {
     // console.log(email, UrlLink, title,linkImage)
+
+
+    UrlLink = handleNavigation(UrlLink);
 
     const { data } = await axios.post(process.env.REACT_APP_API + '/addlink', {
       email,
@@ -450,6 +484,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
           </form>
         </ModalDialog>
       </Modal>
+
+
       <Modal open={LinkModal} onClose={() => setLinkModal(false)}>
         <ModalDialog
           aria-labelledby="basic-modal-dialog-title"

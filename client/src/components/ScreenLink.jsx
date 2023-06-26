@@ -1,5 +1,5 @@
 import React ,{useEffect, useState}from 'react'
-import landImg from './img/bg1.png'
+import defaultBg from './img/defaultBg.jpg'
 import "../../src/App.css"
 import { STATUSES } from '../store/store'
 import { useSelector } from 'react-redux'
@@ -16,7 +16,7 @@ const ScreenLink = ({ link, title, linkImage,index }) => {
   // // }
 
   const getBg = (linkImage) => {
-    if (linkImage === undefined || linkImage === "") return landImg;
+    if (linkImage === undefined || linkImage === "") return defaultBg;
     else return linkImage 
 
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import Hero from './img/hero.jpg'
 import "../../src/App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

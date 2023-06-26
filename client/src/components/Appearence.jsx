@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import BgImage from './bgImage';
-import bg1 from './img/bg1.png'
+import defaultBg from './img/defaultBg.jpg'
 import GradientComp from './GradientComp';
 import SolidColor from './SolidColor';
 import { toast } from 'react-hot-toast';

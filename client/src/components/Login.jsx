@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Hero from './img/hero.jpg'
+import React, { useEffect } from 'react'
 import "../../src/App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -70,7 +69,7 @@ const Login = ({ isNew, setisNew }) => {
 
 
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit,action } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange,action } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: onLogin,
