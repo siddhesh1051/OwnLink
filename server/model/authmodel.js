@@ -37,7 +37,7 @@ const userSchema = mongoose.Schema({
 
   bio: {
     type: String,
-    default: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
+    default: "",
   },
   profilePic: {
     type: String,
@@ -45,7 +45,7 @@ const userSchema = mongoose.Schema({
   },
   bg: {
     type: String,
-    default: "",
+    default: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
   },
 
 });
