@@ -155,7 +155,7 @@ const Appearence = () => {
                      whileInView={{opacity:1}}
                      viewport={{once:true}}
 
-                     className=' duration-200 cursor-pointer mr-1 hover:mr-3' >
+                     className=' duration-200 cursor-pointer mr-1 hover:mr-3 flex justify-center items-center' >
                       View More </motion.div><LuArrowRight className='inline text-xl hover:ml-2 duration-200'/>
                     </a>
 
