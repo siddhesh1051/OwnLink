@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Fullscreen_mobile from './components/Fullscreen_mobile';
 import  { Toaster } from 'react-hot-toast';
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 
 const TRACKING_ID = 'G-EH75TZQPC6';
   ReactGA.initialize(TRACKING_ID);
