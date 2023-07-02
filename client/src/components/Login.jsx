@@ -63,7 +63,7 @@ const Login = ({ isNew, setisNew }) => {
 
 
   useEffect(() => {
-   ReactGA.pageview(window.location.pathname);
+   ReactGA.send("pageview");
   }, [])
   
 
