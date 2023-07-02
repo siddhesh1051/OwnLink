@@ -17,6 +17,7 @@ const BgImage = ({bg,selected,setSelected,handleSelect,index}) => {
   
 
 
+
   return (
     <motion.div 
     initial={{ opacity:0 }}
