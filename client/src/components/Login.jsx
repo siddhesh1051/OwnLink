@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import "../../src/App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import Sparkle from './img/sparkle.png'
 import { useFormik } from 'formik'
 import { validationSchema } from '../schema/index.jsx'
