@@ -14,6 +14,7 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { STATUSES } from '../store/store';
 import { motion } from 'framer-motion';
+import { ReactGA } from 'react-ga4';
 
 
 const Fullscreen = () => {
@@ -61,6 +62,7 @@ const Fullscreen = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
+    ReactGA.pageview(path);
 
 
   }, [bg, bgVar])

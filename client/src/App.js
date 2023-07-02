@@ -10,8 +10,10 @@ import Fullscreen_mobile from './components/Fullscreen_mobile';
 import  { Toaster } from 'react-hot-toast';
 import ReactGA from 'react-ga'
 
-const TRACKING_ID = "UA-260769446-1";
-ReactGA.initialize(TRACKING_ID);
+const TRACKING_ID = 'G-EH75TZQPC6';
+  ReactGA.initialize(TRACKING_ID);
+  ReactGA.send({ hitType: "pageview", page: "/", title: "Home View" })
+  
 
 function App() {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ function App() {
 
     
     const path = window.location.pathname;
-    ReactGA.pageview(path);
+    
     const username = path.substring(1); // Remove the leading '/'
   
     if (path!== "/"+username) {
