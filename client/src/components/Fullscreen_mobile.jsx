@@ -15,7 +15,6 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { STATUSES } from '../store/store';
 import { motion } from 'framer-motion';
-import { ReactGA } from 'react-ga4';
 
 const Fullscreen_mobile = () => {
   const social = useSelector(state => state.social)
@@ -63,7 +62,6 @@ const Fullscreen_mobile = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
-    ReactGA.pageview(document.location.pathname);
 
   }, [])
  
