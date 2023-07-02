@@ -63,7 +63,7 @@ const Fullscreen_mobile = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
-    ReactGA.pageview(path);
+    ReactGA.pageview(document.location.pathname);
 
   }, [])
  

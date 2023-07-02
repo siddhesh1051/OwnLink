@@ -62,7 +62,7 @@ const Fullscreen = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
-    ReactGA.pageview(path);
+    ReactGA.pageview(document.location.pathname);
 
 
   }, [bg, bgVar])

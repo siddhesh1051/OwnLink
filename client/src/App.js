@@ -12,8 +12,7 @@ import ReactGA from 'react-ga4'
 
 const TRACKING_ID = 'G-EH75TZQPC6';
   ReactGA.initialize(TRACKING_ID);
-  ReactGA.send({ hitType: "pageview", page: "/", title: "Home View" })
-  
+  ReactGA.p  
 
 function App() {
   const navigate = useNavigate();
