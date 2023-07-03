@@ -20,6 +20,7 @@ The website is hosted on Render, so it may take some time to load.<br/>
 <h1 font-size="32px" >Screenshots</h1>
 
 
-<a href="url"><img src="https://github.com/siddhesh1051/OwnLink/assets/91652255/f21267f4-3fbf-4a64-b7f8-e26a95799a35" align="left"  width="250" ></a>
-<a href="url"><img src="https://github.com/siddhesh1051/OwnLink/assets/91652255/12294f94-c920-4f81-b1a7-efcfbbf31518" align="right"  width="600" ></a>
+
+<a href="url"><img src="https://github.com/siddhesh1051/OwnLink/assets/91652255/12294f94-c920-4f81-b1a7-efcfbbf31518" align="center"  width="700" ></a>
+<a href="url"><img src="https://github.com/siddhesh1051/OwnLink/assets/91652255/f21267f4-3fbf-4a64-b7f8-e26a95799a35" align="center"  width="300" ></a>
 
