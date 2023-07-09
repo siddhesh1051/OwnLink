@@ -81,13 +81,13 @@
   background: #fff; 
   transition: 0.1s;
   caret-color: #282c34;
-  outline-color: #adc7f5;
+  outline-color: #b19fd1;
   border: 1px solid #b1aeae;
 
 }
 
 .inputBox:focus{
-  border: 3px solid #608edf;
+  border: 3px solid #8c7da7;
 }
 
 
