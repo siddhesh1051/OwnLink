@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../../src/App.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -8,9 +8,13 @@ import { useFormik } from 'formik'
 import { validationSchema } from '../schema/index.jsx'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion';
+import Spinner from './Spinner';
 
 const Register = ({ isNew, setisNew }) => {
   const navigate = useNavigate();
+  const [isLoading, setisLoading] = useState(false);
+
+
 
   const initialvalues = {
     email: '',
@@ -20,7 +24,9 @@ const Register = ({ isNew, setisNew }) => {
     toast.error(error)
 
   const onRegister = async (values, action) => {
-    console.log('Form data register', values);
+    // console.log('Form data register', values);
+    setisLoading(true)
+
     try {
       const { data } = await axios.post(
         process.env.REACT_APP_API + "/register",
@@ -54,6 +60,8 @@ const Register = ({ isNew, setisNew }) => {
     } catch (ex) {
       console.log(ex);
     }
+    setisLoading(false)
+
     action.resetForm();
   }
 
@@ -151,6 +159,20 @@ const Register = ({ isNew, setisNew }) => {
           {
             errors.confirmPassword && touched.confirmPassword ? <div className='text-red-500 ml-10 -mt-3'>{"*" + errors.confirmPassword}</div> : null
           }
+
+{
+            isLoading
+              ? 
+              <motion.button 
+              initial={{  opacity: 0}}
+              animate={{ opacity: 1}}
+              transition={{
+                delay: 0.75, 
+                duration: 0.3
+              }}
+              type="submit" className='bg-[#6D42B9] hover:bg-[#5c369f] active:scale-95 text-white text-lg  w-[90%] lg:w-[70%] h-12 rounded-lg mx-8 mt-2 duration-300'><Spinner/>
+              </motion.button>
+              :
           <motion.button 
           initial={{  opacity: 0}}
           animate={{ opacity: 1}}
@@ -158,7 +180,9 @@ const Register = ({ isNew, setisNew }) => {
             delay: 0.75, 
             duration: 0.3
           }}
-          type="submit" className='bg-[#6D42B9] hover:bg-[#5c369f] active:scale-95 text-white text-lg  w-[90%] lg:w-[70%] h-12 rounded-lg mx-8 mt-2 duration-300'>Sign Up</motion.button>
+          type="submit" className='bg-[#6D42B9] hover:bg-[#5c369f] active:scale-95 text-white text-lg  w-[90%] lg:w-[70%] h-12 rounded-lg mx-8 mt-2 duration-300'>Sign Up
+          </motion.button>
+}
           <motion.p 
           initial={{ y:-20, opacity: 0 }}
           animate={{ y:0, opacity: 1}}
