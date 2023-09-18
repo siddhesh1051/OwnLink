@@ -14,6 +14,7 @@ import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { STATUSES } from '../store/store';
 import { motion } from 'framer-motion';
+import { getViewsInformation } from '../store/getviewsSlice';
 
 
 const Fullscreen = () => {
@@ -29,6 +30,7 @@ const Fullscreen = () => {
 
   const linkStatus = useSelector(state => state.link.status)
   // console.log(status)
+
 
   const [profileStatus, setProfileStatus] = useState(STATUSES.IDLE)
 
@@ -61,6 +63,11 @@ const Fullscreen = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
+    fetchOwnlinkViews();
+    
+
+   
+
 
 
   }, [bg, bgVar])
@@ -82,6 +89,18 @@ const Fullscreen = () => {
     setBg(data.bg)
 
   }
+
+  const fetchOwnlinkViews = async () => {
+    try {
+      const response = await axios.get(process.env.REACT_APP_API +`/increaseOwnlinkViews/${username}`);
+
+      // console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   const isBg = bg?.includes("http")
   console.log(isBg)
 

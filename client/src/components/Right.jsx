@@ -38,6 +38,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
 import { motion } from 'framer-motion'
+import Analytics from './Analytics';
 
 
 const Right = ({ text, update, setUpdate }, ref) => {
@@ -342,6 +343,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
             color={value === 2 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' } }} >Links</Tab>
           <Tab label="Appearance" value={3} variant={value === 3 ? 'solid' : 'plain'}
             color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' }, }} >Appearance</Tab>
+          <Tab label="Analytics" value={4} variant={value === 4 ? 'solid' : 'plain'}
+            color={value === 3 ? 'info' : 'info'} sx={{ fontSize: "20px", transitionDuration: '200ms', ":hover": { backgroundColor: '#0F1015', color: '#7200F0' }, }} >Analytics</Tab>
 
         </TabList>
         <TabPanel value={1}    >
@@ -446,6 +449,9 @@ const Right = ({ text, update, setUpdate }, ref) => {
         </TabPanel>
         <TabPanel value={3}>
           <Appearence />
+        </TabPanel>
+        <TabPanel value={4}>
+          <Analytics />
         </TabPanel>
 
       </Tabs>

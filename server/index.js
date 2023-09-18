@@ -35,7 +35,8 @@ mongoose
     cors({
       
       // origin: ["https://ownlink.vercel.app"],
-      origin: ["https://www.ownlink.me"],
+      // origin: ["https://www.ownlink.me"],
+      origin: ["http://localhost:3000"],
       methods: ["GET", "POST","PUT","DELETE"],
       credentials: true,
     })
