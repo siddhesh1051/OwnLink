@@ -557,5 +557,52 @@ module.exports.removeSocial = async (req, res) => {
 };
 
 
+module.exports.trackOwnlinkViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // console.log(username);
+
+    // Find the user document with the provided username
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the ownlinkViews count
+    user.ownlinkViews++;
+    await user.save();
+
+    // Redirect to the ownlink
+    return res.json({ message: 'Redirecting to ownlink', ownlink: user.ownlink, count: user.ownlinkViews });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+module.exports.getViewsInformation = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+      ownlinkViews: user.ownlinkViews,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
 
 
