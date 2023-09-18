@@ -247,7 +247,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
     const { data } = await axios.post(process.env.REACT_APP_API + '/addsocial', {
       email,
       link,
-      type: acc
+      type: acc,
+      linkClicks: 0
     })
     console.log(data)
     setUpdate(!update);

@@ -101,6 +101,19 @@ const Fullscreen = () => {
   };
 
 
+
+  // const trackSocialMediaClick = async () => {
+  //   try {
+  //     // Send a POST request to track the social media click
+  //     await axios.post(process.env.REACT_APP_API + `/increaseSocialsViews/${username}`, {
+  //       socialMediaIcon: icon, // Include the social media icon type
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
   const isBg = bg?.includes("http")
   console.log(isBg)
 
