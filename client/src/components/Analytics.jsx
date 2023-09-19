@@ -18,11 +18,14 @@ const Analytics = () => {
   const socialsViews = useSelector(state => state.socialsViews.socialsViews)
   const linksViews = useSelector(state => state.linksViews.linksViews)
 
-  console.log(linksViews)
+  // console.log(linksViews)
 
 
   const totalClicks = socialsViews.reduce((a, b) => a + b.linkClicks, 0);
   const CTR = (totalClicks / ownlinkViews) * 100
+  const maxSocialsClicks = Math.max(...socialsViews.map((socialView) => socialView.linkClicks))
+  const maxLinksClicks = Math.max(...linksViews.map((linkView) => linkView.linkClicks))
+
 
 
 
@@ -46,61 +49,70 @@ const Analytics = () => {
 
 
       <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      transition={{
-        delay: 0,
-        duration: 0.3
-      }}
-      whileInView={{ y: 0, opacity: 1}}
-      viewport={{ once: true }}
-       className='flex w-full px-6 py-2 my-2 gap-8 justify-center items-center '>
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className='flex w-full px-6 py-2 my-2 gap-8 justify-center items-center '>
 
         <AnalyticsBox type='Views' totalViews={ownlinkViews} />
         <AnalyticsBox type='Clicks' totalClicks={totalClicks} />
       </motion.div>
       <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      transition={{
-        delay: 0.1,
-        duration: 0.3
-      }}
-      whileInView={{ y: 0, opacity: 1}}
-      viewport={{ once: true }} className='flex w-full px-6 py-2 my-2 justify-center items-center '>
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0.1,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }} className='flex w-full px-6 py-2 my-2 justify-center items-center '>
 
         <AnalyticsBox type='CTR' CTR={CTR} />
       </motion.div>
 
-      <motion.div 
-      initial={{ y: 20, opacity: 0 }}
-      transition={{
-        delay: 0.2,
-        duration: 0.3
-      }}
-      whileInView={{ y: 0, opacity: 1}}
-      viewport={{ once: true }}
-      className='mb-2 pb-2'>
-        <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-3 mt-2'>Social Profiles</h1>
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0.2,
+          duration: 0.3
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        className='mb-2 pb-2'>
+
         {
+          socialsViews && socialsViews.length !== 0 &&
+          <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-3 mt-2'>Social Profiles</h1>
+        }
+        {
+          socialsViews && socialsViews.length !== 0 &&
           socialsViews.map((socialView) => (
-            <LinearBar clicks={socialView.linkClicks} title={socialView.socialMediaIcon} key={socialView.index} type="social" />
+            <LinearBar clicks={socialView.linkClicks} title={socialView.socialMediaIcon} key={socialView.index} type="social" maxClicks={maxSocialsClicks} />
           ))
         }
 
       </motion.div>
 
       <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      transition={{
-        delay: 0,
-        duration: 0.4
-      }}
-      whileInView={{ y: 0, opacity: 1}}
-      viewport={{ once: true }}>
+        initial={{ y: 20, opacity: 0 }}
+        transition={{
+          delay: 0,
+          duration: 0.4
+        }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}>
 
-        <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-2 mt-4'>Links</h1>
         {
-          linksViews.map((linksView) => (
-            <LinearBar clicks={linksView.linkClicks} title={linksView.title} key={linksView.index} type="link" />
+          linksViews && linksViews.length !== 0 &&
+          <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-2 mt-4'>Links</h1>
+        }
+
+        {
+          linksViews.length !== 0 && linksViews.map((linksView) => (
+            <LinearBar clicks={linksView.linkClicks} title={linksView.title} key={linksView.index} maxClicks={maxLinksClicks} type="link" />
           ))
         }
 
