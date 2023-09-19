@@ -20,11 +20,16 @@ const LinearBar = ({ clicks, title, type, maxClicks }) => {
   }
 
   // Calculate the maximum value for LinearProgress
-  const max = maxClicks * 1.5;
+  // const max = maxClicks * 1.5;
 //   console.log(max);
 
   // Calculate the scaled value for LinearProgress (limited to 75% of max)
   const scaledValue = (clicks / maxClicks) * 75;
+
+  const getScaledValue = (value) => {
+    if (value == 0) return 100;
+    return value;
+  }
 
   const getIcon = (name) => {
     if (name === 'instagram') return instagram;
@@ -51,7 +56,7 @@ const LinearBar = ({ clicks, title, type, maxClicks }) => {
         </p>
         <p className='text-md font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300'>{clicks}</p>
       </div>
-      <LinearProgress determinate value={scaledValue} thickness={10} sx={{ background: '#161C23' }} />
+      <LinearProgress determinate value={getScaledValue(scaledValue)} thickness={10} sx={{ background: '#161C23' }} />
     </div>
   );
 };
