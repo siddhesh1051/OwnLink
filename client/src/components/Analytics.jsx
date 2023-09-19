@@ -7,6 +7,7 @@ import LinearBar from './LinearBar';
 import { getViewsInformation } from '../store/getviewsSlice';
 import { getAllLinksViews } from '../store/getAllLinksViews';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const Analytics = () => {
   const dispatch = useDispatch();
@@ -44,16 +45,40 @@ const Analytics = () => {
     <div className='p-5 rounded-xl bg-[#222430] w-full  flex flex-col pb-8 '>
 
 
-      <div className='flex w-full px-6 py-2 my-2 gap-8 justify-center items-center '>
+      <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      transition={{
+        delay: 0,
+        duration: 0.3
+      }}
+      whileInView={{ y: 0, opacity: 1}}
+      viewport={{ once: true }}
+       className='flex w-full px-6 py-2 my-2 gap-8 justify-center items-center '>
 
         <AnalyticsBox type='Views' totalViews={ownlinkViews} />
         <AnalyticsBox type='Clicks' totalClicks={totalClicks} />
-      </div>
-      <div className='flex w-full px-6 py-2 my-2 justify-center items-center '>
-        <AnalyticsBox type='CTR' CTR={CTR} />
-      </div>
+      </motion.div>
+      <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      transition={{
+        delay: 0.1,
+        duration: 0.3
+      }}
+      whileInView={{ y: 0, opacity: 1}}
+      viewport={{ once: true }} className='flex w-full px-6 py-2 my-2 justify-center items-center '>
 
-      <div className='mb-2 pb-2'>
+        <AnalyticsBox type='CTR' CTR={CTR} />
+      </motion.div>
+
+      <motion.div 
+      initial={{ y: 20, opacity: 0 }}
+      transition={{
+        delay: 0.2,
+        duration: 0.3
+      }}
+      whileInView={{ y: 0, opacity: 1}}
+      viewport={{ once: true }}
+      className='mb-2 pb-2'>
         <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-3 mt-2'>Social Profiles</h1>
         {
           socialsViews.map((socialView) => (
@@ -61,9 +86,17 @@ const Analytics = () => {
           ))
         }
 
-      </div>
+      </motion.div>
 
-      <div>
+      <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      transition={{
+        delay: 0,
+        duration: 0.4
+      }}
+      whileInView={{ y: 0, opacity: 1}}
+      viewport={{ once: true }}>
+
         <h1 className='text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-100 to-blue-300 mb-2 mt-4'>Links</h1>
         {
           linksViews.map((linksView) => (
@@ -71,7 +104,7 @@ const Analytics = () => {
           ))
         }
 
-      </div>
+      </motion.div>
 
     </div>
 
