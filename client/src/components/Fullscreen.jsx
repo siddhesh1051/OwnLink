@@ -5,10 +5,10 @@ import SocialIcon from './SocialIcon'
 import ScreenLink from './ScreenLink';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getSocials, getSocialsFromUsername } from '../store/socialSlice';
-import { getName, getNameFromUsername } from '../store/nameSlice'
+import { getSocialsFromUsername } from '../store/socialSlice';
+import { getNameFromUsername } from '../store/nameSlice'
 import { getBioFromUsername } from '../store/bioSlice'
-import { getLinks, getLinksFromUsername } from '../store/linkSlice'
+import { getLinksFromUsername } from '../store/linkSlice'
 import { getEmailFromUsername } from '../store/emailSlice'
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
@@ -29,6 +29,7 @@ const Fullscreen = () => {
 
   const linkStatus = useSelector(state => state.link.status)
   // console.log(status)
+
 
   const [profileStatus, setProfileStatus] = useState(STATUSES.IDLE)
 
@@ -61,6 +62,11 @@ const Fullscreen = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
+    fetchOwnlinkViews();
+
+
+
+
 
 
   }, [bg, bgVar])
@@ -82,6 +88,31 @@ const Fullscreen = () => {
     setBg(data.bg)
 
   }
+
+  const fetchOwnlinkViews = async () => {
+    try {
+      const response = await axios.get(process.env.REACT_APP_API + `/increaseOwnlinkViews/${username}`);
+
+      // console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+  // const trackSocialMediaClick = async () => {
+  //   try {
+  //     // Send a POST request to track the social media click
+  //     await axios.post(process.env.REACT_APP_API + `/increaseSocialsViews/${username}`, {
+  //       socialMediaIcon: icon, // Include the social media icon type
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
   const isBg = bg?.includes("http")
   console.log(isBg)
 
@@ -110,7 +141,7 @@ const Fullscreen = () => {
             }}
             whileInView={{ y: 0, opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
+            className="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
             <h1 class=" text-9xl font-extrabold text-indigo-300 tracking-widest">404</h1>
             <div class="bg-[#9358f9] px-2 text-sm rounded rotate-12 absolute">
               Page Not Found
