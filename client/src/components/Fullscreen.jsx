@@ -5,16 +5,15 @@ import SocialIcon from './SocialIcon'
 import ScreenLink from './ScreenLink';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getSocials, getSocialsFromUsername } from '../store/socialSlice';
-import { getName, getNameFromUsername } from '../store/nameSlice'
+import { getSocialsFromUsername } from '../store/socialSlice';
+import { getNameFromUsername } from '../store/nameSlice'
 import { getBioFromUsername } from '../store/bioSlice'
-import { getLinks, getLinksFromUsername } from '../store/linkSlice'
+import { getLinksFromUsername } from '../store/linkSlice'
 import { getEmailFromUsername } from '../store/emailSlice'
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton';
 import { STATUSES } from '../store/store';
 import { motion } from 'framer-motion';
-import { getViewsInformation } from '../store/getviewsSlice';
 
 
 const Fullscreen = () => {

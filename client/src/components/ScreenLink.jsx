@@ -13,6 +13,7 @@ const ScreenLink = ({ link, title, linkImage, index }) => {
   const dispatch = useDispatch();
   const email = localStorage.getItem('email');
   const username = useSelector(state => state.username.username)
+  const path = window.location.pathname;
 
   const getBg = (linkImage) => {
     if (linkImage === undefined || linkImage === "") return defaultBg;
@@ -28,7 +29,8 @@ const ScreenLink = ({ link, title, linkImage, index }) => {
     dispatch(getUsername(email))
 }, [])
 
-const trackLinkClick = async () => {
+
+const increaseLinkViews = async () => {
   try {
     const response = await axios.post(process.env.REACT_APP_API + `/increaseLinksViews/${username}`, {
       title: title, 
@@ -39,6 +41,12 @@ const trackLinkClick = async () => {
   } catch (error) {
     console.error(error);
   }
+}
+
+
+const trackLinkClick = async () => {
+  path === '/' ? console.log("Click not counted as you are on dashboard") : increaseLinkViews();
+ 
 };
 
 

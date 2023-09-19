@@ -36,11 +36,10 @@ const SocialIcon = ({icon,link,index}) => {
     if(name==='twitch') return twitch;
     if(name==='telegram') return telegram;
     if(name==='pinterest') return pinterest;
-
-    
-    
+  
   }
-
+  
+  const path = window.location.pathname;
   const socialStatus = useSelector(state => state.social.status);
   const dispatch = useDispatch();
     const email = localStorage.getItem('email');
@@ -48,11 +47,10 @@ const SocialIcon = ({icon,link,index}) => {
 
   console.log(icon);
 
-  
-  const trackSocialMediaClick = async () => {
+  const increaseSocialLinkViews = async () => {
     try {
       const response = await axios.post(process.env.REACT_APP_API + `/increaseSocialsViews/${username}`, {
-        socialMediaIcon: icon, // Include the social media icon type
+        socialMediaIcon: icon, 
       })
 
       console.log(response.data);
@@ -60,6 +58,11 @@ const SocialIcon = ({icon,link,index}) => {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  
+  const trackSocialMediaClick = async () => {
+    path === '/' ? console.log("Click not counted as you are on dashboard") : increaseSocialLinkViews();
   };
 
   
