@@ -261,7 +261,7 @@ module.exports.addBg = async (req, res) => {
 
 module.exports.addLink = async (req, res) => {
   try {
-    const { email, link, title, linkImage } = req.body;
+    const { email, link, title, linkImage, linkClicks } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
@@ -272,18 +272,18 @@ module.exports.addLink = async (req, res) => {
         // Link found, update the existing link
         await User.findOneAndUpdate(
           { _id: user._id, "links.title": title },
-          { $set: { "links.$.title": title, "links.$.link": link, "links.$.linkImage": linkImage } }
+          { $set: { "links.$.title": title, "links.$.link": link, "links.$.linkImage": linkImage,  } }
         );
         return res.json({ msg: "Successfully Updated" });
       } else {
         // Link not found, add new link
-        user.links.push({ link, title, linkImage });
+        user.links.push({ link, title, linkImage, linkClicks });
         await user.save();
         return res.json({ msg: "Successfully Added" });
       }
     } else {
       // User not found, create a new user with the provided email and social link
-      await User.create({ email, links: [{ link, title, linkImage }] });
+      await User.create({ email, links: [{ link, title, linkImage, linkClicks }] });
       return res.json({ msg: "Successfully Added" });
     }
   } catch (error) {
@@ -296,7 +296,7 @@ module.exports.addLink = async (req, res) => {
 
 module.exports.addSocial = async (req, res) => {
   try {
-    const { email, link, type } = req.body;
+    const { email, link, type, linkClicks } = req.body;
     const user = await User.findOne({ email });
 
     if (user) {
@@ -312,13 +312,13 @@ module.exports.addSocial = async (req, res) => {
         return res.json({ msg: "Successfully Updated" });
       } else {
         // Social link not found, add new social link
-        user.socials.push({ link, type });
+        user.socials.push({ link, type, linkClicks });
         await user.save();
         return res.json({ msg: "Successfully Added" });
       }
     } else {
       // User not found, create a new user with the provided email and social link
-      await User.create({ email, socials: [{ link, type }] });
+      await User.create({ email, socials: [{ link, type, linkClicks }] });
       return res.json({ msg: "Successfully Added" });
     }
   } catch (error) {
@@ -556,6 +556,160 @@ module.exports.removeSocial = async (req, res) => {
   }
 };
 
+
+module.exports.trackOwnlinkViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // console.log(username);
+
+    // Find the user document with the provided username
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the ownlinkViews count
+    user.ownlinkViews++;
+    await user.save();
+
+    // Redirect to the ownlink
+    return res.json({ message: 'Redirecting to ownlink', ownlink: user.ownlink, count: user.ownlinkViews });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+module.exports.getViewsInformation = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({
+      ownlinkViews: user.ownlinkViews,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+module.exports.increaseSocialsViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { socialMediaIcon } = req.body; // Include the social media icon type
+
+    // Update the social media link click count in MongoDB
+    const result = await User.updateOne(
+      { username, 'socials.type': socialMediaIcon },
+      { $inc: { 'socials.$.linkClicks': 1 } }
+    );
+
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: 'User or social media link not found' });
+    }
+
+    res.json({ message: 'Link click tracked successfully',  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+module.exports.getAllSocialsViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find the user document with the provided username
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract social media links and their click counts
+    const socialLinkCounts = user.socials.map((social) => ({
+      socialMediaIcon: social.type,
+      linkClicks: social.linkClicks,
+    }));
+
+    const sortedSocialLinkCounts = socialLinkCounts.sort((a, b) => b.linkClicks - a.linkClicks);
+
+    // console.log(sortedSocialLinkCounts)
+    res.json(sortedSocialLinkCounts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+module.exports.increaseLinksViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { title } = req.body; 
+
+    console.log(title)
+
+    // Update the social media link click count in MongoDB
+    const result = await User.updateOne(
+      { username, 'links.title': title },
+      { $inc: { 'links.$.linkClicks': 1 } }
+    );
+
+      
+    console.log(result)
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: 'User or link not found' });
+    }
+
+    res.json({ message: 'Link click tracked successfully',  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+module.exports.getAllLinksViews = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find the user document with the provided username
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract social media links and their click counts
+    const linkCounts = user.links.map((link) => ({
+      title: link.title,
+      linkClicks: link.linkClicks,
+    }));
+
+    const sortedLinkCounts = linkCounts.sort((a, b) => b.linkClicks - a.linkClicks);
+
+    console.log(sortedLinkCounts)
+    res.json(sortedLinkCounts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 

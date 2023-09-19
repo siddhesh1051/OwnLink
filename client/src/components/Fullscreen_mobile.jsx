@@ -62,6 +62,8 @@ const Fullscreen_mobile = () => {
     dispatch(getNameFromUsername(username))
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
+    fetchOwnlinkViews();
+
 
   }, [])
  
@@ -83,6 +85,19 @@ const Fullscreen_mobile = () => {
     setBg(data.bg)
 
   }
+
+
+  const fetchOwnlinkViews = async () => {
+    try {
+      const response = await axios.get(process.env.REACT_APP_API +`/increaseOwnlinkViews/${username}`);
+
+      // console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
   const isBg = bg?.includes("http")
   console.log(isBg)
 

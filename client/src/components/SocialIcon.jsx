@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import instagram from './icons/instagram.png'
 import facebook from './icons/facebook.png'
 import snapchat from './icons/snapchat.png'
@@ -13,9 +13,11 @@ import twitch from './icons/twitch.png'
 import telegram from './icons/telegram.png'
 import pinterest from './icons/pinterest.png'
 import { STATUSES } from '../store/store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from 'react-loading-skeleton'
 import { motion } from 'framer-motion';
+import axios from 'axios'
+import { getUsername } from '../store/usernameSlice'
 
 
 const SocialIcon = ({icon,link,index}) => {
@@ -34,12 +36,39 @@ const SocialIcon = ({icon,link,index}) => {
     if(name==='twitch') return twitch;
     if(name==='telegram') return telegram;
     if(name==='pinterest') return pinterest;
+  
+  }
+  
+  const path = window.location.pathname;
+  const socialStatus = useSelector(state => state.social.status);
+  const dispatch = useDispatch();
+    const email = localStorage.getItem('email');
+    const username = useSelector(state => state.username.username)
 
-    
-    
+  console.log(icon);
+
+  const increaseSocialLinkViews = async () => {
+    try {
+      const response = await axios.post(process.env.REACT_APP_API + `/increaseSocialsViews/${username}`, {
+        socialMediaIcon: icon, 
+      })
+
+      console.log(response.data);
+      
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  const socialStatus = useSelector(state => state.social.status)
+  
+  const trackSocialMediaClick = async () => {
+    path === '/' ? console.log("Click not counted as you are on dashboard") : increaseSocialLinkViews();
+  };
+
+  
+  useEffect(() => {
+    dispatch(getUsername(email))
+}, [])
 
   
 
@@ -64,7 +93,7 @@ const SocialIcon = ({icon,link,index}) => {
      whileInView={{ y: 0, opacity: 1 }}
      viewport={{once:true}}
      className='ml-3 bg-gray-300 bg-opacity-80 shadow-3xl backdrop-blur-[10px] p-2 rounded-full flex-shrink-0'> 
-            <a href={link} target='_blank'>
+            <a href={link} target='_blank' onClick={trackSocialMediaClick}>
               <img src={getIcon(icon)} alt="" className='' />
             </a>
         </motion.div>
