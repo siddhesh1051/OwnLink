@@ -64,9 +64,9 @@ const Fullscreen = () => {
     handleGetProfilePicfromusername(username)
     handleGetBgfromusername(username)
     fetchOwnlinkViews();
-    
 
-   
+
+
 
 
 
@@ -92,7 +92,7 @@ const Fullscreen = () => {
 
   const fetchOwnlinkViews = async () => {
     try {
-      const response = await axios.get(process.env.REACT_APP_API +`/increaseOwnlinkViews/${username}`);
+      const response = await axios.get(process.env.REACT_APP_API + `/increaseOwnlinkViews/${username}`);
 
       // console.log(response.data);
     } catch (error) {
