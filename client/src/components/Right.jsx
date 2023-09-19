@@ -267,7 +267,9 @@ const Right = ({ text, update, setUpdate }, ref) => {
       email,
       link: UrlLink,
       title,
-      linkImage
+      linkImage,
+      linkClicks: 0
+
     })
     console.log(data)
     setUpdate(!update);
