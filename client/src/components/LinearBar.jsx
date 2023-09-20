@@ -27,7 +27,7 @@ const LinearBar = ({ clicks, title, type, maxClicks }) => {
   const scaledValue = (clicks / maxClicks) * 75;
 
   const getScaledValue = (value) => {
-    if (value == 0) return 100;
+    if (value === 0) return 100;
     return value;
   }
 

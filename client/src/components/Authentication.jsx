@@ -19,25 +19,25 @@ const Authentication = () => {
       <div className='container bg-white flex justify-center items-center h-full mx-[8%] my-10 rounded-xl lg:rounded-none p-1 lg:p-0'  >
         {
           isNew ? <Register isNew={isNew} setisNew={setisNew} />
-            
-          :<Login isNew={isNew} setisNew={setisNew} />
+
+            : <Login isNew={isNew} setisNew={setisNew} />
         }
-         <motion.div 
-        initial={{ scale:0, opacity: 0 }}
-        animate={{ scale: 1,opacity: 1 }}
-        transition={{
-          delay: 0.2,
-          duration: 0.4
-        }}
-        className=' modal-right lg:flex-[1.3] lg:overflow-y-hidden lg:flex hidden '>
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.4
+          }}
+          className=' modal-right lg:flex-[1.3] lg:overflow-y-hidden lg:flex hidden '>
           {
-            isNew?
-            <img className='hero' src={SignupImage} alt="" />
-            
-            :
-            <img className='hero' src={LoginImage} alt="" />
+            isNew ?
+              <img className='hero' src={SignupImage} alt="" />
+
+              :
+              <img className='hero' src={LoginImage} alt="" />
           }
-         
+
         </motion.div>
 
       </div>

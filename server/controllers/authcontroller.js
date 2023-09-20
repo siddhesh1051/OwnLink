@@ -26,15 +26,13 @@ module.exports.register = asyncHandler(async (req, res) => {
   const { email, password} = req.body;
 
   if ( !email || !password) {
-    res.status(400);
-    throw new Error("Please Enter all the Feilds");
+    res.status(401).json({ msg: "Please Enter all the Feilds" });
   }
 
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+    res.status(400).json({ msg: "User already exists" });
   }
 
   const user = await User.create({
@@ -47,8 +45,7 @@ module.exports.register = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({user,token: createToken(user._id),});
   } else {
-    res.status(400);
-    throw new Error("User not found");
+    res.status(404).json({ msg: "User not found" });
   }
 })
 
