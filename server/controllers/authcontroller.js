@@ -700,7 +700,7 @@ module.exports.getAllLinksViews = async (req, res) => {
 
     const sortedLinkCounts = linkCounts.sort((a, b) => b.linkClicks - a.linkClicks);
 
-    console.log(sortedLinkCounts)
+    // console.log(sortedLinkCounts)
     res.json(sortedLinkCounts);
   } catch (error) {
     console.error(error);
