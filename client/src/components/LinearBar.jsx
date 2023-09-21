@@ -24,10 +24,11 @@ const LinearBar = ({ clicks, title, type, maxClicks }) => {
 //   console.log(max);
 
   // Calculate the scaled value for LinearProgress (limited to 75% of max)
-  const scaledValue = (clicks / maxClicks) * 75;
+
+  const scaledValue =  maxClicks!==0 ? (clicks / maxClicks) * 75 : 0;
 
   const getScaledValue = (value) => {
-    if (value === 0) return 100;
+    if (value === 0) return 0;
     return value;
   }
 
