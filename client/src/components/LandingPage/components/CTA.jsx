@@ -3,59 +3,80 @@ import React from 'react'
 const CTA = () => {
   return (
     <div>
-      <div className="bg-green-50 dark:bg-green-900/10 py-16">
-  <div className="container m-auto space-y-8 px-6 md:px-12 lg:px-20">
-    <div className="items-center justify-center gap-16 text-center md:flex md:text-left">
-      <div className="order-last mb-6 space-y-6 md:mb-0 md:w-7/12 lg:w-6/12">
-        <h1 className="text-4xl font-bold text-green-900 md:text-5xl dark:text-white">
-          Download it now
-        </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
-          Be part of millions people around the world using tailus in modern
-          User Interfaces.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 md:justify-start lg:gap-6">
-          <a
-            href="#"
-            target="blank"
-            title="For Android"
-            aria-label="google play"
-            className="block overflow-hidden"
-          >
-            <img
-              src="images/badges/google_play.png"
-              width={153}
-              height={46}
-              alt="google play badge"
-            />
-          </a>
-          <a
-            href="#"
-            target="blank"
-            title="For iPhone"
-            aria-label="app store"
-            className="block overflow-hidden"
-          >
-            <img
-              src="images/badges/app-store.png"
-              width={153}
-              height={46}
-              alt="apple store badge"
-            />
-          </a>
-        </div>
-      </div>
+<div className="py-16">
+  <div className="container m-auto space-y-8 px-6 text-gray-500 md:px-12 lg:px-20">
+    <div className="flex items-center justify-center -space-x-2">
       <img
-        src="images/mobility_illustration.webp"
-        width={832}
-        height={608}
-        className="m-auto md:w-5/12"
         loading="lazy"
-        alt="mobility_illustration"
+        width={220}
+        height={220}
+        src="images/avatars/second_user.webp"
+        alt="member photo"
+        className="h-8 w-8 rounded-full object-cover"
       />
+      <img
+        loading="lazy"
+        width={220}
+        height={220}
+        src="images/avatars/first_user.webp"
+        alt="member photo"
+        className="h-12 w-12 rounded-full object-cover"
+      />
+      <img
+        loading="lazy"
+        width={220}
+        height={220}
+        src="images/avatars/third_user.webp"
+        alt="member photo"
+        className="z-10 h-16 w-16 rounded-full object-cover"
+      />
+      <img
+        loading="lazy"
+        width={220}
+        height={220}
+        src="images/avatars/first_user.webp"
+        alt="member photo"
+        className="relative h-12 w-12 rounded-full object-cover"
+      />
+      <img
+        loading="lazy"
+        width={220}
+        height={220}
+        src="images/avatars/second_user.webp"
+        alt="member photo"
+        className="h-8 w-8 rounded-full object-cover"
+      />
+    </div>
+    <div className="m-auto space-y-6 md:w-8/12 lg:w-7/12">
+      <h1 className="text-center text-4xl font-bold text-gray-800 dark:text-white md:text-5xl">
+        Get Started now
+      </h1>
+      <p className="text-center text-xl text-gray-600 dark:text-gray-300">
+        Be part of millions people around the world using tailus in modern User
+        Interfaces.
+      </p>
+      <div className="flex flex-wrap justify-center gap-6 ">
+        <a
+          href="#"
+          className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max  dark:bg-primaryLight rounded-full hover:scale-105 active:scale-95 duration-200"
+        >
+          <span className="relative text-base font-semibold text-white dark:text-dark">
+            Get Started
+          </span>
+        </a>
+        <a
+          href="#"
+          className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
+        >
+          <span className="relative text-base font-semibold text-primary dark:text-white">
+            More about
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
+
 
     </div>
   )

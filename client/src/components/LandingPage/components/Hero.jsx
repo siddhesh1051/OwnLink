@@ -1,24 +1,11 @@
 import React from 'react'
+import HeroImg from '../img/HeroImg-crop.png'
+import Logo from '../img/logo-3d-2.png'
+
 
 const Hero = () => {
   return (
     <>
-      <>
-  {/*
-    add this to your stylesheet 
-    
-    @layer components {
-  .navbar-active .hamburger div:first-child {
-  @apply rotate-45 translate-y-1.5;
-  }
-  .navbar-active .hamburger div:last-child {
-  @apply -rotate-45 -translate-y-1;
-  }
-  .navbar-active div:first-child div:first-child div:last-child{
-      @apply block lg:flex
-  }
-    }
-*/}
   <header>
     <input
       type="checkbox"
@@ -37,13 +24,23 @@ const Hero = () => {
               aria-label="logo"
               className="flex space-x-2 items-center"
             >
-              <div aria-hidden="true" className="flex space-x-1">
+              <img
+
+                src={Logo}
+                alt="logo"
+                className="w-12 h-12 rounded-lg"
+              />
+              <span className=" text-xl font-bold text-gray-600 dark:text-primary">
+                Ownlink
+              </span>
+
+              {/* <div aria-hidden="true" className="flex space-x-1">
                 <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-200" />
                 <div className="h-6 w-2 bg-primary dark:bg-primaryLight" />
               </div>
               <span className="text-base font-bold text-gray-600 dark:text-white">
                 SASS
-              </span>
+              </span> */}
             </a>
             <label
               htmlFor="hbr"
@@ -120,7 +117,7 @@ const Hero = () => {
       <div className="text-center lg:text-left md:mt-12 lg:mt-0 sm:w-10/12 md:w-2/3 sm:mx-auto lg:mr-auto lg:w-6/12">
         <h1 className="text-gray-900 font-bold text-4xl md:text-6xl lg:text-5xl xl:text-6xl dark:text-white">
           Build in your way but with our experts{" "}
-          <span className="text-primary dark:text-primaryLight">Support.</span>
+          <span className="text-primary dark:text-purple-500">Support.</span>
         </h1>
         <p className="mt-8 text-gray-600 dark:text-gray-300">
           Odio incidunt nam itaque sed eius modi error totam sit illum. Voluptas
@@ -144,7 +141,7 @@ const Hero = () => {
               <input
                 autoComplete="email"
                 placeholder="Your mail address"
-                className="w-full p-4 rounded-full placeholder-gray-600 dark:placeholder-white bg-transparent"
+                className="w-full p-4 rounded-full placeholder-gray-600 dark:placeholder-white bg-transparent focus:outline-none focus:ring-0 focus:placeholder-gray-400 dark:focus:placeholder-white dark:bg-transparent dark:ring-0 dark:text-gray-100"
                 type="email"
               />
               <div className="md:pr-1.5 lg:pr-0">
@@ -175,42 +172,18 @@ const Hero = () => {
             </div>
           </form>
         </div>
-        <div className="mt-12 flex gap-6 lg:gap-12 justify-between grayscale dark:grayscale-0">
-          <img
-            src="./images/clients/airbnb.svg"
-            className="h-8 sm:h-10 w-auto lg:h-12"
-            alt=""
-          />
-          <img
-            src="./images/clients/ge.svg"
-            className="h-8 sm:h-10 w-auto lg:h-12"
-            alt=""
-          />
-          <img
-            src="./images/clients/coty.svg"
-            className="h-8 sm:h-10 w-auto lg:h-12"
-            alt=""
-          />
-          <img
-            src="./images/clients/microsoft.svg"
-            className="h-8 sm:h-10 w-auto lg:h-12"
-            alt=""
-          />
-        </div>
       </div>
-      <div className="overflow-hidden w-full lg:w-7/12 lg:-mr-16">
+      <div className="w-full lg:w-7/12 lg:-mr-16">
         <img
-          src="images/project.svg"
+          src={HeroImg}
           alt="project illustration"
-          height=""
-          width=""
+          className='rounded-xl w-full h-108'
         />
       </div>
     </div>
   </div>
 </>
 
-    </>
 
 
   )
