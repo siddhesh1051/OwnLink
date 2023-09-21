@@ -27,7 +27,6 @@ const Login = ({ isNew, setisNew }) => {
     });
 
   const onLogin = async (values, action) => {
-    // console.log('Form data login', values);
     setisLoading(true)
 
     try {
@@ -38,13 +37,11 @@ const Login = ({ isNew, setisNew }) => {
           password: values.password,
         }
       );
-      // console.log(data);
 
       const token = data.token;
       const user = data.user;
 
       localStorage.setItem('token', token);
-      // console.log(user);
 
       if (data) {
         if (data.errors) {
@@ -58,16 +55,12 @@ const Login = ({ isNew, setisNew }) => {
           window.location.reload();
         }
       }
-    } catch (ex) {
+    } catch (ex) {    
       toast.error("Invalid Credentials", {
-
       })
-
     }
     setisLoading(false)
 
-
-    // action.resetForm();
   }
 
 
