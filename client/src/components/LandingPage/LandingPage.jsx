@@ -8,10 +8,10 @@ import Testimonials from './components/Testimonials'
 
 const LandingPage = () => {
   return (
-    <div className='font-[Urbanist] bg-gray-900 px-20'>
+    <div className='font-[Urbanist] bg-gray-900 px-4'>
       <Hero/>
       <Features/>
-      <Content/>
+      {/* <Content/> */}
       <Testimonials/>
       <CTA/>
       <Footer/>
