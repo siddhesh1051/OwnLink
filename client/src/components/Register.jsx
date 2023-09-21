@@ -20,8 +20,11 @@ const Register = ({ isNew, setisNew }) => {
     email: '',
     password: '',
   }
-  const generateError = (error) =>
-    toast.error(error)
+  const generateError = (error) =>{
+    toast.error(error, {
+      position: "bottom-right",
+    });
+  }
 
   const onRegister = async (values, action) => {
     // console.log('Form data register', values);
@@ -58,7 +61,15 @@ const Register = ({ isNew, setisNew }) => {
         }
       }
     } catch (ex) {
-      console.log(ex);
+      if(ex.response && ex.response.status === 400){
+        toast.error("User already registered", {
+        })
+      }
+      else{
+        toast.error("Something went wrong", {
+        })
+      }
+      
     }
     setisLoading(false)
 
