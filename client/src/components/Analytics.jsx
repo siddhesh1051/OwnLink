@@ -8,6 +8,7 @@ import { getViewsInformation } from '../store/getviewsSlice';
 import { getAllLinksViews } from '../store/getAllLinksViews';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import SyncButton from './SyncButton';
 
 const Analytics = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const Analytics = () => {
   return (
 
     <div className='p-5 rounded-xl bg-[#222430] w-full  flex flex-col pb-8 '>
+      <SyncButton />
 
 
       <motion.div
@@ -111,7 +113,7 @@ const Analytics = () => {
         }
 
         {
-          linksViews.length !== 0 && linksViews.map((linksView) => (
+           linksViews && linksViews.length !== 0 && linksViews.map((linksView) => (
             <LinearBar clicks={linksView.linkClicks} title={linksView.title} key={linksView.index} maxClicks={maxLinksClicks} type="link" />
           ))
         }
