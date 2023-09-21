@@ -39,6 +39,7 @@ import { getLinks } from '../store/linkSlice';
 import Appearence from './Appearence';
 import { motion } from 'framer-motion'
 import Analytics from './Analytics';
+import SyncButton from './SyncButton';
 
 
 const Right = ({ text, update, setUpdate }, ref) => {
@@ -381,7 +382,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
         </TabList>
         <TabPanel value={1}    >
-          <div className='p-5 rounded-xl rounded-t-none bg-[#222430] '>
+          <div className='p-5 rounded-xl bg-[#222430] '>
+            <SyncButton/>
 
             <motion.div
               initial={{ y: 20, opacity: 0 }}
