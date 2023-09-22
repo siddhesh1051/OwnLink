@@ -10,7 +10,7 @@ const CTA = () => {
         loading="lazy"
         width={220}
         height={220}
-        src="images/avatars/second_user.webp"
+        src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=boy1"
         alt="member photo"
         className="h-8 w-8 rounded-full object-cover"
       />
@@ -18,7 +18,7 @@ const CTA = () => {
         loading="lazy"
         width={220}
         height={220}
-        src="images/avatars/first_user.webp"
+        src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=boy2"
         alt="member photo"
         className="h-12 w-12 rounded-full object-cover"
       />
@@ -26,7 +26,7 @@ const CTA = () => {
         loading="lazy"
         width={220}
         height={220}
-        src="images/avatars/third_user.webp"
+        src="https://xsgames.co/randomusers/avatar.php?g=female&format=svg&name=girl1"
         alt="member photo"
         className="z-10 h-16 w-16 rounded-full object-cover"
       />
@@ -34,7 +34,7 @@ const CTA = () => {
         loading="lazy"
         width={220}
         height={220}
-        src="images/avatars/first_user.webp"
+        src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=boy3"
         alt="member photo"
         className="relative h-12 w-12 rounded-full object-cover"
       />
@@ -42,7 +42,7 @@ const CTA = () => {
         loading="lazy"
         width={220}
         height={220}
-        src="images/avatars/second_user.webp"
+        src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=boy4"
         alt="member photo"
         className="h-8 w-8 rounded-full object-cover"
       />
