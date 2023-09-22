@@ -2,7 +2,7 @@ import React from 'react'
 
 const Features = () => {
   return (
-    <div>
+    <div className='px-12'>
      <div className="py-16">
   <div className="xl:container m-auto space-y-12 px-6 md:px-12 lg:px-20">
     <div>

@@ -11,10 +11,12 @@ module.exports = {
     colors: {
       primaryLight: '#8536D1',
       secondaryLight: '#A855F7',
+      darker: '#090E1A',
 
     },
     backgroundColor: {
       'sky-100': '#A855F7', // Define your custom color here
+      darker: '#090E1A',
     },
 
       

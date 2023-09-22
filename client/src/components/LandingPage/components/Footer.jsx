@@ -21,7 +21,7 @@ const Footer = () => {
                                 <div
                                     class="flex items-center justify-between gap-6 border-b border-white dark:border-gray-800 py-6 md:block md:space-y-6 md:border-none md:py-0"
                                 >
-                                    <img src="images/logo.svg" alt="logo tailus" width="100" height="42" class="w-32 dark:brightness-200 dark:grayscale" />
+                                    <img src="logo.png" alt="logo tailus" width="100" height="42" class="w-32 " />
                                     <div class="flex gap-6">
                                         <a href="#" target="blank" aria-label="github" class="hover:text-cyan-600">
                                             <svg
@@ -51,13 +51,13 @@ const Footer = () => {
                                                 />
                                             </svg>
                                         </a>
-                                        <a href="#" target="blank" aria-label="medium" class="hover:text-cyan-600">
+                                        <a href="#" target="blank" aria-label="medium" class="hover:text-purple-600">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="20"
                                                 height="20"
                                                 fill="currentColor"
-                                                class="bi bi-medium"
+                                                class="bi bi-twitter"
                                                 viewBox="0 0 16 16"
                                             >
                                                 <path
@@ -132,7 +132,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                                 <div class="flex justify-between border-t border-gray-100 dark:border-gray-800 py-4 pb-8 md:pl-16">
-                                    <span>&copy; tailus 2003 - <span id="year"></span> </span>
+                                    <span>&copy; Ownlink 2023 - <span id="year"></span> </span>
                                     <span>All right reserved</span>
                                 </div>
                             </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Testimonials = () => {
   return (
-    <div>
+    <div className='md:px-16'>
       <div className="py-16">
   <div className="container m-auto px-6 text-gray-600 dark:text-gray-300 md:px-12 xl:px-6">
     <div className="mb-20 space-y-4 px-6 md:px-0">
@@ -15,7 +15,7 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="https://pbs.twimg.com/profile_images/1559671811780087810/Y4E8X2do_400x400.jpg"
+            src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=John+Doe"
             alt=""
             width=""
             height=""
@@ -44,11 +44,10 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="https://pbs.twimg.com/profile_images/1372441824560771075/DTcuXT0Z_400x400.jpg"
+            src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=fdgf"
             alt=""
             width=""
             height=""
-            loading="lazy"
           />
           <div>
             <h6 className="text-lg font-medium text-gray-700 dark:text-white">
@@ -70,7 +69,7 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="https://pbs.twimg.com/profile_images/1362367807887974401/kuJ1OFT1_400x400.jpg"
+            src="https://xsgames.co/randomusers/avatar.php?g=female&format=svg&name=lily"
             alt=""
             width=""
             height=""
@@ -96,7 +95,7 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="https://pbs.twimg.com/profile_images/1511686703672606725/_DV4Mfjd_400x400.jpg"
+            src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=John"
             alt=""
             width=""
             height=""
@@ -122,7 +121,7 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="images/first_user.webp"
+            src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=Clotilde+Magny"
             alt=""
             width=""
             height=""
@@ -149,7 +148,7 @@ const Testimonials = () => {
         <div className="flex gap-4">
           <img
             className="w-12 h-12 rounded-full"
-            src="images/second_user.webp"
+            src="https://xsgames.co/randomusers/avatar.php?g=male&format=svg&name=Leslie+Burnard"
             alt=""
             width=""
             height=""

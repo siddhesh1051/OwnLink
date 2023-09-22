@@ -5,16 +5,22 @@ import Content from './components/Content'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import Testimonials from './components/Testimonials'
+import Content2 from './components/Content2'
+import Pricing from './components/Pricing'
 
 const LandingPage = () => {
   return (
-    <div className='font-[Urbanist] bg-gray-900 px-4'>
+    <div className='font-[Urbanist] bg-[#0A101E] '>
+
       <Hero/>
       <Features/>
-      {/* <Content/> */}
+      <Content2/>
+      <Content/>
       <Testimonials/>
+      <Pricing />
       <CTA/>
       <Footer/>
+
       
     </div>
   )

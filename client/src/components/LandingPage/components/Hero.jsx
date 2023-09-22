@@ -1,18 +1,19 @@
 import React from 'react'
 import HeroImg from '../img/HeroImg-crop.png'
 import Logo from '../img/logo-3d-2.png'
+import '../../../index.css'
 
 
-const Hero = () => {
+const  Hero = () => {
   return (
-    <>
-  <header>
+    <div className='md:px-6'>
+  <header >
     <input
       type="checkbox"
       name="hbr"
       id="hbr"
-      className="hbr peer"
-      hidden=""
+      className="hbr peer "
+      hidden="true"
       aria-hidden="true"
     />
     <nav className="fixed z-20 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur navbar shadow-md shadow-gray-600/5 peer-checked:navbar-active md:relative md:bg-transparent dark:shadow-none">
@@ -108,7 +109,7 @@ const Hero = () => {
       </div>
     </nav>
   </header>
-  <div className="pt-32 md:py-12 xl:container m-auto px-6 md:px-12">
+  <div className="pt-32 md:py-12 xl:container m-auto px-6 md:px-20">
     <div
       aria-hidden="true"
       className="absolute inset-0 my-auto w-96 h-32 rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-50 dark:opacity-20"
@@ -177,12 +178,12 @@ const Hero = () => {
         <img
           src={HeroImg}
           alt="project illustration"
-          className='rounded-xl w-full h-108'
+          className=' w-full h-108 rounded-2xl h-full mr-0 md:p-1 scale-95'
         />
       </div>
     </div>
   </div>
-</>
+</div>
 
 
 
