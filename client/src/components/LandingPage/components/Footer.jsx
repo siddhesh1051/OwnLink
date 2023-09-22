@@ -1,4 +1,5 @@
 import React from 'react'
+import Logo from '../img/logo-3d-2.png';
 
 const Footer = () => {
     return (
@@ -21,7 +22,7 @@ const Footer = () => {
                                 <div
                                     className="flex items-center justify-between gap-6 border-b border-white dark:border-gray-800 py-6 md:block md:space-y-6 md:border-none md:py-0"
                                 >
-                                    <img src="logo.png" alt="logo tailus" width="100" height="42" className="w-32 " />
+                                    <img src={Logo} alt="Ownlink Logo" width="100" height="42" className="w-32 " />
                                     <div className="flex gap-6">
                                         <a href="https://github.com/siddhesh1051/OwnLink" target="blank" aria-label="github" className="hover:text-purple-600">
                                             <svg

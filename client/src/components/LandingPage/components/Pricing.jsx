@@ -52,9 +52,11 @@ const Pricing = () => {
                   <span>Additional Backgrounds</span>
                 </li>
               </ul>
-              <button className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95">
+              <button className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
+                onClick={()=>navigate('/routes/auth')}
+                >
                 <span className="relative text-base font-semibold text-white dark:text-white"
-                  onClick={navigate('/routes/auth')}
+
 
                 >
                   Start Plan
@@ -125,7 +127,7 @@ const Pricing = () => {
                 </li>
               </ul>
               <button className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                onClick={navigate('/routes/auth')}
+                onClick={()=>navigate('/routes/auth')}
 
               >
                 <span className="relative text-base font-semibold text-white dark:text-white">
@@ -171,7 +173,7 @@ const Pricing = () => {
                 </li>
               </ul>
               <button className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-sky-50 before:border before:border-sky-500 dark:before:border-gray-600 dark:before:bg-gray-700 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                onClick={navigate('/routes/auth')}
+                onClick={()=>navigate('/routes/auth')}
               >
                 <span className="relative text-base font-semibold text-sky-600 dark:text-white">
                   Get Started
