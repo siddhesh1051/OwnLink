@@ -22,7 +22,7 @@ const Hero = () => {
             <div className="flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
               <div className="w-full flex justify-between lg:w-auto">
                 <a
-                  href="#"
+                  href="/"
                   aria-label="logo"
                   className="flex space-x-2 items-center"
                 >
@@ -53,36 +53,36 @@ const Hero = () => {
                 <div className="text-gray-600 dark:text-gray-300 lg:pr-4">
                   <ul className="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0">
                     <li>
-                      <Link
-                        to="/"
-                        className="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
+                      <a
+                        href="/"
+                        className=" cursor-pointer block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
                       >
                         <span>Home</span>
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
-                        to="/"
-                        className="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
+                      <a
+                        href="/"
+                        className=" cursor-pointer block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
                       >
                         <span>Analytics</span>
-                      </Link>
+                      </a>
                     </li>
                     <li>
-                      <Link
+                      <a
 
-                        to='/'
-                        className="block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
+                        href='/'
+                        className=" cursor-pointer block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
                       >
                         <span>Backgrounds</span>
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </div>
                 <div className="w-full space-y-2 border-primary/10 dark:border-gray-700 flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l">
                   <Link
                     to="/routes/auth"
-                    className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full focus:before:bg-primary/10 dark:focus:before:bg-primaryLight/10 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
+                    className=" cursor-pointer relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full focus:before:bg-primary/10 dark:focus:before:bg-primaryLight/10 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
                   >
                     <span className="relative text-sm font-semibold text-primary dark:text-primaryLight">
                       Sign Up

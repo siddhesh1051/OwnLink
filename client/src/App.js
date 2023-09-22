@@ -51,7 +51,7 @@ function App() {
   }, []);
     const verifyUser = async () => {
       if (localStorage.getItem("token") === null || localStorage.getItem("token") === undefined ) {
-          navigate("/routes/auth");
+          navigate("/routes/welcome");
 
       }
 
@@ -68,7 +68,7 @@ function App() {
 
       if (!data.status) {
         localStorage.removeItem("token");
-        navigate("/routes/auth");
+        navigate("/routes/welcome");
         console.log(data.user)
       } else
         setuser(data.user)
@@ -84,7 +84,7 @@ function App() {
 
       <Routes>
         <Route path="/routes/auth" element={<Authentication />} />
-        <Route path="/welcome" element={<LandingPage />} />
+        <Route path="/routes/welcome" element={<LandingPage />} />
         <Route path="/" element={<Home />} />
         {
           isMobile?
