@@ -1,8 +1,14 @@
 import React from 'react'
+import { motion } from 'framer-motion';
 
 const Testimonials = () => {
+  const animationProps = {
+    initial: { y: 20, opacity: 0 },
+    transition: { delay: 0.1, duration: 0.4 },
+    whileInView: { y: 0, opacity: 1 },
+  };
   return (
-    <div className='px-16'>
+    <motion.div  {...animationProps} className='px-16'>
       <div className="py-16">
         <div className="container m-auto px-6 text-gray-600 dark:text-gray-300 md:px-12 xl:px-6">
           <div className="mb-20 space-y-4 px-6 md:px-0">
@@ -168,7 +174,7 @@ const Testimonials = () => {
         </div>
       </div>
 
-    </div>
+    </motion.div>
   )
 }
 

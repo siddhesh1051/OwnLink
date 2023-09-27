@@ -1,20 +1,26 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // Import motion
 
 const Features = () => {
-  const navigate = useNavigate();
+  const animationProps = {
+    initial: { y: 20, opacity: 0 },
+    transition: { delay: 0.1, duration: 0.4 },
+    whileInView: { y: 0, opacity: 1 },
+  };
 
   return (
     <div className='px-12'>
       <div className="py-16">
         <div className="xl:container m-auto space-y-12 px-6 md:px-12 lg:px-20">
-          <div>
+          <motion.div  {...animationProps}
+          >
             <h2 className="mt-4 text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
               Elevate Your Presence with Ownlink
             </h2>
-          </div>
+          </motion.div>
           <div className="mt-16 grid gap-8 sm:w-2/3 sm:mx-auto md:w-full md:grid-cols-2 md:-mx-8 lg:grid-cols-3">
-            <div className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+            <motion.div {...animationProps} className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
               <div className="space-y-12 text-center">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/4341/4341069.png"
@@ -30,7 +36,8 @@ const Features = () => {
                   <p className="text-gray-600 dark:text-gray-300">
                     Gather all your social media profiles and important links in one place for easy access. With Ownlink, you can create a single, shareable link that simplifies your online presence.                  </p>
                   <Link
-                    to="/routes/auth" 
+
+                    to="/routes/auth"
                     className="group relative flex mx-auto h-12 w-12 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800"
                   >
                     <svg
@@ -48,8 +55,8 @@ const Features = () => {
                   </Link>
                 </div>
               </div>
-            </div>
-            <div className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+            </motion.div>
+            <motion.div {...animationProps} className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
               <div className="space-y-12 text-center">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/4341/4341146.png"
@@ -65,7 +72,7 @@ const Features = () => {
                   <p className="text-gray-600 dark:text-gray-300">
                     Tailor the look and feel of your Ownlink to match your personal style. Choose from various customization options and make your Ownlink page uniquely yours.                  </p>
                   <Link
-                    to="/routes/auth" 
+                    to="/routes/auth"
                     className="group relative flex mx-auto h-12 w-12 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800"
                   >
                     <svg
@@ -83,8 +90,9 @@ const Features = () => {
                   </Link>
                 </div>
               </div>
-            </div>
-            <div className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+            </motion.div>
+            <motion.div {...animationProps}
+              className="p-8 py-12 sm:p-12 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
               <div className="space-y-12 text-center">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/4341/4341152.png"
@@ -100,7 +108,7 @@ const Features = () => {
                   <p className="text-gray-600 dark:text-gray-300">
                     Monitor views and clicks on your Ownlink to see the impact of your online presence. Understand your audience better and make data-driven decisions.                  </p>
                   <Link
-                    to="/routes/auth" 
+                    to="/routes/auth"
                     className="group relative flex mx-auto h-12 w-12 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800"
                   >
                     <svg
@@ -118,7 +126,7 @@ const Features = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -1,11 +1,17 @@
 import React from 'react'
 import Logo from '../img/logo-3d-2.png';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+    const animationProps = {
+        initial: { y: 20, opacity: 0 },
+        transition: { delay: 0.1, duration: 0.4 },
+        whileInView: { y: 0, opacity: 1 },
+      };
     return (
         <div>
 
-            <footer>
+            <motion.footer {...animationProps} > 
                 <svg xmlns="http://www.w3.org/2000/svg" className="-mb-0.5 w-full" viewBox="0 0 1367.743 181.155">
                     <path
                         className="fill-current text-gray-100 dark:text-gray-800"
@@ -140,7 +146,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </motion.footer>
 
         </div>
     )
