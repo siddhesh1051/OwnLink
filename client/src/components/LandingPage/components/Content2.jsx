@@ -1,11 +1,17 @@
 import React from 'react';
 import SocialMockup from '../img/raw/social-media.jpeg';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Content2 = () => {
+  const animationProps = {
+    initial: { y: 20, opacity: 0 },
+    transition: { delay: 0.1, duration: 0.4 },
+    whileInView: { y: 0, opacity: 1 },
+  };
   return (
     <div>
-      <div className="py-16">
+      <motion.div {...animationProps} className="py-16">
         <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
           <div className="lg:bg-gray-50 dark:lg:bg-darker lg:p-16 rounded-[4rem] space-y-6 md:flex md:gap-6 justify-center md:space-y-0 lg:items-center">
             <div className="md:5/12 lg:w-1/2 mr-8">
@@ -38,7 +44,7 @@ const Content2 = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
