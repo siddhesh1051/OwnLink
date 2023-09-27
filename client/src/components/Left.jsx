@@ -10,6 +10,8 @@ import Modal from '@mui/joy/Modal/Modal'
 import ModalDialog from '@mui/joy/ModalDialog/ModalDialog'
 import Typography from '@mui/joy/Typography/Typography'
 import { saveAs } from "file-saver";
+import { Avatar,IconButton, Menu, MenuItem } from "@mui/material";
+import LogoutMenu from './LogoutMenu'
 
 
 
@@ -18,14 +20,13 @@ const Left = ({ handleCustomize, update }, ref) => {
   const [clicked, setclicked] = useState(false)
   const [open, setOpen] = useState(false)
   const navigate = useNavigate();
-  const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userData");
-    toast.success("Logged out Successfully");
-    navigate("/routes/auth");
-  };
+  const [showModal, setshowModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [showProfile, setShowProfile] = useState(false);
+
+ 
+
+  
 
   const handleQrOpen = () => {
     setOpen(true)
@@ -51,10 +52,13 @@ const Left = ({ handleCustomize, update }, ref) => {
       transition={{ duration: 0.6 }}
 
       className='flex-1 flex flex-col  justify-start p-2'>
+        
       <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0  '>
 
-        <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button>
+        {/* <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button> */}
+        <LogoutMenu update={update} handleQrOpen={handleQrOpen}/>
         <div className='mt-2 mr-1'>
+       
 
           {clicked ? <LuCheck className='inline text-2xl mr-3 text-violet-400 duration-300   ' /> :
 
