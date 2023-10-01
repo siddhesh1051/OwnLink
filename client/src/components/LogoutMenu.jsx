@@ -78,20 +78,21 @@ const LogoutMenu = ({ update, handleQrOpen }) => {
         onClose={handleClose}
         variant='plain'
       >
-        <MenuItem onClick={() =>
-          toast.success(`Your Email is ${email}`, {
-            duration: 5000,
-            position: 'top-right',
-            icon: '📧',
-            style: {
-              backgroundColor: 'white',
-              color: 'black',
-              border: '1px solid #3A3D4F',
+        <MenuItem 
+        // onClick={() =>
+        //   toast.success(`Your Email is ${email}`, {
+        //     duration: 5000,
+        //     position: 'top-right',
+        //     icon: '📧',
+        //     style: {
+        //       backgroundColor: 'white',
+        //       color: 'black',
+        //       border: '1px solid #3A3D4F',
 
-            },
+        //     },
 
-          })
-        } sx={{ fontSize: '16px' }}>My Email</MenuItem>
+        //   })} 
+        sx={{ fontSize: '16px' }}>{email}</MenuItem>
         <MenuItem onClick={() => {
             username !== null ? handleQrOpen() : toast.error("Please Claim your username first")
           }
