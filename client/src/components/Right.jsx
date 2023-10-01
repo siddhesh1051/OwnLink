@@ -259,7 +259,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
 
       toast.success("Saved")
-      window.location.reload;
+      window.location.reload();
 
     }
     catch {
