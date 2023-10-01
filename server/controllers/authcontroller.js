@@ -1,6 +1,9 @@
 const User = require("../model/authmodel");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
+const { sendMail } = require("../helpers/sendMail");
+const { mailHTML } = require("../helpers/mailHTML");
+
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -43,6 +46,7 @@ module.exports.register = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    sendMail(email, "Welcome to Ownlink", mailHTML(email));
     res.status(201).json({user,token: createToken(user._id),});
   } else {
     res.status(404).json({ msg: "User not found" });
