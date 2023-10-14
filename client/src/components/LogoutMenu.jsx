@@ -3,11 +3,12 @@ import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import { LuLogOut } from 'react-icons/lu';
+import TiltCard from './TiltCard';
 
 
 
 
-const LogoutMenu = ({ update, handleQrOpen }) => {
+const LogoutMenu = ({ update, handleQrOpen,handleCardOpen }) => {
 
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(null);
@@ -79,26 +80,19 @@ const LogoutMenu = ({ update, handleQrOpen }) => {
         variant='plain'
       >
         <MenuItem 
-        // onClick={() =>
-        //   toast.success(`Your Email is ${email}`, {
-        //     duration: 5000,
-        //     position: 'top-right',
-        //     icon: '📧',
-        //     style: {
-        //       backgroundColor: 'white',
-        //       color: 'black',
-        //       border: '1px solid #3A3D4F',
-
-        //     },
-
-        //   })} 
         sx={{ fontSize: '16px' }}>{email}</MenuItem>
         <MenuItem onClick={() => {
             username !== null ? handleQrOpen() : toast.error("Please Claim your username first")
           }
         } sx={{ fontSize: '16px' }}>My QR</MenuItem>
+        <MenuItem onClick={() => {
+            username !== null ? handleCardOpen() : toast.error("Please Claim your username first")
+          }
+        } sx={{ fontSize: '16px' }}>Order Card</MenuItem>
+
         <MenuItem onClick={logOut} sx={{ fontSize: '16px', color: 'red' }}>Logout <LuLogOut className='inline lg:text-md text-sm ml-2 text-red-500' /></MenuItem>
       </Menu>
+
     </div>
   )
 }

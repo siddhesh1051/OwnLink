@@ -1,8 +1,8 @@
-import React, { useState, useRef, forwardRef, useEffect } from 'react'
+import React, { useState, forwardRef, useEffect } from 'react'
 import Screen from './Screen'
 import '../../src/App.css'
 import { BiLinkExternal } from 'react-icons/bi'
-import { LuCopy, LuCheck, LuLogOut, LuArrowDown } from 'react-icons/lu'
+import { LuCopy, LuCheck, LuArrowDown } from 'react-icons/lu'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -10,8 +10,10 @@ import Modal from '@mui/joy/Modal/Modal'
 import ModalDialog from '@mui/joy/ModalDialog/ModalDialog'
 import Typography from '@mui/joy/Typography/Typography'
 import { saveAs } from "file-saver";
-import { Avatar,IconButton, Menu, MenuItem } from "@mui/material";
 import LogoutMenu from './LogoutMenu'
+import TiltCard from './TiltCard'
+import ModalClose from '@mui/joy/ModalClose';
+import confetti from 'canvas-confetti';
 
 
 
@@ -19,17 +21,36 @@ const Left = ({ handleCustomize, update }, ref) => {
 
   const [clicked, setclicked] = useState(false)
   const [open, setOpen] = useState(false)
-  const navigate = useNavigate();
-  const [showModal, setshowModal] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [showProfile, setShowProfile] = useState(false);
+  const [cardOpen, setCardOpen] = useState(false);
 
- 
 
-  
+
+
+  const handleConfetti = () => {
+    confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.9 },
+        zIndex: 10000,
+    });
+
+};
+const handleOrderSubmit = async (event) => {
+    event.preventDefault();
+    handleConfetti();
+    toast.success("Order Placed Successfully");
+    setTimeout(() => {
+        setCardOpen(false);
+    }, 1500);
+    
+
+};
 
   const handleQrOpen = () => {
     setOpen(true)
+  }
+  const handleCardOpen = () => {
+    setCardOpen(true)
   }
   const handleDownload = (link) => {
     let url = link
@@ -37,12 +58,12 @@ const Left = ({ handleCustomize, update }, ref) => {
   }
   let username = localStorage.getItem("username")
 
-    useEffect(() => {
-      username = localStorage.getItem("username")
+  useEffect(() => {
+    username = localStorage.getItem("username")
 
 
-    }, [update])
-    
+  }, [update])
+
 
   const profileLink = `${process.env.REACT_APP_CLIENT_API}/${username}`
   return (
@@ -52,13 +73,13 @@ const Left = ({ handleCustomize, update }, ref) => {
       transition={{ duration: 0.6 }}
 
       className='flex-1 flex flex-col  justify-start p-2'>
-        
+
       <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0  '>
 
         {/* <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button> */}
-        <LogoutMenu update={update} handleQrOpen={handleQrOpen}/>
+        <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen}  />
         <div className='mt-2 mr-1'>
-       
+
 
           {clicked ? <LuCheck className='inline text-2xl mr-3 text-violet-400 duration-300   ' /> :
 
@@ -141,7 +162,30 @@ const Left = ({ handleCustomize, update }, ref) => {
       </Modal>
 
 
+      <Modal open={cardOpen} onClose={() => setCardOpen(false)} >
+        <ModalDialog 
+          layout='fullscreen'
+          variant='soft'
+          aria-labelledby="basic-modal-dialog-title"
+          aria-describedby="basic-modal-dialog-description"
+          className='flex justify-center items-center bg-black bg-opacity-50'
+          sx={{ backgroundColor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(15px)', padding: 2, margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 2, paddingBottom: 2}}
+>
+<ModalClose />
+            <TiltCard update={update} handleCardOpen={handleCardOpen} />
+            <button className='px-4 py-2 rounded-lg bg-violet-500 flex justify-center items-center text-center mt-2 text-white' onClick={handleOrderSubmit}
+              animate={{ y: 0, opacity: 1 }}
+              initial={{ y: 30, opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
 
+            >Order Now</button>
+
+
+        </ModalDialog>
+
+      </Modal>
 
 
 
