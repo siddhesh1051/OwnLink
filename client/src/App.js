@@ -85,6 +85,7 @@ function App() {
       <Routes>
         <Route path="/routes/auth" element={<Authentication />} />
         <Route path="/routes/welcome" element={<LandingPage />} />
+        <Route path="/routes/orders" element={<LandingPage />} />
         <Route path="/" element={<Home />} />
         {
           isMobile?

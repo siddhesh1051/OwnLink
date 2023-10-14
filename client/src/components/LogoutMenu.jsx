@@ -88,7 +88,7 @@ const LogoutMenu = ({ update, handleQrOpen,handleCardOpen }) => {
         <MenuItem onClick={() => {
             username !== null ? handleCardOpen() : toast.error("Please Claim your username first")
           }
-        } sx={{ fontSize: '16px' }}>Order Card</MenuItem>
+        } sx={{ fontSize: '16px' }}>Order NFC Card</MenuItem>
 
         <MenuItem onClick={logOut} sx={{ fontSize: '16px', color: 'red' }}>Logout <LuLogOut className='inline lg:text-md text-sm ml-2 text-red-500' /></MenuItem>
       </Menu>

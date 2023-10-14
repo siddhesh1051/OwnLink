@@ -1,4 +1,4 @@
-const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials, removeLink, removeSocial, getBioFromUsername, getNameFromUsername, getLinksFromUsername, getSocialsFromUsername, getEmailFromUsername, addProfilePic, getProfilePic, getProfilePicFromUsername, addBg, getBg, getBgFromUsername, trackOwnlinkViews, getViewsInformation, increaseSocialsViews, getAllSocialsViews, getAllLinksViews, increaseLinksViews } = require("../controllers/authcontroller");
+const { register, login, addLink, addSocial, addBio, addName, addUsername, getUsername, getName, getBio, getLinks, getSocials, removeLink, removeSocial, getBioFromUsername, getNameFromUsername, getLinksFromUsername, getSocialsFromUsername, getEmailFromUsername, addProfilePic, getProfilePic, getProfilePicFromUsername, addBg, getBg, getBgFromUsername, trackOwnlinkViews, getViewsInformation, increaseSocialsViews, getAllSocialsViews, getAllLinksViews, increaseLinksViews, getOrders, submitOrder } = require("../controllers/authcontroller");
 const { checkUser } = require("../middlewares/authmiddleware");
 
 const router = require("express").Router();
@@ -40,6 +40,9 @@ router.post("/increaseSocialsViews/:username", increaseSocialsViews);
 
 router.get("/getAllLinksViews/:username", getAllLinksViews);
 router.post("/increaseLinksViews/:username", increaseLinksViews);
+
+router.post("/submitOrder", submitOrder );
+router.get("/getOrders/:email", getOrders)
 
 
 module.exports = router;

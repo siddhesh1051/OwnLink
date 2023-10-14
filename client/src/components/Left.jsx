@@ -14,6 +14,8 @@ import LogoutMenu from './LogoutMenu'
 import TiltCard from './TiltCard'
 import ModalClose from '@mui/joy/ModalClose';
 import confetti from 'canvas-confetti';
+import Logo from './img/logo.png'
+import axios from 'axios'
 
 
 
@@ -23,28 +25,111 @@ const Left = ({ handleCustomize, update }, ref) => {
   const [open, setOpen] = useState(false)
   const [cardOpen, setCardOpen] = useState(false);
 
+  const email = localStorage.getItem('email');
+  const navigate = useNavigate();
 
+  const laodscript = (src) => {
+    return new Promise(resolve => {
+      const script = document.createElement('script')
+      script.src = src
+
+      script.onload = () => {
+        resolve(true)
+      }
+      script.onerror = () => {
+        resolve(false)
+      }
+
+      document.body.appendChild(script)
+    })
+  }
+
+  const handleRazorpay = async (docref) => {
+
+    const res = await laodscript('https://checkout.razorpay.com/v1/checkout.js')
+    if (!res) {
+      alert('Razorpay SDK failed to load. Are you online?')
+      return
+    }
+
+    const options = {
+      key: 'rzp_test_D4QKUfd4DWNLdV',
+      amount: 999 * 100,
+      currency: 'INR',
+      name: 'Ownlink NFC Card Payment',
+      description: 'NFC Card Payment',
+      image: Logo,
+      handler: function (response) {
+        submitOrder(response);
+
+
+      },
+      prefill: {
+        name: username,
+        email: 'test@gmail.com',
+        contact: '9999999999'
+      },
+      theme: {
+        color: '#31224E'
+      }
+    }
+    const paymentObject = new window.Razorpay(options)
+    paymentObject.open()
+
+
+  }
+
+
+  const submitOrder = async (response) => {
+    const { razorpay_payment_id} = response;
+    const orderData = {
+      name: "NFC Card",
+      razorpay_payment_id,
+      amount: 999,
+      order_id: `OID${Date.now() * 10}`
+      // razorpay_order_id,
+      // razorpay_signature,
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/submitOrder`,
+      {
+        email,
+        orderData,
+      }
+    );
+
+    if(data.success === true ){
+      handleOrderSubmit();
+    }
+    else{
+      toast.error("Payment Failed");
+    }
+
+  };
+  
 
 
   const handleConfetti = () => {
     confetti({
-        particleCount: 200,
-        spread: 100,
-        origin: { y: 0.9 },
-        zIndex: 10000,
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.9 },
+      zIndex: 10000,
     });
 
-};
-const handleOrderSubmit = async (event) => {
-    event.preventDefault();
+  };
+  const handleOrderSubmit = async (event) => {
+    // event.preventDefault();
     handleConfetti();
     toast.success("Order Placed Successfully");
-    setTimeout(() => {
-        setCardOpen(false);
-    }, 1500);
     
+    setTimeout(() => {
+      navigate("/routes/orders")
+      setCardOpen(false);
+    }, 1500);
 
-};
+
+  };
 
   const handleQrOpen = () => {
     setOpen(true)
@@ -77,7 +162,7 @@ const handleOrderSubmit = async (event) => {
       <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0  '>
 
         {/* <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button> */}
-        <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen}  />
+        <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen} />
         <div className='mt-2 mr-1'>
 
 
@@ -163,24 +248,25 @@ const handleOrderSubmit = async (event) => {
 
 
       <Modal open={cardOpen} onClose={() => setCardOpen(false)} >
-        <ModalDialog 
+        <ModalDialog
           layout='fullscreen'
           variant='soft'
           aria-labelledby="basic-modal-dialog-title"
           aria-describedby="basic-modal-dialog-description"
           className='flex justify-center items-center bg-black bg-opacity-50'
-          sx={{ backgroundColor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(15px)', padding: 2, margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 2, paddingBottom: 2}}
->
-<ModalClose />
-            <TiltCard update={update} handleCardOpen={handleCardOpen} />
-            <button className='px-4 py-2 rounded-lg bg-violet-500 flex justify-center items-center text-center mt-2 text-white' onClick={handleOrderSubmit}
-              animate={{ y: 0, opacity: 1 }}
-              initial={{ y: 30, opacity: 0 }}
-              transition={{ duration: 0.2, delay: 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          sx={{ backgroundColor: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(15px)', padding: 2, margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: 2, paddingBottom: 2 }}
+        >
+          <ModalClose />
+          <TiltCard update={update} handleCardOpen={handleCardOpen} />
+          <motion.button 
+            className='px-6 py-3 rounded-lg bg-violet-700 flex justify-center items-center text-center mt-2 text-white text-xl font-semibold ' onClick={handleRazorpay}
+            animate={{ y: 0, opacity: 1 }}
+            initial={{ y: 30, opacity: 0 }}
+            transition={{ duration: 0.2, delay: 0.1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
 
-            >Order Now</button>
+          >Order Now</motion.button>
 
 
         </ModalDialog>
