@@ -713,4 +713,45 @@ module.exports.getAllLinksViews = async (req, res) => {
 };
 
 
+module.exports.submitOrder = async (req, res) => {
+    try{
+      const { email, orderData } = req.body;
+      const user = await User.findOne({ email });
+
+      if(user){
+        user.orders.push(orderData);
+        await user.save();
+        return res.status(201).json({ msg: "Order Placed Successfully", success: true });
+      }
+      else{
+        await User.create({ email, orders: [orderData] });
+        return res.status(202).json({ msg: "Order Placed Successfully",success: true });
+      }
+    }
+    catch{
+        return res.status(401).json({ msg: "Error placing order",success: false });
+    }
+
+}
+
+
+module.exports.getOrders = async (req, res) => {
+  try{
+      const { email } = req.params;
+      const user  = await User.findOne({ email });
+
+      if(!user){
+        return res.status(404).json({ msg: "User not found" });
+      }
+      else{
+        return res.status(200).json({ msg: "success", orders: user.orders });
+      }
+  }
+  catch{
+    return res.status(401).json({ msg: "Error fetching orders" });
+  }
+
+}
+
+
 
