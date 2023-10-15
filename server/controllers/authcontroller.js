@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const { sendMail } = require("../helpers/sendMail");
 const { mailHTML } = require("../helpers/mailHTML");
+const { orderplacedHTML } = require("../helpers/orderplacedHTML");
+const { cancelorderHTML } = require("../helpers/cancelorderHTML");
 
 
 const createToken = (id) => {
@@ -721,10 +723,12 @@ module.exports.submitOrder = async (req, res) => {
       if(user){
         user.orders.push(orderData);
         await user.save();
+        sendMail(email, "Order Placed Successfully", orderplacedHTML(orderData.amount));
         return res.status(201).json({ msg: "Order Placed Successfully", success: true });
       }
       else{
         await User.create({ email, orders: [orderData] });
+        sendMail(email, "Order Placed Successfully", orderplacedHTML(orderData.amount));
         return res.status(202).json({ msg: "Order Placed Successfully",success: true });
       }
     }
@@ -749,6 +753,37 @@ module.exports.getOrders = async (req, res) => {
   }
   catch{
     return res.status(401).json({ msg: "Error fetching orders" });
+  }
+
+}
+
+
+module.exports.cancelOrder = async (req, res) => {
+  try{
+      const { order_id } = req.params;
+      const user = await User.findOne({ "orders": { $elemMatch: { order_id: order_id } } });
+
+
+      if(!user){
+        return res.status(404).json({ msg: "User not found" });
+      }
+      else{
+        const orders = user.orders;
+        const orderIndex = orders.findIndex(order => order.order_id === order_id);
+        orders.splice(orderIndex, 1);
+        await User.findByIdAndUpdate(
+          user._id,
+          {
+            orders: orders,
+          },
+          { new: true }
+        );
+          sendMail(user.email, "Order Cancelled Successfully", cancelorderHTML());
+        return res.status(200).json({ msg: "Order Cancelled Successfully", orders: orders, success: true });
+      }
+  }
+  catch{
+    return res.status(401).json({ msg: "Error cancelling order", success: false });
   }
 
 }
