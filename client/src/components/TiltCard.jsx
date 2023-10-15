@@ -40,13 +40,13 @@ const TiltCard = ({setCardOpen, cardOpen,update,handleCardOpen}) => {
                     scale: 1.1,
                     speed: 600,
                 }}
-                className='bg-gradient-to-tr h-[250px] from-[#38275a] to-black border-2 border-[#4c3970] p-5 rounded-xl sm:w-[400px] w-full duration-300 flex justify-center items-center relative'
+                className='bg-gradient-to-tr h-[250px] from-[#38275a] to-black border-2 border-[#4c3970] p-5 rounded-xl sm:w-[400px] w-[80vw] duration-300 flex justify-center items-center relative'
                 >
             <img src={Logo} alt="" width={50} height={50} className='absolute top-1 left-1' />
             <LuSmartphoneNfc className='absolute top-2 right-2 text-purple-900' size={25} onClick={()=>setCardOpen(!cardOpen)} />
             <div className='flex flex-col justify-center items-center gap-2'>
 
-            <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&color=54-38-87&data=${profileLink}`} alt="qr" className='w-[100px] h-[100px] '  />
+            <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&color=54-38-87&data=${profileLink}`} alt="qr" className='md:w-[100px]  md:h-[100px] w-[70px] h-[70px] '  />
             <p className='text-purple-500 font-[poppins]'>@{username}</p>
 
             </div>
