@@ -53,18 +53,18 @@ const Orders = () => {
                 <Table aria-label='table variants' variant='plain' sx={{ color: 'white' }}>
                     <thead >
                         <tr >
-                            <th style={{ width: '30%', textAlign: 'center', backgroundColor: 'black' }} className='text-xl font-bold '>Order ID</th>
-                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='text-xl font-bold ' >Product</th>
-                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='text-xl font-bold ' >Product Name</th>
-                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='text-xl font-bold ' >Amount</th>
-                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='text-xl font-bold '>Actions</th>
+                            <th style={{ width: '30%', textAlign: 'center', backgroundColor: 'black' }} className='md:text-xl text-sm font-bold '>Order ID</th>
+                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='md:text-xl text-sm font-bold ' >Product</th>
+                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='md:text-xl text-sm font-bold ' >Product Name</th>
+                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='md:text-xl text-sm font-bold ' >Amount</th>
+                            <th style={{ textAlign: 'center', backgroundColor: 'black' }} className='md:text-xl text-sm font-bold '>Actions</th>
 
                         </tr>
                     </thead>
                     <tbody >
                         {myOrders.map((row) => (
                             <tr key={row.order_id}  >
-                                <td className='text-lg'>{row.order_id}</td>
+                                <td className='md:text-lg text-[10px]'>{row.order_id}</td>
                                 <td>
                                     <div className='flex justify-center'>
                                         <div className='flex flex-col justify-center'>
@@ -72,16 +72,16 @@ const Orders = () => {
                                                 <img
                                                     src={TiltCard}
                                                     alt='product'
-                                                    className='h-[100px] w-[100px] object-contain hover:scale-110 duration-200'
+                                                    className='md:h-[100px] md:w-[100px] w-[40px] h-[40px] object-contain hover:scale-110 duration-200'
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td className='text-lg'>{row.name}</td>
-                                <td className='text-lg'>{row.amount} ₹</td>
+                                <td className='md:text-lg text-xs'>{row.name}</td>
+                                <td className='md:text-lg text-xs'>{row.amount} ₹</td>
                                 <td>
-                                    <button className='px-4 py-2 bg-[#161a23] border-2 border-[#3f3354] rounded-lg hover:bg-[#423063] hover:text-[white] active:scale-95 duration-200 text-md'
+                                    <button className='md:px-4 md:py-2 px-2 py-1 bg-[#161a23] border-2 border-[#3f3354] rounded-lg hover:bg-[#423063] hover:text-[white] active:scale-95 duration-200 md:text-md text-[10px]'
                                         onClick={() => cancelOrder(row.order_id)}
                                         >
                                         Cancel Order
