@@ -16,6 +16,7 @@ import ModalClose from '@mui/joy/ModalClose';
 import confetti from 'canvas-confetti';
 import Logo from './img/logo.png'
 import axios from 'axios'
+import Siderbar from './Sidebar'
 
 
 
@@ -157,12 +158,14 @@ const Left = ({ handleCustomize, update }, ref) => {
       initial={{ x: -1000 }}
       transition={{ duration: 0.6 }}
 
-      className='flex-1 flex flex-col  justify-start p-2'>
+      className='flex-1 flex flex-col justify-start p-2 pl-0'>
 
-      <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0  '>
+      <div className='flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0   '>
 
         {/* <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button> */}
-        <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen} />
+        {/* <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen} /> */}
+        <Siderbar update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen} />
+        
         <div className='mt-2 mr-1'>
 
 
