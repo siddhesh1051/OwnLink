@@ -103,11 +103,25 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                             variants={item}
                             initial={{ width: 0, opacity: 0 }}
                             animate={{ width: isMobile ? "100vw" : "30vw", opacity: 1 }}
-                            transition={{ duration: .5 }}
+                            transition={{ duration: .7 }}
                             exit="exit"
                         >
                             <div className="btn_close" onClick={closeMenu}><FiX /></div>
-                            <motion.a href=""
+                            <motion.a 
+                                initial={{ x: -90, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: .9 }}
+                                exit={{
+                                    opacity: 0,
+                                    x: -90,
+                                    transition: {
+                                        ease: "easeInOut",
+                                        delay: 0.6
+                                    }
+                                }}
+                                onClick={() => navigate(`/`) }
+                            >Home</motion.a>
+                            <motion.a 
                                 initial={{ x: -90, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: .8 }}
@@ -119,8 +133,12 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                                         delay: 0.5
                                     }
                                 }}
-                            >Home</motion.a>
-                            <motion.a href=""
+                                onClick={() => {
+                                    username !== null ? handleQrOpen() : toast.error("Please Claim your username first")
+                                  }
+                                }
+                            >My QR</motion.a>
+                            <motion.a 
                                 initial={{ x: -90, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: .7 }}
@@ -132,8 +150,12 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                                         delay: .4
                                     }
                                 }}
-                            >About</motion.a>
-                            <motion.a href=""
+                                onClick={() => {
+                                    username !== null ? handleCardOpen() : toast.error("Please Claim your username first")
+                                  }
+                                }
+                            >NFC Card</motion.a>
+                            <motion.a 
                                 initial={{ x: -90, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: .6 }}
@@ -145,8 +167,10 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                                         delay: .3
                                     }
                                 }}
-                            >Portfolio</motion.a>
-                            <motion.a href=""
+                                onClick={() => navigate(`/routes/orders`) }
+                                
+                            >My Orders</motion.a>
+                            <motion.a 
                                 initial={{ x: -90, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: .5 }}
@@ -158,8 +182,8 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                                         delay: .2
                                     }
                                 }}
-                            >Blog</motion.a>
-                            <motion.a href=""
+                            >My Account</motion.a>
+                            <motion.a 
                                 initial={{ x: -90, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 transition={{ delay: .4 }}
@@ -171,7 +195,10 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
                                         delay: .1
                                     }
                                 }}
-                            >Contact</motion.a>
+                                id='logout_btn'
+                                onClick={logOut}
+                            >Logout <LuLogOut className='inline text-3xl  ml-2 text-brown'/></motion.a>
+                            
                         </motion.div>
                     )
                 }
