@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './slider.css';
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'
+import { LuLogOut } from 'react-icons/lu';
 
 
 
@@ -10,6 +13,18 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
 
     const [open, setOpen] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
+    const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(null);
+    let email = localStorage.getItem('email');
+    let username = localStorage.getItem("username")
+
+    useEffect(() => {
+        username = localStorage.getItem("username")
+        email = localStorage.getItem("email")
+
+
+    }, [update])
+
     function handleWindowSizeChange() {
         setWidth(window.innerWidth);
     }
@@ -22,13 +37,13 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
 
     useEffect(() => {
         if (open) {
-          // Disable scroll on body when the menu is open
-          document.body.style.overflow = 'hidden';
+            // Disable scroll on body when the menu is open
+            document.body.style.overflow = 'hidden';
         } else {
-          // Re-enable scroll on body when the menu is closed
-          document.body.style.overflow = 'visible';
+            // Re-enable scroll on body when the menu is closed
+            document.body.style.overflow = 'visible';
         }
-      }, [open]);
+    }, [open]);
 
     const isMobile = width <= 1023;
     console.log(isMobile)
@@ -55,9 +70,27 @@ const Siderbar = ({ update, handleQrOpen, handleCardOpen }) => {
         }
     }
 
+    // links operations
+    const logOut = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userData");
+        toast.success("Logged out Successfully");
+        navigate("/routes/auth");
+    };
+
+    const handleClick = (event) => {
+        setMenuOpen(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setMenuOpen(null);
+    };
+
 
     return (
-        <div className="container">
+        <div className="sidemenu_container">
             <header>
                 <div className="menu" onClick={isOpen}>
                     <FiMenu />
