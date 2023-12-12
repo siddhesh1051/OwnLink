@@ -56,10 +56,9 @@ header .menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Center vertically */
     align-items: center;
-    /* Center horizontally */
     z-index: 100;
+    text-align: start;
 }
 
 .menu_container a {
@@ -70,8 +69,20 @@ header .menu {
     overflow: hidden;
     font-size: 2vw;
     text-transform: uppercase;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+}
+.menu_container a:hover {
+    color: #814dde;
+    transition: 0.4s;
+    scale: 1.05;
 }
 
+#logout_btn{
+    color: brown;
+}
 @media (max-width: 768px) {
 
     .menu_container {
