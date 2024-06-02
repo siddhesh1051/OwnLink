@@ -1,5 +1,5 @@
-import React from 'react'
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const Testimonials = () => {
   const animationProps = {
@@ -8,7 +8,7 @@ const Testimonials = () => {
     whileInView: { y: 0, opacity: 1 },
   };
   return (
-    <motion.div  {...animationProps} className='px-16'>
+    <motion.div {...animationProps} className="md:px-16 px-2">
       <div className="py-16">
         <div className="container m-auto px-6 text-gray-600 dark:text-gray-300 md:px-12 xl:px-6">
           <div className="mb-20 space-y-4 px-6 md:px-0">
@@ -37,7 +37,13 @@ const Testimonials = () => {
                 </div>
               </div>
               <p className="mt-8">
-                I have been using this product for a while now, and I must say it has exceeded my expectations. The ease of use and functionality are top-notch. It has greatly improved my workflow and productivity. The customer support is also outstanding, always ready to assist with any questions or issues. I highly recommend this product to anyone looking to streamline their work processes and enhance their productivity.
+                I have been using this product for a while now, and I must say
+                it has exceeded my expectations. The ease of use and
+                functionality are top-notch. It has greatly improved my workflow
+                and productivity. The customer support is also outstanding,
+                always ready to assist with any questions or issues. I highly
+                recommend this product to anyone looking to streamline their
+                work processes and enhance their productivity.
               </p>
             </div>
             <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -85,10 +91,10 @@ const Testimonials = () => {
                 </div>
               </div>
               <p className="mt-8">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-                laboriosam deleniti aperiam ab veniam sint non cumque quis tempore
-                cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis
-                harum et rerum.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Architecto laboriosam deleniti aperiam ab veniam sint non cumque
+                quis tempore cupiditate. Sint libero voluptas veniam at
+                reprehenderit, veritatis harum et rerum.
               </p>
             </div>
             <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -111,10 +117,10 @@ const Testimonials = () => {
                 </div>
               </div>
               <p className="mt-8">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-                laboriosam deleniti aperiam ab veniam sint non cumque quis tempore
-                cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis
-                harum et rerum.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Architecto laboriosam deleniti aperiam ab veniam sint non cumque
+                quis tempore cupiditate. Sint libero voluptas veniam at
+                reprehenderit, veritatis harum et rerum.
               </p>
             </div>
             <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -138,10 +144,10 @@ const Testimonials = () => {
               </div>
               <p className="mt-8">
                 {" "}
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-                laboriosam deleniti aperiam ab veniam sint non cumque quis tempore
-                cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis
-                harum et rerum.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Architecto laboriosam deleniti aperiam ab veniam sint non cumque
+                quis tempore cupiditate. Sint libero voluptas veniam at
+                reprehenderit, veritatis harum et rerum.
               </p>
             </div>
             <div className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-2xl shadow-gray-600/10 dark:shadow-none">
@@ -164,18 +170,17 @@ const Testimonials = () => {
                 </div>
               </div>
               <p className="mt-8">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto
-                laboriosam deleniti aperiam ab veniam sint non cumque quis tempore
-                cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis
-                harum et rerum.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Architecto laboriosam deleniti aperiam ab veniam sint non cumque
+                quis tempore cupiditate. Sint libero voluptas veniam at
+                reprehenderit, veritatis harum et rerum.
               </p>
             </div>
           </div>
         </div>
       </div>
-
     </motion.div>
-  )
-}
+  );
+};
 
-export default Testimonials
+export default Testimonials;

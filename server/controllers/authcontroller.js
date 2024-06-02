@@ -6,13 +6,11 @@ const { mailHTML } = require("../helpers/mailHTML");
 const { orderplacedHTML } = require("../helpers/orderplacedHTML");
 const { cancelorderHTML } = require("../helpers/cancelorderHTML");
 
-
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
-  })
-}
-
+    expiresIn: "30d",
+  });
+};
 
 // module.exports.register = async (req, res) => {
 //   try {
@@ -28,9 +26,9 @@ const createToken = (id) => {
 //   }
 // }
 module.exports.register = asyncHandler(async (req, res) => {
-  const { email, password} = req.body;
+  const { email, password } = req.body;
 
-  if ( !email || !password) {
+  if (!email || !password) {
     res.status(401).json({ msg: "Please Enter all the Feilds" });
   }
 
@@ -41,19 +39,17 @@ module.exports.register = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    
     email,
-    password
-   
+    password,
   });
 
   if (user) {
     sendMail(email, "Welcome to Ownlink", mailHTML(email));
-    res.status(201).json({user,token: createToken(user._id),});
+    res.status(201).json({ user, token: createToken(user._id) });
   } else {
     res.status(404).json({ msg: "User not found" });
   }
-})
+});
 
 module.exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -62,7 +58,7 @@ module.exports.login = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     res.json({
-     user,
+      user,
       token: createToken(user._id),
     });
   } else {
@@ -86,11 +82,10 @@ module.exports.login = asyncHandler(async (req, res) => {
 // }
 
 // module.exports.register = async (req, res) => {
-  
+
 // };
 
 module.exports.addUsername = async (req, res) => {
-
   try {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
@@ -101,9 +96,7 @@ module.exports.addUsername = async (req, res) => {
       const usernamePresent = username !== "";
 
       if (!usernamePresent) {
-
         await User.findByIdAndUpdate(
-
           user._id,
           {
             username: username_from_body,
@@ -116,15 +109,16 @@ module.exports.addUsername = async (req, res) => {
   } catch (error) {
     return res.json({ msg: "Error claiming username", status: 401 });
   }
-
-}
+};
 
 module.exports.addUsername = async (req, res) => {
   try {
     const { email, username_from_body } = req.body;
     const user = await User.findOne({ email });
     // console.log(user)
-    const existingUsername = await User.findOne({ username: username_from_body });
+    const existingUsername = await User.findOne({
+      username: username_from_body,
+    });
     // console.log(existingUsername)
 
     if (user) {
@@ -206,7 +200,6 @@ module.exports.addProfilePic = async (req, res) => {
   }
 };
 
-
 module.exports.addBg = async (req, res) => {
   try {
     const { email, bg } = req.body;
@@ -227,7 +220,6 @@ module.exports.addBg = async (req, res) => {
   }
 };
 
-
 // module.exports.addLink = async (req, res) => {
 //   try {
 //     const { email, link, title,linkImage } = req.body;
@@ -240,9 +232,8 @@ module.exports.addBg = async (req, res) => {
 //       if (linkIndex !== -1) {
 //         // link found, update the existing link
 //         await User.findOneAndUpdate(
-//           { _id: user._id},  
+//           { _id: user._id},
 //           { $set: { "links.$.title": title,"links.$.link": link,"links.$.linkImage": linkImage } },
-
 
 //         );
 //         return res.json({ msg: "Successfully Updated" });
@@ -269,13 +260,21 @@ module.exports.addLink = async (req, res) => {
 
     if (user) {
       const { links } = user;
-      const linkIndex = links.findIndex(({ title: existingTitle }) => existingTitle === title);
+      const linkIndex = links.findIndex(
+        ({ title: existingTitle }) => existingTitle === title
+      );
 
       if (linkIndex !== -1) {
         // Link found, update the existing link
         await User.findOneAndUpdate(
           { _id: user._id, "links.title": title },
-          { $set: { "links.$.title": title, "links.$.link": link, "links.$.linkImage": linkImage,  } }
+          {
+            $set: {
+              "links.$.title": title,
+              "links.$.link": link,
+              "links.$.linkImage": linkImage,
+            },
+          }
         );
         return res.json({ msg: "Successfully Updated" });
       } else {
@@ -286,16 +285,16 @@ module.exports.addLink = async (req, res) => {
       }
     } else {
       // User not found, create a new user with the provided email and social link
-      await User.create({ email, links: [{ link, title, linkImage, linkClicks }] });
+      await User.create({
+        email,
+        links: [{ link, title, linkImage, linkClicks }],
+      });
       return res.json({ msg: "Successfully Added" });
     }
   } catch (error) {
     return res.json({ msg: "Error adding/updating social link" });
   }
 };
-
-
-
 
 module.exports.addSocial = async (req, res) => {
   try {
@@ -304,7 +303,9 @@ module.exports.addSocial = async (req, res) => {
 
     if (user) {
       const { socials } = user;
-      const socialIndex = socials.findIndex(({ type: existingType }) => existingType === type);
+      const socialIndex = socials.findIndex(
+        ({ type: existingType }) => existingType === type
+      );
 
       if (socialIndex !== -1) {
         // Social link found, update the existing social link
@@ -329,13 +330,7 @@ module.exports.addSocial = async (req, res) => {
   }
 };
 
-
-
 //get api's
-
-
-
-
 
 module.exports.getUsername = async (req, res) => {
   try {
@@ -421,6 +416,29 @@ module.exports.getSocials = async (req, res) => {
 
 // get by username
 
+module.exports.getUserFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ msg: "success", user });
+    } else return res.json({ msg: "User with given username not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching username." });
+  }
+};
+
+module.exports.getAllCreators = async (req, res) => {
+  try {
+    const users = await User.find({});
+    if (users) {
+      return res.json({ msg: "success", users });
+    } else return res.json({ msg: "No users found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching users." });
+  }
+};
+
 module.exports.getNameFromUsername = async (req, res) => {
   try {
     const { username } = req.params;
@@ -432,6 +450,7 @@ module.exports.getNameFromUsername = async (req, res) => {
     return res.json({ msg: "Error fetching username." });
   }
 };
+
 module.exports.getBioFromUsername = async (req, res) => {
   try {
     const { username } = req.params;
@@ -510,7 +529,7 @@ module.exports.removeLink = async (req, res) => {
     if (user) {
       const links = user.links;
       // console.log(links)
-      const linkIndex = links.findIndex(links => links.link === link);
+      const linkIndex = links.findIndex((links) => links.link === link);
       // console.log(linkIndex)
       if (linkIndex === -1) {
         return res.status(400).send({ msg: "link not found." });
@@ -538,7 +557,7 @@ module.exports.removeSocial = async (req, res) => {
     if (user) {
       const socials = user.socials;
       // console.log(socials)
-      const socialIndex = socials.findIndex(socials => socials.type === type);
+      const socialIndex = socials.findIndex((socials) => socials.type === type);
       // console.log(socialIndex)
       if (socialIndex === -1) {
         return res.status(400).send({ msg: "social not found." });
@@ -559,7 +578,6 @@ module.exports.removeSocial = async (req, res) => {
   }
 };
 
-
 module.exports.trackOwnlinkViews = async (req, res) => {
   try {
     const { username } = req.params;
@@ -570,7 +588,7 @@ module.exports.trackOwnlinkViews = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Update the ownlinkViews count
@@ -578,13 +596,16 @@ module.exports.trackOwnlinkViews = async (req, res) => {
     await user.save();
 
     // Redirect to the ownlink
-    return res.json({ message: 'Redirecting to ownlink', ownlink: user.ownlink, count: user.ownlinkViews });
+    return res.json({
+      message: "Redirecting to ownlink",
+      ownlink: user.ownlink,
+      count: user.ownlinkViews,
+    });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 module.exports.getViewsInformation = async (req, res) => {
   try {
@@ -593,7 +614,7 @@ module.exports.getViewsInformation = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.json({
@@ -601,10 +622,9 @@ module.exports.getViewsInformation = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
 
 module.exports.increaseSocialsViews = async (req, res) => {
   try {
@@ -613,23 +633,22 @@ module.exports.increaseSocialsViews = async (req, res) => {
 
     // Update the social media link click count in MongoDB
     const result = await User.updateOne(
-      { username, 'socials.type': socialMediaIcon },
-      { $inc: { 'socials.$.linkClicks': 1 } }
+      { username, "socials.type": socialMediaIcon },
+      { $inc: { "socials.$.linkClicks": 1 } }
     );
 
-
     if (result.modifiedCount === 0) {
-      return res.status(404).json({ message: 'User or social media link not found' });
+      return res
+        .status(404)
+        .json({ message: "User or social media link not found" });
     }
 
-    res.json({ message: 'Link click tracked successfully',  });
+    res.json({ message: "Link click tracked successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
 
 module.exports.getAllSocialsViews = async (req, res) => {
   try {
@@ -639,7 +658,7 @@ module.exports.getAllSocialsViews = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Extract social media links and their click counts
@@ -648,44 +667,43 @@ module.exports.getAllSocialsViews = async (req, res) => {
       linkClicks: social.linkClicks,
     }));
 
-    const sortedSocialLinkCounts = socialLinkCounts.sort((a, b) => b.linkClicks - a.linkClicks);
+    const sortedSocialLinkCounts = socialLinkCounts.sort(
+      (a, b) => b.linkClicks - a.linkClicks
+    );
 
     // console.log(sortedSocialLinkCounts)
     res.json(sortedSocialLinkCounts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 module.exports.increaseLinksViews = async (req, res) => {
   try {
     const { username } = req.params;
-    const { title } = req.body; 
+    const { title } = req.body;
 
-    console.log(title)
+    console.log(title);
 
     // Update the social media link click count in MongoDB
     const result = await User.updateOne(
-      { username, 'links.title': title },
-      { $inc: { 'links.$.linkClicks': 1 } }
+      { username, "links.title": title },
+      { $inc: { "links.$.linkClicks": 1 } }
     );
 
-      
-    console.log(result)
+    console.log(result);
 
     if (result.modifiedCount === 0) {
-      return res.status(404).json({ message: 'User or link not found' });
+      return res.status(404).json({ message: "User or link not found" });
     }
 
-    res.json({ message: 'Link click tracked successfully',  });
+    res.json({ message: "Link click tracked successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
-
-
 
 module.exports.getAllLinksViews = async (req, res) => {
   try {
@@ -695,7 +713,7 @@ module.exports.getAllLinksViews = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Extract social media links and their click counts
@@ -704,89 +722,97 @@ module.exports.getAllLinksViews = async (req, res) => {
       linkClicks: link.linkClicks,
     }));
 
-    const sortedLinkCounts = linkCounts.sort((a, b) => b.linkClicks - a.linkClicks);
+    const sortedLinkCounts = linkCounts.sort(
+      (a, b) => b.linkClicks - a.linkClicks
+    );
 
     // console.log(sortedLinkCounts)
     res.json(sortedLinkCounts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
-
 module.exports.submitOrder = async (req, res) => {
-    try{
-      const { email, orderData } = req.body;
-      const user = await User.findOne({ email });
+  try {
+    const { email, orderData } = req.body;
+    const user = await User.findOne({ email });
 
-      if(user){
-        user.orders.push(orderData);
-        await user.save();
-        sendMail(email, "Order Placed Successfully", orderplacedHTML(orderData.amount));
-        return res.status(201).json({ msg: "Order Placed Successfully", success: true });
-      }
-      else{
-        await User.create({ email, orders: [orderData] });
-        sendMail(email, "Order Placed Successfully", orderplacedHTML(orderData.amount));
-        return res.status(202).json({ msg: "Order Placed Successfully",success: true });
-      }
+    if (user) {
+      user.orders.push(orderData);
+      await user.save();
+      sendMail(
+        email,
+        "Order Placed Successfully",
+        orderplacedHTML(orderData.amount)
+      );
+      return res
+        .status(201)
+        .json({ msg: "Order Placed Successfully", success: true });
+    } else {
+      await User.create({ email, orders: [orderData] });
+      sendMail(
+        email,
+        "Order Placed Successfully",
+        orderplacedHTML(orderData.amount)
+      );
+      return res
+        .status(202)
+        .json({ msg: "Order Placed Successfully", success: true });
     }
-    catch{
-        return res.status(401).json({ msg: "Error placing order",success: false });
-    }
-
-}
-
+  } catch {
+    return res.status(401).json({ msg: "Error placing order", success: false });
+  }
+};
 
 module.exports.getOrders = async (req, res) => {
-  try{
-      const { email } = req.params;
-      const user  = await User.findOne({ email });
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
 
-      if(!user){
-        return res.status(404).json({ msg: "User not found" });
-      }
-      else{
-        return res.status(200).json({ msg: "success", orders: user.orders });
-      }
-  }
-  catch{
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    } else {
+      return res.status(200).json({ msg: "success", orders: user.orders });
+    }
+  } catch {
     return res.status(401).json({ msg: "Error fetching orders" });
   }
-
-}
-
+};
 
 module.exports.cancelOrder = async (req, res) => {
-  try{
-      const { order_id } = req.params;
-      const user = await User.findOne({ "orders": { $elemMatch: { order_id: order_id } } });
+  try {
+    const { order_id } = req.params;
+    const user = await User.findOne({
+      orders: { $elemMatch: { order_id: order_id } },
+    });
 
-
-      if(!user){
-        return res.status(404).json({ msg: "User not found" });
-      }
-      else{
-        const orders = user.orders;
-        const orderIndex = orders.findIndex(order => order.order_id === order_id);
-        orders.splice(orderIndex, 1);
-        await User.findByIdAndUpdate(
-          user._id,
-          {
-            orders: orders,
-          },
-          { new: true }
-        );
-          sendMail(user.email, "Order Cancelled Successfully", cancelorderHTML());
-        return res.status(200).json({ msg: "Order Cancelled Successfully", orders: orders, success: true });
-      }
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    } else {
+      const orders = user.orders;
+      const orderIndex = orders.findIndex(
+        (order) => order.order_id === order_id
+      );
+      orders.splice(orderIndex, 1);
+      await User.findByIdAndUpdate(
+        user._id,
+        {
+          orders: orders,
+        },
+        { new: true }
+      );
+      sendMail(user.email, "Order Cancelled Successfully", cancelorderHTML());
+      return res.status(200).json({
+        msg: "Order Cancelled Successfully",
+        orders: orders,
+        success: true,
+      });
+    }
+  } catch {
+    return res
+      .status(401)
+      .json({ msg: "Error cancelling order", success: false });
   }
-  catch{
-    return res.status(401).json({ msg: "Error cancelling order", success: false });
-  }
-
-}
-
-
-
+};
