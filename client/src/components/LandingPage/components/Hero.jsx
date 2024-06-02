@@ -1,9 +1,9 @@
-import React from 'react';
-import HeroImg from '../img/HeroImg-crop.png';
-import Logo from '../img/logo-3d-2.png';
-import '../../../index.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion'; // Import motion
+import React from "react";
+import HeroImg from "../img/HeroImg-crop.png";
+import Logo from "../img/logo-3d-2.png";
+import "../../../index.css";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion"; // Import motion
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -11,14 +11,17 @@ const Hero = () => {
   // Define the motion animation properties
   const animationProps = {
     initial: { y: 30, opacity: 0 },
-    transition: { delay: 0.1, duration: 0.6},
+    transition: { delay: 0.1, duration: 0.6 },
     animate: { y: 0, opacity: 1 },
     once: true,
   };
 
   return (
-    <motion.div {...animationProps} className='md:px-6 p-5 rounded-xl bg-[#222430]'>
-      <header>
+    <motion.div
+      {...animationProps}
+      className="md:px-6 md:p-5 rounded-xl bg-[#222430] w-full"
+    >
+      <header className="p-0">
         <input
           type="checkbox"
           name="hbr"
@@ -27,8 +30,8 @@ const Hero = () => {
           hidden="true"
           aria-hidden="true"
         />
-        <nav className="fixed z-20 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur navbar shadow-md shadow-gray-600/5 peer-checked:navbar-active md:relative md:bg-transparent dark:shadow-none">
-          <div className="xl:container m-auto px-6 md:px-12">
+        <nav className="fixed z-20 w-full bg-black/40 text-white backdrop-blur navbar shadow-md shadow-gray-600/5 peer-checked:navbar-active md:relative md:bg-transparent ">
+          <div className="xl:container px-6 md:px-1">
             <div className="flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
               <div className="w-full flex justify-between lg:w-auto">
                 <a
@@ -36,18 +39,14 @@ const Hero = () => {
                   aria-label="logo"
                   className="flex space-x-2 items-center"
                 >
-                  <img
-                    src={Logo}
-                    alt="logo"
-                    className="w-12 h-12 rounded-lg"
-                  />
+                  <img src={Logo} alt="logo" className="w-12 h-12 rounded-lg" />
                   <span className=" text-xl font-bold text-gray-600 dark:text-primary">
                     Ownlink
                   </span>
                 </a>
                 <label
                   htmlFor="hbr"
-                  className="peer-checked:hamburger block relative z-20 p-6 -mr-6 cursor-pointer lg:hidden"
+                  className="peer-checked:hamburger block relative z-20 p-6 cursor-pointer lg:hidden"
                 >
                   <div
                     aria-hidden="true"
@@ -80,8 +79,7 @@ const Hero = () => {
                     </li>
                     <li>
                       <a
-
-                        href='/'
+                        href="/"
                         className=" cursor-pointer block md:px-4 transition hover:text-primary dark:hover:text-primaryLight"
                       >
                         <span>Backgrounds</span>
@@ -123,11 +121,14 @@ const Hero = () => {
             <div className="text-center lg:text-left md:mt-12 lg:mt-0 sm:w-10/12 md:w-2/3 sm:mx-auto lg:mr-auto lg:w-6/12">
               <h1 className="text-gray-900 font-bold text-4xl md:text-6xl lg:text-5xl xl:text-6xl dark:text-white">
                 Create a single link for all your social media links with{" "}
-                <span className="text-primary dark:text-purple-500">Ownlink</span>
+                <span className="text-primary dark:text-purple-500">
+                  Ownlink
+                </span>
               </h1>
               <p className="mt-8 text-gray-600 dark:text-gray-300">
-                Track views, clicks, and engagement with your Ownlink. Customize the appearance and
-                share a QR code to make it easy for others to access your link in bio page.
+                Track views, clicks, and engagement with your Ownlink. Customize
+                the appearance and share a QR code to make it easy for others to
+                access your link in bio page.
               </p>
               <div>
                 <form action="" className="w-full mt-12">
@@ -156,7 +157,6 @@ const Hero = () => {
                         className="relative h-12 w-20 sm:w-auto ml-auto sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
                         onClick={() => navigate("/routes/auth")}
                       >
-
                         <span className="relative hidden w-max text-white dark:text-gray-900 font-semibold md:block">
                           Get Started
                         </span>
@@ -184,7 +184,7 @@ const Hero = () => {
               <img
                 src={HeroImg}
                 alt="project illustration"
-                className=' w-full h-108 rounded-2xl h-full mr-0 md:p-1 scale-95'
+                className=" w-full h-108 rounded-2xl h-full mr-0 md:p-1 scale-95"
               />
             </div>
           </div>
@@ -193,6 +193,6 @@ const Hero = () => {
       </div>
     </motion.div>
   );
-}
+};
 
 export default Hero;

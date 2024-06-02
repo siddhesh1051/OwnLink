@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     required: [true, "Email is Required"],
     unique: true,
   },
+
   password: {
     type: String,
     required: [true, "Password is Required"],
@@ -15,9 +16,8 @@ const userSchema = mongoose.Schema({
   links: {
     type: Array,
     default: [],
-
-
   },
+
   socials: {
     type: Array,
     default: [],
@@ -27,7 +27,6 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
     unique: true,
-
   },
 
   name: {
@@ -45,7 +44,8 @@ const userSchema = mongoose.Schema({
   },
   bg: {
     type: String,
-    default: "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
+    default:
+      "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
   },
   ownlink: {
     type: String,
@@ -60,7 +60,6 @@ const userSchema = mongoose.Schema({
     default: [],
     timestamps: true,
   },
-
 });
 
 // userSchema.pre("save", async function (next) {
@@ -97,7 +96,5 @@ userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
-
-
 
 module.exports = mongoose.model("user", userSchema);
