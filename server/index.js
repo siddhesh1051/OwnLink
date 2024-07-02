@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
- 
+
 const authroutes = require("./routes/authroutes");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -30,25 +30,24 @@ mongoose
     console.log("error occured");
   });
 
-  app.use(express.json());
-  app.use(
-    cors({
-      
-      // origin: ["https://ownlink.vercel.app"],
-      origin: ["https://www.ownlink.me","http://localhost:3000"],
-      // origin: ["http://localhost:3000"],
-      methods: ["GET", "POST","PUT","DELETE"],
-      credentials: true,
-    })
-  );
+app.use(express.json());
+app.use(
+  cors({
+    // origin: ["https://ownlink.vercel.app"],
+    origin: [
+      "https://www.ownlink.me",
+      "http://localhost:3000",
+      "https://ownlink.vercel.app",
+      "https://ownlink.me",
+      "https://www.ownlink.vercel.app",
+    ],
+    // origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-
-  app.use('/api',authroutes);
-  app.get("/", (req, res) => {
-    res.send("Hello api");
-  });
-
-
-
-
-
+app.use("/api", authroutes);
+app.get("/", (req, res) => {
+  res.send("Hello api");
+});
