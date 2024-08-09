@@ -383,7 +383,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
             sx={{
               fontSize: isMobile ? "16px" : "22px",
               transitionDuration: "200ms",
-              ":hover": { backgroundColor: "#0F1015", color: "#7200F0" },
+              ":hover": { backgroundColor: "#0F1015", color: "#a353fa" },
+              color: value === 1 ? "white" : "#b876ff",
             }}
           >
             Bio
@@ -396,7 +397,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
             sx={{
               fontSize: isMobile ? "16px" : "22px",
               transitionDuration: "200ms",
-              ":hover": { backgroundColor: "#0F1015", color: "#7200F0" },
+              ":hover": { backgroundColor: "#0F1015", color: "#a353fa" },
+              color: value === 2 ? "white" : "#b876ff",
             }}
           >
             Links
@@ -409,7 +411,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
             sx={{
               fontSize: isMobile ? "16px" : "22px",
               transitionDuration: "200ms",
-              ":hover": { backgroundColor: "#0F1015", color: "#7200F0" },
+              ":hover": { backgroundColor: "#0F1015", color: "#a353fa" },
+              color: value === 3 ? "white" : "#b876ff",
             }}
           >
             Appearance
@@ -422,7 +425,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
             sx={{
               fontSize: isMobile ? "16px" : "22px",
               transitionDuration: "200ms",
-              ":hover": { backgroundColor: "#0F1015", color: "#7200F0" },
+              ":hover": { backgroundColor: "#0F1015", color: "#a353fa" },
+              color: value === 4 ? "white" : "#b876ff",
             }}
           >
             Analytics
