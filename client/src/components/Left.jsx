@@ -10,20 +10,25 @@ import Modal from "@mui/joy/Modal/Modal";
 import ModalDialog from "@mui/joy/ModalDialog/ModalDialog";
 import Typography from "@mui/joy/Typography/Typography";
 import { saveAs } from "file-saver";
-import LogoutMenu from "./LogoutMenu";
 import TiltCard from "./TiltCard";
 import ModalClose from "@mui/joy/ModalClose";
 import confetti from "canvas-confetti";
 import Logo from "./img/logo.png";
 import axios from "axios";
-import Siderbar from "./Sidebar";
+import Sidebar from "./Sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsername } from "../store/usernameSlice";
 
 const Left = ({ handleCustomize, update }, ref) => {
   const [clicked, setclicked] = useState(false);
   const [open, setOpen] = useState(false);
   const [cardOpen, setCardOpen] = useState(false);
 
+  const username = useSelector((state) => state.username.username);
+  const dispatch = useDispatch();
+
   const email = localStorage.getItem("email");
+
   const navigate = useNavigate();
 
   const laodscript = (src) => {
@@ -128,11 +133,10 @@ const Left = ({ handleCustomize, update }, ref) => {
     let url = link;
     saveAs(url, username + ".png");
   };
-  let username = localStorage.getItem("username");
 
   useEffect(() => {
-    username = localStorage.getItem("username");
-  }, [update]);
+    dispatch(getUsername(email));
+  }, [email]);
 
   const profileLink = `${process.env.REACT_APP_CLIENT_API}/${username}`;
   return (
@@ -143,12 +147,11 @@ const Left = ({ handleCustomize, update }, ref) => {
       className="flex-1 flex flex-col justify-start p-2 pl-0"
     >
       <div className="flex lg:justify-between lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-0   ">
-        {/* <button className='px-4 py-2 ml-3mt-2 bg-violet-600 text-white rounded-lg hover:bg-violet-800 active:scale-95 duration-300 text-lg' onClick={logOut}>Logout <LuLogOut className='inline lg:text-xl text-lg ml-1 text-white' /></button> */}
-        {/* <LogoutMenu update={update} handleQrOpen={handleQrOpen} handleCardOpen={handleCardOpen} /> */}
-        <Siderbar
+        <Sidebar
           update={update}
           handleQrOpen={handleQrOpen}
           handleCardOpen={handleCardOpen}
+          username={username}
         />
 
         <div className="mt-2 mr-1">
@@ -274,7 +277,11 @@ const Left = ({ handleCustomize, update }, ref) => {
           }}
         >
           <ModalClose />
-          <TiltCard update={update} handleCardOpen={handleCardOpen} />
+          <TiltCard
+            update={update}
+            handleCardOpen={handleCardOpen}
+            username={username}
+          />
           <motion.button
             className="px-6 py-3 rounded-lg bg-violet-700 flex justify-center items-center text-center mt-2 text-white text-xl font-semibold "
             onClick={handleRazorpay}

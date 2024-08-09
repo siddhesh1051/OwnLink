@@ -85,31 +85,31 @@ module.exports.login = asyncHandler(async (req, res) => {
 
 // };
 
-module.exports.addUsername = async (req, res) => {
-  try {
-    const { email, username_from_body } = req.body;
-    const user = await User.findOne({ email });
+// module.exports.addUsername = async (req, res) => {
+//   try {
+//     const { email, username_from_body } = req.body;
+//     const user = await User.findOne({ email });
 
-    // console.log(user);
-    if (user) {
-      const { username } = user;
-      const usernamePresent = username !== "";
+//     // console.log(user);
+//     if (user) {
+//       const { username } = user;
+//       const usernamePresent = username !== "";
 
-      if (!usernamePresent) {
-        await User.findByIdAndUpdate(
-          user._id,
-          {
-            username: username_from_body,
-          },
-          { new: true }
-        );
-      } else return res.json({ msg: "username already present", status: 400 });
-    } else await User.create({ email, username: username_from_body });
-    return res.json({ msg: "username claimed successfully", status: 200 });
-  } catch (error) {
-    return res.json({ msg: "Error claiming username", status: 401 });
-  }
-};
+//       if (!usernamePresent) {
+//         await User.findByIdAndUpdate(
+//           user._id,
+//           {
+//             username: username_from_body,
+//           },
+//           { new: true }
+//         );
+//       } else return res.json({ msg: "username already present", status: 400 });
+//     } else await User.create({ email, username: username_from_body });
+//     return res.json({ msg: "username claimed successfully", status: 200 });
+//   } catch (error) {
+//     return res.json({ msg: "Error claiming username", status: 401 });
+//   }
+// };
 
 module.exports.addUsername = async (req, res) => {
   try {
