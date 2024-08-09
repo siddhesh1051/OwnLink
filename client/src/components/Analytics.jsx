@@ -6,7 +6,6 @@ import { getUsername } from "../store/usernameSlice";
 import LinearBar from "./LinearBar";
 import { getViewsInformation } from "../store/getviewsSlice";
 import { getAllLinksViews } from "../store/getAllLinksViews";
-import axios from "axios";
 import { motion } from "framer-motion";
 import SyncButton from "./SyncButton";
 

@@ -65,6 +65,13 @@ const Login = ({ isNew, setisNew }) => {
       validationSchema: validationSchema,
       onSubmit: onLogin,
     });
+
+  const handleFillGuest = () => {
+    values.email = "guest@ownlink.me";
+    values.password = "guest@ownlink.me";
+    onLogin(values);
+  };
+
   return (
     <>
       <motion.form
@@ -136,7 +143,7 @@ const Login = ({ isNew, setisNew }) => {
               Log in
             </button>
           )}
-          <p className="lg:ml-8 mt-2 lg:mt-1 mb-6 lg:mb-1">
+          <p className="lg:ml-8 mt-2 lg:mt-1 mb-4 lg:mb-0">
             Don't have an account{" "}
             <span
               className="text-[#6D42B9] cursor-pointer ml-1 font-semibold"
@@ -145,6 +152,17 @@ const Login = ({ isNew, setisNew }) => {
               }}
             >
               Sign up
+            </span>
+          </p>
+          <p className="lg:ml-8 mt-1 lg:mt-0 mb-6 lg:mb-1">
+            Guest?
+            <span
+              className="text-[#6D42B9] cursor-pointer ml-1  text-sm font-semibold"
+              onClick={() => {
+                handleFillGuest();
+              }}
+            >
+              Click to get Guest Credentials
             </span>
           </p>
         </div>
