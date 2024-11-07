@@ -35,7 +35,17 @@ const {
   cancelOrder,
   getUserFromUsername,
   getAllCreators,
+  getCreator,
+  getValidCreators,
 } = require("../controllers/authcontroller");
+const {
+  promoterRegister,
+  promoterLogin,
+} = require("../controllers/promoterAuthController");
+const {
+  addscratchcard,
+  getScratchCardsByUser,
+} = require("../controllers/scratchCardController");
 const { checkUser } = require("../middlewares/authmiddleware");
 
 const router = require("express").Router();
@@ -44,6 +54,13 @@ router.post("/", checkUser);
 
 router.post("/register", register);
 router.post("/login", login);
+//promoter login and signup
+router.post("/promoterregister", promoterRegister);
+router.post("/promoterlogin", promoterLogin);
+router.post("/addscratchcard", addscratchcard);
+router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
+
+// old routes
 router.post("/addusername", addUsername);
 router.post("/addname", addName);
 router.post("/addbio", addBio);
@@ -55,6 +72,8 @@ router.get("/username/:email", getUsername);
 router.get("/name/:email", getName);
 router.get("/getuserinfo/:username", getUserFromUsername);
 router.get("/getallcreators", getAllCreators);
+router.get("/getvalidcreators", getValidCreators);
+router.get("/getcreator/:username", getCreator);
 router.get("/namefromusername/:username", getNameFromUsername);
 router.get("/bio/:email", getBio);
 router.get("/biofromusername/:username", getBioFromUsername);

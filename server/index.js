@@ -10,12 +10,8 @@ const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-app.listen(PORT, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(`Server Started Successfully on ${PORT}`);
-  }
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 mongoose
@@ -31,22 +27,24 @@ mongoose
   });
 
 app.use(express.json());
-app.use(
-  cors({
-    // origin: ["https://ownlink.vercel.app"],
-    origin: [
-      "https://www.ownlink.me",
-      "http://localhost:3000",
-      "https://ownlink.vercel.app",
-      "https://ownlink.me",
-      "https://www.ownlink.vercel.app",
-    ],
-    // origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     // origin: ["https://ownlink.vercel.app"],
+//     origin: [
+//       "https://www.ownlink.me",
+//       "http://localhost:3000",
+//       "https://ownlink.vercel.app",
+//       "https://ownlink.me",
+//       "https://www.ownlink.vercel.app",
+//       "http://192.168.8.41:8081",
+//     ],
+//     // origin: ["http://localhost:3000"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
 
+app.use(cors({ origin: "*" }));
 app.use("/api", authroutes);
 app.get("/", (req, res) => {
   res.send("Hello api");
