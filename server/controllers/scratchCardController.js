@@ -3,18 +3,16 @@ const ScratchCard = require("../model/scratchCardModel");
 
 // POST endpoint to create a scratch card
 module.exports.addscratchcard = async (req, res) => {
-  const { promoterId, points } = req.body;
+  const { promoterId } = req.body;
 
-  if (!promoterId || points == null) {
-    return res
-      .status(400)
-      .json({ error: "promoterId and points are required." });
+  if (!promoterId) {
+    return res.status(400).json({ error: "promoterId is required." });
   }
 
   try {
     const scratchCard = await ScratchCard.create({
       isRevealed: false,
-      points,
+      points: 0,
       promoter: promoterId,
     });
 
@@ -22,7 +20,10 @@ module.exports.addscratchcard = async (req, res) => {
       $push: { scratchCards: scratchCard._id },
     });
 
-    res.status(201).json(scratchCard);
+    res.status(201).json({
+      message: `Created a scratchCard with id: ${scratchCard._id}`,
+      scratchCard,
+    });
   } catch (err) {
     console.error("Error creating scratch card:", err);
     res
@@ -54,5 +55,59 @@ module.exports.getScratchCardsByUser = async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while retrieving the scratch cards." });
+  }
+};
+
+// Generate a random number between 5 and 50
+module.exports.getRandomNumber = () => {
+  return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+};
+
+// POST endpoint to open a scratch card
+module.exports.openScratchCard = async (req, res) => {
+  const { scratchCardId } = req.body;
+
+  if (!scratchCardId) {
+    return res.status(400).json({ error: "scratchCardId is required." });
+  }
+
+  try {
+    // Generate a random number for points
+    const randomPoints = module.exports.getRandomNumber();
+
+    const scratchCardData = await ScratchCard.findById(scratchCardId);
+    if (!scratchCardData) {
+      return res.status(404).json({ error: "Scratch card not found." });
+    }
+
+    if (scratchCardData.isRevealed || scratchCardData.points !== 0) {
+      return res
+        .status(400)
+        .json({ error: "Scratch card is already revealed." });
+    }
+
+    // Find and update the scratch card to reveal it and set points
+    const updatedScratchCard = await ScratchCard.findByIdAndUpdate(
+      scratchCardId,
+      { isRevealed: true, points: randomPoints },
+      { new: true }
+    );
+
+    if (!updatedScratchCard) {
+      return res.status(404).json({ error: "Scratch card not found." });
+    }
+
+    res
+      .status(200)
+      .json({
+        message: `You won ${randomPoints} points`,
+        updatedScratchCard,
+        revealedPoints: randomPoints,
+      });
+  } catch (err) {
+    console.error("Error opening scratch card:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while opening the scratch card." });
   }
 };
