@@ -45,6 +45,8 @@ const {
 const {
   addscratchcard,
   getScratchCardsByUser,
+  getRandomNumber,
+  openScratchCard,
 } = require("../controllers/scratchCardController");
 const { checkUser } = require("../middlewares/authmiddleware");
 
@@ -59,7 +61,7 @@ router.post("/promoterregister", promoterRegister);
 router.post("/promoterlogin", promoterLogin);
 router.post("/addscratchcard", addscratchcard);
 router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
-
+router.post("/openscratchcard", openScratchCard);
 // old routes
 router.post("/addusername", addUsername);
 router.post("/addname", addName);
