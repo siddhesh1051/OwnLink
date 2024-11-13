@@ -439,6 +439,40 @@ module.exports.getAllCreators = async (req, res) => {
   }
 };
 
+module.exports.getValidCreators = async (req, res) => {
+  try {
+    const users = await User.find({
+      $and: [
+        { username: { $exists: true, $ne: "" } },
+        { name: { $exists: true, $ne: "" } },
+      ],
+    }).sort({ ownlinkViews: -1 }); // Sort by ownlinkViews in descending order
+
+    if (users.length > 0) {
+      return res.json({ msg: "success", users });
+    } else {
+      return res.json({ msg: "No valid users found." });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error fetching users." });
+  }
+};
+
+module.exports.getCreator = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+
+    if (user) {
+      return res.json({ msg: "success", user });
+    } else {
+      return res.json({ msg: "User with given username not found." });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error fetching user info." });
+  }
+};
+
 module.exports.getNameFromUsername = async (req, res) => {
   try {
     const { username } = req.params;
