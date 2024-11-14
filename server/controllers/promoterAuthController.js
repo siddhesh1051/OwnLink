@@ -48,3 +48,22 @@ module.exports.promoterLogin = asyncHandler(async (req, res) => {
     res.status(401).json({ msg: "Invalid email or password" });
   }
 });
+
+// Get promoter by ID without returning password
+module.exports.getPromoterById = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const promoter = await Promoter.findById(userId).select("-password");
+
+    if (!promoter) {
+      return res
+        .status(404)
+        .json({ success: false, msg: "Promoter not found" });
+    }
+
+    return res.status(200).json({ success: true, promoter });
+  } catch (error) {
+    res.status(500).json({ msg: "Server error" });
+  }
+});

@@ -41,6 +41,7 @@ const {
 const {
   promoterRegister,
   promoterLogin,
+  getPromoterById,
 } = require("../controllers/promoterAuthController");
 const {
   addscratchcard,
@@ -59,6 +60,7 @@ router.post("/login", login);
 //promoter login and signup
 router.post("/promoterregister", promoterRegister);
 router.post("/promoterlogin", promoterLogin);
+router.get("/getpromoterinfo/:userId", getPromoterById);
 router.post("/addscratchcard", addscratchcard);
 router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
 router.post("/openscratchcard", openScratchCard);
