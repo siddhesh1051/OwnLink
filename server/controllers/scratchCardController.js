@@ -1,4 +1,4 @@
-const Promoter = require("../model/authmodel");
+const Promoter = require("../model/promoterModel");
 const ScratchCard = require("../model/scratchCardModel");
 
 // POST endpoint to create a scratch card
@@ -65,7 +65,7 @@ module.exports.getRandomNumber = () => {
 
 // POST endpoint to open a scratch card
 module.exports.openScratchCard = async (req, res) => {
-  const { scratchCardId } = req.body;
+  const { scratchCardId, promoterId } = req.body;
 
   if (!scratchCardId) {
     return res.status(400).json({ error: "scratchCardId is required." });
@@ -97,13 +97,18 @@ module.exports.openScratchCard = async (req, res) => {
       return res.status(404).json({ error: "Scratch card not found." });
     }
 
-    res
-      .status(200)
-      .json({
-        message: `You won ${randomPoints} points`,
-        updatedScratchCard,
-        revealedPoints: randomPoints,
-      });
+    const promoter = await Promoter.find({ email: "test@gmail.com" });
+    console.log(promoter);
+
+    await Promoter.findByIdAndUpdate(promoterId, {
+      $inc: { rewardPoints: randomPoints },
+    });
+
+    res.status(200).json({
+      message: `You won ${randomPoints} points`,
+      updatedScratchCard,
+      revealedPoints: randomPoints,
+    });
   } catch (err) {
     console.error("Error opening scratch card:", err);
     res
