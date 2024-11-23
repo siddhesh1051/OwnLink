@@ -44,6 +44,11 @@ const {
   getPromoterById,
 } = require("../controllers/promoterAuthController");
 const {
+  redeemPoints,
+  sendRedeemOTP,
+  verifyRedeemOTP,
+} = require("../controllers/redeemPointsController");
+const {
   addscratchcard,
   getScratchCardsByUser,
   getRandomNumber,
@@ -64,6 +69,12 @@ router.get("/getpromoterinfo/:userId", getPromoterById);
 router.post("/addscratchcard", addscratchcard);
 router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
 router.post("/openscratchcard", openScratchCard);
+
+// promter redeem routes
+
+router.post("/sendredeemotp", sendRedeemOTP);
+router.post("/verifyredeemotp", verifyRedeemOTP);
+
 // old routes
 router.post("/addusername", addUsername);
 router.post("/addname", addName);

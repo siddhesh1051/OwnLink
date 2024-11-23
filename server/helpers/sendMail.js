@@ -11,17 +11,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-async function sendMail(to,subject,html) {
+async function sendMail(to, subject, html) {
   const info = await transporter.sendMail({
     from: "ownlinkmail@gmail.com",
     to,
     subject,
-    html
-
-});
+    html,
+  });
 
   console.log("Message sent: %s", info.messageId);
-
 }
 
-module.exports = {sendMail};
+module.exports = { sendMail };
