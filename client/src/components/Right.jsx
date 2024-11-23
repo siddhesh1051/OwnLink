@@ -40,6 +40,7 @@ import Appearence from "./Appearence";
 import { motion } from "framer-motion";
 import Analytics from "./Analytics";
 import SyncButton from "./SyncButton";
+import GoogleAnalyticsComponent from "./GoogleAnalyticsComponent";
 
 const Right = ({ text, update, setUpdate }, ref) => {
   const [value, setvalue] = useState(1);
@@ -431,6 +432,20 @@ const Right = ({ text, update, setUpdate }, ref) => {
           >
             Analytics
           </Tab>
+          <Tab
+            label="Google Analytics"
+            value={5}
+            variant={value === 5 ? "solid" : "plain"}
+            color={value === 5 ? "info" : "info"}
+            sx={{
+              fontSize: isMobile ? "16px" : "22px",
+              transitionDuration: "200ms",
+              ":hover": { backgroundColor: "#0F1015", color: "#a353fa" },
+              color: value === 5 ? "white" : "#b876ff",
+            }}
+          >
+            Google Analytics
+          </Tab>
         </TabList>
         <TabPanel value={1}>
           <div className="p-5 rounded-xl bg-[#222430] ">
@@ -711,6 +726,9 @@ const Right = ({ text, update, setUpdate }, ref) => {
         </TabPanel>
         <TabPanel value={4}>
           <Analytics />
+        </TabPanel>
+        <TabPanel value={5}>
+          <GoogleAnalyticsComponent />
         </TabPanel>
       </Tabs>
 

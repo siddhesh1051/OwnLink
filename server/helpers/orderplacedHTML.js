@@ -1,7 +1,5 @@
-
 exports.orderplacedHTML = (amount) => {
-    return(
-       `
+  return `
        <!doctype html>
        <html>
          <head>
@@ -510,7 +508,7 @@ exports.orderplacedHTML = (amount) => {
                                                                                                                      <table border="0" cellpadding="0" cellspacing="0" style="border:none;border-collapse:collapse;border-spacing:0;mso-table-lspace:0;mso-table-rspace:0;width:100%">
                                                                                                                        <tbody>
                                                                                                                          <tr>
-                                                                                                                           <td class="Uber18_text_p1 black" valign="top" align="left" width="65" height="65" style="color:#000;font-family:UberMoveText,open sans,helvetica neue,Helvetica,sans-serif;line-height:30px;padding-right:12px;padding-top:5px;direction:ltr;text-align:left;display:flex"><img src="https://www.ownlink.me/static/media/logo-3d-2.def374ebc20e2f4daf5e.png" border="0" width="65" height='65' style="-ms-interpolation-mode:bicubic;clear:both;display:block;height:auto;outline:none;text-decoration:none">
+                                                                                                                           <td class="Uber18_text_p1 black" valign="top" align="left" width="65" height="65" style="color:#000;font-family:UberMoveText,open sans,helvetica neue,Helvetica,sans-serif;line-height:30px;padding-right:12px;padding-top:5px;direction:ltr;text-align:left;display:flex"><img src="https://www.ownlink.vercel.app/static/media/logo-3d-2.def374ebc20e2f4daf5e.png" border="0" width="65" height='65' style="-ms-interpolation-mode:bicubic;clear:both;display:block;height:auto;outline:none;text-decoration:none">
                                                                                                                                          
                                                                                                                            </td>
                                                                                                                            <td class="Uber18_text_p1" width="80%" align="right" style="color:#000;font-family:UberMoveText,open sans,helvetica neue,Helvetica,sans-serif;font-size:12px;line-height:18px;text-align:right;direction:ltr" valign="middle">
@@ -809,6 +807,5 @@ exports.orderplacedHTML = (amount) => {
 </script>
 
        </html>
-       `
-    )
-}
+       `;
+};

@@ -1,7 +1,5 @@
-
 exports.mailHTML = (email) => {
-    return(
-       `<!DOCTYPE html>
+  return `<!DOCTYPE html>
        <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
          <head>
            <title>mailer</title>
@@ -341,7 +339,7 @@ exports.mailHTML = (email) => {
                                                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%">
                                                        <tbody>
                                                          <tr>
-                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.me/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blockogvsg654" data-block-type="block" data-url-id="73289bd3-8e10-50a4-a117-9b8f4dccbbdd">Learn More&#x2192;</a></td>
+                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.vercel.app/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blockogvsg654" data-block-type="block" data-url-id="73289bd3-8e10-50a4-a117-9b8f4dccbbdd">Learn More&#x2192;</a></td>
                                                          </tr>
                                                        </tbody>
                                                      </table>
@@ -429,7 +427,7 @@ exports.mailHTML = (email) => {
                                                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%">
                                                        <tbody>
                                                          <tr>
-                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.me/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blocklhhuq667" data-block-type="block" data-url-id="de078a71-47fa-5925-aa83-0cd44a806c03">Learn More&#x2192;</a></td>
+                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.vercel.app/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blocklhhuq667" data-block-type="block" data-url-id="de078a71-47fa-5925-aa83-0cd44a806c03">Learn More&#x2192;</a></td>
                                                          </tr>
                                                        </tbody>
                                                      </table>
@@ -519,7 +517,7 @@ exports.mailHTML = (email) => {
                                                      <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%">
                                                        <tbody>
                                                          <tr>
-                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.me/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blockh6d6g668" data-block-type="block" data-url-id="653a4d23-8275-58ea-9d3a-7158a28a03f0">Learn More&#x2192;</a></td>
+                                                           <td align="center" bgcolor="#ffffff" role="presentation" style="border:0 solid none;border-radius:4px;cursor:auto;height:auto;mso-padding-alt:6px 12px 6px 12px;background:#fff" valign="middle"><a href="https://www.ownlink.vercel.app/routes/welcome" style="display:inline-block;background:#fff;color:#5c55e7;font-family:Helvetica;font-size:14px;font-weight:400;line-height:1;letter-spacing:1px;margin:0;text-decoration:none;text-transform:none;padding:6px 12px 6px 12px;mso-padding-alt:0;border-radius:4px" target="_blank" data-block-id="blockh6d6g668" data-block-type="block" data-url-id="653a4d23-8275-58ea-9d3a-7158a28a03f0">Learn More&#x2192;</a></td>
                                                          </tr>
                                                        </tbody>
                                                      </table>
@@ -562,7 +560,7 @@ exports.mailHTML = (email) => {
                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:auto;line-height:100%">
                                              <tbody>
                                                <tr>
-                                                 <td align="center" bgcolor="#1D1D53" role="presentation" style="border:0 solid #1D1D53;border-radius:600px;cursor:auto;height:auto;mso-padding-alt:14px 80px 14px 80px;background:#1D1D53" valign="middle"><a href="https://www.ownlink.me/" style="display:inline-block;background:#1D1D53;color:#fff;font-family:Helvetica;font-size:16px;font-weight:700;line-height:1.5;letter-spacing:0;margin:0;text-decoration:none;text-transform:none;padding:14px 80px 14px 80px;mso-padding-alt:0;border-radius:600px" target="_blank" data-block-id="blockmk8yj752" data-block-type="block" data-url-id="751d7595-cb9d-59eb-8a3d-e11e6c9db503"><strong>Get Started</strong></a></td>
+                                                 <td align="center" bgcolor="#1D1D53" role="presentation" style="border:0 solid #1D1D53;border-radius:600px;cursor:auto;height:auto;mso-padding-alt:14px 80px 14px 80px;background:#1D1D53" valign="middle"><a href="https://www.ownlink.vercel.app/" style="display:inline-block;background:#1D1D53;color:#fff;font-family:Helvetica;font-size:16px;font-weight:700;line-height:1.5;letter-spacing:0;margin:0;text-decoration:none;text-transform:none;padding:14px 80px 14px 80px;mso-padding-alt:0;border-radius:600px" target="_blank" data-block-id="blockmk8yj752" data-block-type="block" data-url-id="751d7595-cb9d-59eb-8a3d-e11e6c9db503"><strong>Get Started</strong></a></td>
                                                </tr>
                                              </tbody>
                                            </table>
@@ -646,6 +644,5 @@ exports.mailHTML = (email) => {
              </tbody>
            </table>
          </body>
-       </html>`
-    )
-}
+       </html>`;
+};
