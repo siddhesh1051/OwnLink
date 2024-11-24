@@ -1,4 +1,4 @@
-exports.verifyotpHTML = (otp) => {
+exports.verifyotpHTML = (otp, requiredPoints) => {
   return `
     <!DOCTYPE html>
 <html lang="en">
@@ -94,15 +94,15 @@ exports.verifyotpHTML = (otp) => {
                 letter-spacing: 0.56px;
               "
             >
-             Thank you for choosing Ownlink Rewards. Use the following OTP to redeem your rewards. OTP is valid for 5 minutes. Note that 100 points will be deducted from your account for this transaction. Do not share this code with others. Cheers!
+             Thank you for choosing Ownlink Rewards. Use the following OTP to redeem your rewards. OTP is valid for 5 minutes. Note that ${requiredPoints} points will be deducted from your account for this transaction. Do not share this code with others. Cheers!
             </p>
             <p
               style="
                 margin: 0;
                 margin-top: 60px;
-                font-size: 40px;
+                font-size: 35px;
                 font-weight: 600;
-                letter-spacing: 25px;
+                letter-spacing: 10px;
                 color: #ba3d4f;
               "
             >
@@ -123,17 +123,10 @@ exports.verifyotpHTML = (otp) => {
         >
           Need help? Ask at
           <a
-            href="mailto:archisketch@gmail.com"
+            href="mailto:ownlinkmail@gmail.com"
             style="color: #499fb6; text-decoration: none;"
-            >archisketch@gmail.com</a
-          >
-          or visit our
-          <a
-            href=""
-            target="_blank"
-            style="color: #499fb6; text-decoration: none;"
-            >Help Center</a
-          >
+            >ownlinkmail@gmail.com</a
+          >        
         </p>
       </main>
 
@@ -155,10 +148,10 @@ exports.verifyotpHTML = (otp) => {
             color: #434343;
           "
         >
-          Archisketch Company
+          Ownlink Rewards
         </p>
         <p style="margin: 0; margin-top: 8px; color: #434343;">
-          Address 540, City, State.
+          Bengaluru, Karnataka.
         </p>
         <div style="margin: 0; margin-top: 16px;">
           <a href="" target="_blank" style="display: inline-block;">
@@ -201,7 +194,7 @@ exports.verifyotpHTML = (otp) => {
           /></a>
         </div>
         <p style="margin: 0; margin-top: 16px; color: #434343;">
-          Copyright © 2022 Company. All rights reserved.
+          Copyright © 2025 Ownlink. All rights reserved.
         </p>
       </footer>
     </div>
