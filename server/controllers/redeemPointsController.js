@@ -17,7 +17,7 @@ module.exports.sendRedeemOTP = async (req, res) => {
   const { email, requiredPoints } = req.body;
   try {
     console.log(email);
-    const otp = Math.floor(100000 + Math.random() * 900000);
+    const otp = Math.floor(1000 + Math.random() * 9000);
     console.log(otp);
 
     const promoter = await Promoter.findOne({
@@ -41,7 +41,7 @@ module.exports.sendRedeemOTP = async (req, res) => {
       await sendMail(
         email,
         "Ownlink - OTP for redeeming points",
-        verifyotpHTML(otp)
+        verifyotpHTML(otp, requiredPoints)
       );
     } else {
       await Otp.create({
@@ -51,11 +51,13 @@ module.exports.sendRedeemOTP = async (req, res) => {
       await sendMail(
         email,
         "Ownlink - OTP for redeeming points",
-        verifyotpHTML(otp)
+        verifyotpHTML(otp, requiredPoints)
       );
     }
 
-    return res.status(200).json({ message: "OTP sent successfully" });
+    return res
+      .status(200)
+      .json({ otpId: otpDoc._id, message: "OTP sent successfully" });
   } catch {
     return res.status(500).json({ message: "Internal server error" });
   }
