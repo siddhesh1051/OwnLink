@@ -1,3 +1,4 @@
+const Transaction = require("../model/transactionModel");
 const Promoter = require("../model/promoterModel");
 const ScratchCard = require("../model/scratchCardModel");
 
@@ -102,6 +103,14 @@ module.exports.openScratchCard = async (req, res) => {
 
     await Promoter.findByIdAndUpdate(promoterId, {
       $inc: { rewardPoints: randomPoints },
+    });
+
+    // Add a transaction for crediting points
+    const transaction = await Transaction.create({
+      points: randomPoints,
+      user: promoterId,
+      transactionType: "credit",
+      transactionDate: new Date(),
     });
 
     res.status(200).json({

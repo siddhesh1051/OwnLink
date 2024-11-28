@@ -1,5 +1,6 @@
 const Promoter = require("../model/promoterModel");
 const Otp = require("../model/otpModel");
+const Transaction = require("../model/transactionModel");
 const { sendMail } = require("../helpers/sendMail");
 const { verifyotpHTML } = require("../helpers/verifyotpHTML");
 
@@ -7,6 +8,13 @@ const redeemPoints = async (points, user) => {
   try {
     user.rewardPoints -= points;
     await user.save();
+    // Add a transaction for debiting points
+    const transaction = await Transaction.create({
+      points: points,
+      user: user._id,
+      transactionType: "debit",
+      transactionDate: new Date(),
+    });
     return { status: 200, message: "Points redeemed successfully" };
   } catch {
     return { status: 400, message: "Internal server error" };
@@ -95,5 +103,33 @@ module.exports.verifyRedeemOTP = async (req, res) => {
     }
   } catch {
     return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports.getTransactionsForUser = async (req, res) => {
+  const { userId } = req.query; // assuming the userId is sent in the request body
+  if (!userId) {
+    return res.status(400).json({ error: "User ID is required." });
+  }
+
+  try {
+    // Fetch all transactions for the user
+    const transactions = await Transaction.find({ user: userId }).sort({
+      transactionDate: -1,
+    }); // Optionally, you can sort by transaction date in descending order
+
+    if (!transactions.length) {
+      return res
+        .status(404)
+        .json({ message: "No transactions found for this user." });
+    }
+
+    // Respond with the transactions
+    res.status(200).json({ transactions });
+  } catch (err) {
+    console.error("Error fetching transactions:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the transactions." });
   }
 };
