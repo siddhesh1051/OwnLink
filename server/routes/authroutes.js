@@ -47,6 +47,7 @@ const {
   redeemPoints,
   sendRedeemOTP,
   verifyRedeemOTP,
+  getTransactionsForUser,
 } = require("../controllers/redeemPointsController");
 const {
   addscratchcard,
@@ -74,6 +75,9 @@ router.post("/openscratchcard", openScratchCard);
 
 router.post("/sendredeemotp", sendRedeemOTP);
 router.post("/verifyredeemotp", verifyRedeemOTP);
+
+// get transactions
+router.get("/gettransactionsforuser", getTransactionsForUser);
 
 // old routes
 router.post("/addusername", addUsername);
