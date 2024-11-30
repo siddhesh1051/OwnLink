@@ -49,6 +49,7 @@ const {
   verifyRedeemOTP,
   getTransactionsForUser,
 } = require("../controllers/redeemPointsController");
+const { countReferrals } = require("../controllers/referralController");
 const {
   addscratchcard,
   getScratchCardsByUser,
@@ -78,6 +79,9 @@ router.post("/verifyredeemotp", verifyRedeemOTP);
 
 // get transactions
 router.get("/gettransactionsforuser", getTransactionsForUser);
+
+//referral routes
+router.post("/countreferral", countReferrals);
 
 // old routes
 router.post("/addusername", addUsername);

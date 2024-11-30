@@ -6,15 +6,17 @@ const ScratchCard = require("../model/scratchCardModel");
 module.exports.addscratchcard = async (req, res) => {
   const { promoterId } = req.body;
 
+  console.log("promoterId", promoterId);
+
   if (!promoterId) {
-    return res.status(400).json({ error: "promoterId is required." });
+    return { error: "promoterId is required." };
   }
 
   const promoter = await Promoter.findById(promoterId);
   const currentTime = new Date();
 
   if (!promoter) {
-    return res.status(404).json({ error: "Promoter not found." });
+    return { error: "Promoter not found." };
   }
 
   try {
@@ -22,9 +24,7 @@ module.exports.addscratchcard = async (req, res) => {
       if (currentTime < promoter.resetTime) {
         if (promoter.todayscCount >= 10) {
           console.log("inside count > 10");
-          return res
-            .status(400)
-            .json({ error: "You have reached the limit for today." });
+          return { error: "You have reached the limit for today." };
         } else {
           console.log("inside count < 10");
           await Promoter.findByIdAndUpdate(promoterId, {
@@ -36,11 +36,11 @@ module.exports.addscratchcard = async (req, res) => {
             points: 0,
             promoter: promoterId,
           });
-
-          res.status(201).json({
+          console.log("scratchCard", scratchCard);
+          return {
             message: `Created a scratchCard with id: ${scratchCard._id}`,
             scratchCard,
-          });
+          };
         }
       } else {
         console.log("resetting time and count");
@@ -65,17 +65,15 @@ module.exports.addscratchcard = async (req, res) => {
           todayscCount: promoter.todayscCount + 1, // Increment by 1
         });
 
-        res.status(201).json({
+        return {
           message: `Created a scratchCard with id: ${scratchCard._id}`,
           scratchCard,
-        });
+        };
       }
     }
   } catch (err) {
     console.error("Error creating scratch card:", err);
-    res
-      .status(500)
-      .json({ error: "An error occurred while creating the scratch card." });
+    return { error: "An error occurred while creating the scratch card." };
   }
 };
 
