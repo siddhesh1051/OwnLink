@@ -10,21 +10,67 @@ module.exports.addscratchcard = async (req, res) => {
     return res.status(400).json({ error: "promoterId is required." });
   }
 
+  const promoter = await Promoter.findById(promoterId);
+  const currentTime = new Date();
+
+  if (!promoter) {
+    return res.status(404).json({ error: "Promoter not found." });
+  }
+
   try {
-    const scratchCard = await ScratchCard.create({
-      isRevealed: false,
-      points: 0,
-      promoter: promoterId,
-    });
+    if (promoter.resetTime) {
+      if (currentTime < promoter.resetTime) {
+        if (promoter.todayscCount >= 10) {
+          console.log("inside count > 10");
+          return res
+            .status(400)
+            .json({ error: "You have reached the limit for today." });
+        } else {
+          console.log("inside count < 10");
+          await Promoter.findByIdAndUpdate(promoterId, {
+            todayscCount: promoter.todayscCount + 1,
+          });
 
-    await Promoter.findByIdAndUpdate(promoterId, {
-      $push: { scratchCards: scratchCard._id },
-    });
+          const scratchCard = await ScratchCard.create({
+            isRevealed: false,
+            points: 0,
+            promoter: promoterId,
+          });
 
-    res.status(201).json({
-      message: `Created a scratchCard with id: ${scratchCard._id}`,
-      scratchCard,
-    });
+          res.status(201).json({
+            message: `Created a scratchCard with id: ${scratchCard._id}`,
+            scratchCard,
+          });
+        }
+      } else {
+        console.log("resetting time and count");
+        // Update the resetTime to 11:59 PM for today
+        await Promoter.findByIdAndUpdate(promoterId, {
+          todayscCount: 0, // Reset today's count
+          resetTime: new Date().setUTCHours(23, 59, 0, 0), // Set the reset time to today at 11:59 PM
+        });
+
+        // Create a new scratch card
+        const scratchCard = await ScratchCard.create({
+          isRevealed: false,
+          points: 0,
+          promoter: promoterId,
+        });
+
+        // Fetch the promoter again to ensure you get the latest value
+        const promoter = await Promoter.findById(promoterId);
+
+        // Increment today's count by 1
+        await Promoter.findByIdAndUpdate(promoterId, {
+          todayscCount: promoter.todayscCount + 1, // Increment by 1
+        });
+
+        res.status(201).json({
+          message: `Created a scratchCard with id: ${scratchCard._id}`,
+          scratchCard,
+        });
+      }
+    }
   } catch (err) {
     console.error("Error creating scratch card:", err);
     res
