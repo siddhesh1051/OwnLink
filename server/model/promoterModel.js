@@ -15,6 +15,14 @@ const promoterSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  resetTime: {
+    type: Date,
+    default: Date.now(),
+  },
+  todayscCount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 promoterSchema.methods.matchPassword = async function (enteredPassword) {
