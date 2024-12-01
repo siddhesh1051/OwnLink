@@ -1,6 +1,7 @@
 const Transaction = require("../model/transactionModel");
 const Promoter = require("../model/promoterModel");
 const ScratchCard = require("../model/scratchCardModel");
+const { sendNotification } = require("../helpers/sendNotification");
 
 // POST endpoint to create a scratch card
 module.exports.addscratchcard = async (req, res) => {
@@ -37,6 +38,13 @@ module.exports.addscratchcard = async (req, res) => {
             promoter: promoterId,
           });
           console.log("scratchCard", scratchCard);
+          if (promoter && promoter.deviceToken) {
+            await sendNotification(
+              promoter.deviceToken,
+              "Scratch Card Added 🎉",
+              "We have added a new scratch card for promoting your favourite creator."
+            );
+          }
           return {
             message: `Created a scratchCard with id: ${scratchCard._id}`,
             scratchCard,
@@ -64,6 +72,14 @@ module.exports.addscratchcard = async (req, res) => {
         await Promoter.findByIdAndUpdate(promoterId, {
           todayscCount: promoter.todayscCount + 1, // Increment by 1
         });
+
+        if (promoter && promoter.deviceToken) {
+          await sendNotification(
+            promoter.deviceToken,
+            "Scratch Card Added 🎉",
+            "We have added a new scratch card for promoting your favourite creator."
+          );
+        }
 
         return {
           message: `Created a scratchCard with id: ${scratchCard._id}`,

@@ -23,6 +23,10 @@ const promoterSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  deviceToken: {
+    type: String, // Device token for push notifications
+    required: false,
+  },
 });
 
 promoterSchema.methods.matchPassword = async function (enteredPassword) {
