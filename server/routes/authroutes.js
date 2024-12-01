@@ -42,6 +42,7 @@ const {
   promoterRegister,
   promoterLogin,
   getPromoterById,
+  saveDeviceToken,
 } = require("../controllers/promoterAuthController");
 const {
   redeemPoints,
@@ -68,6 +69,7 @@ router.post("/login", login);
 router.post("/promoterregister", promoterRegister);
 router.post("/promoterlogin", promoterLogin);
 router.get("/getpromoterinfo/:userId", getPromoterById);
+router.post("/savedevicetoken", saveDeviceToken);
 router.post("/addscratchcard", addscratchcard);
 router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
 router.post("/openscratchcard", openScratchCard);

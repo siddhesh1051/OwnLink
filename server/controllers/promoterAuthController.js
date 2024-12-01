@@ -9,7 +9,7 @@ const createToken = (id) => {
 
 // Register new promoter
 module.exports.promoterRegister = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, deviceToken } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
@@ -24,6 +24,10 @@ module.exports.promoterRegister = asyncHandler(async (req, res) => {
   const promoter = await Promoter.create({ email, password });
 
   if (promoter) {
+    if (deviceToken) {
+      await Promoter.findByIdAndUpdate(promoter._id, { deviceToken });
+    }
+
     res.status(201).json({
       promoter,
       token: createToken(promoter._id),
@@ -35,11 +39,17 @@ module.exports.promoterRegister = asyncHandler(async (req, res) => {
 
 // Login existing promoter
 module.exports.promoterLogin = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, deviceToken } = req.body;
+
+  console.log("deviceToken", deviceToken);
 
   const promoter = await Promoter.findOne({ email });
 
   if (promoter && (await promoter.matchPassword(password))) {
+    if (deviceToken) {
+      await Promoter.findByIdAndUpdate(promoter._id, { deviceToken });
+    }
+
     res.json({
       promoter,
       token: createToken(promoter._id),
@@ -67,3 +77,19 @@ module.exports.getPromoterById = asyncHandler(async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 });
+
+module.exports.saveDeviceToken = async (req, res) => {
+  const { promoterId, deviceToken } = req.body;
+
+  if (!promoterId || !deviceToken) {
+    return res.status(400).json({ error: "Missing fields." });
+  }
+
+  try {
+    await Promoter.findByIdAndUpdate(promoterId, { deviceToken });
+    res.status(200).json({ message: "Device token saved successfully." });
+  } catch (error) {
+    console.error("Error saving device token:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
