@@ -117,7 +117,11 @@ const Fullscreen = () => {
       }
     };
 
-    countReferral();
+    const timer = setTimeout(() => {
+      countReferral();
+    }, 10000); // Wait for 10 seconds
+
+    return () => clearTimeout(timer);
   }, [ref_id]);
 
   return (
