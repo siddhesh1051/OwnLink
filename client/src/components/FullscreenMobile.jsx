@@ -4,7 +4,7 @@ import { Avatar } from "@mui/material";
 import SocialIcon from "./SocialIcon";
 import ScreenLink from "./ScreenLink";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { getSocials, getSocialsFromUsername } from "../store/socialSlice";
 import { getUsername } from "../store/usernameSlice";
 import { getName, getNameFromUsername } from "../store/nameSlice";
@@ -17,6 +17,8 @@ import { STATUSES } from "../store/store";
 import { motion } from "framer-motion";
 
 const FullscreenMobile = () => {
+  const [searchParams] = useSearchParams();
+  const ref_id = searchParams.get("ref_id");
   const social = useSelector((state) => state.social);
   //   const username = useSelector(state => state.username)
   const name = useSelector((state) => state.name);
@@ -99,8 +101,28 @@ const FullscreenMobile = () => {
     backgroundSize: "cover",
   };
 
+  useEffect(() => {
+    const countReferral = async () => {
+      try {
+        if (ref_id) {
+          const res = await axios.post(
+            process.env.REACT_APP_API + "/countreferral",
+            {
+              ref_id,
+            }
+          );
+          console.log(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    countReferral();
+  }, [ref_id]);
+
   return (
-    <div className="flex-1 bg-black ">
+    <div className="flex-1 bg-black">
       {emailFromUsername?.length === 0 || emailFromUsername === undefined ? (
         <motion.main
           initial={{ y: 20, opacity: 0, scale: 0 }}

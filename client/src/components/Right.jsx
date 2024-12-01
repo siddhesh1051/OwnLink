@@ -432,7 +432,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
           >
             Analytics
           </Tab>
-          <Tab
+          {/* <Tab
             label="Google Analytics"
             value={5}
             variant={value === 5 ? "solid" : "plain"}
@@ -445,7 +445,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
             }}
           >
             Google Analytics
-          </Tab>
+          </Tab> */}
         </TabList>
         <TabPanel value={1}>
           <div className="p-5 rounded-xl bg-[#222430] ">
@@ -727,9 +727,9 @@ const Right = ({ text, update, setUpdate }, ref) => {
         <TabPanel value={4}>
           <Analytics />
         </TabPanel>
-        <TabPanel value={5}>
+        {/* <TabPanel value={5}>
           <GoogleAnalyticsComponent />
-        </TabPanel>
+        </TabPanel> */}
       </Tabs>
 
       <Modal open={open} onClose={() => setOpen(false)}>

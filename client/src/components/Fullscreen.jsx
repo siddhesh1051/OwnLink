@@ -4,7 +4,7 @@ import { Avatar } from "@mui/material";
 import SocialIcon from "./SocialIcon";
 import ScreenLink from "./ScreenLink";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { getSocialsFromUsername } from "../store/socialSlice";
 import { getNameFromUsername } from "../store/nameSlice";
 import { getBioFromUsername } from "../store/bioSlice";
@@ -16,6 +16,8 @@ import { STATUSES } from "../store/store";
 import { motion } from "framer-motion";
 
 const Fullscreen = () => {
+  const [searchParams] = useSearchParams();
+  const ref_id = searchParams.get("ref_id");
   const social = useSelector((state) => state.social);
   //   const username = useSelector(state => state.username)
   const name = useSelector((state) => state.name);
@@ -53,7 +55,7 @@ const Fullscreen = () => {
     handleGetProfilePicfromusername(username);
     handleGetBgfromusername(username);
     fetchOwnlinkViews();
-  }, [bg, bgVar]);
+  }, []);
 
   const handleGetProfilePicfromusername = async (username) => {
     // console.log(email)
@@ -98,8 +100,28 @@ const Fullscreen = () => {
     backgroundSize: "cover",
   };
 
+  useEffect(() => {
+    const countReferral = async () => {
+      try {
+        if (ref_id) {
+          const res = await axios.post(
+            process.env.REACT_APP_API + "/countreferral",
+            {
+              ref_id,
+            }
+          );
+          console.log(res.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    countReferral();
+  }, [ref_id]);
+
   return (
-    <div className="flex-1 min-w-[100vh] w-full bg-black ">
+    <div className="flex-1 min-h-[100vh] w-full bg-black ">
       {emailFromUsername?.length === 0 || emailFromUsername === undefined ? (
         <motion.main
           initial={{ y: 20, opacity: 0, scale: 0 }}
@@ -128,7 +150,7 @@ const Fullscreen = () => {
           </button>
         </motion.main>
       ) : (
-        <div className="iphone-x lg:scale-75   ">
+        <div className="iphone-x lg:scale-75">
           <div
             className={` 'screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px] '`}
             style={isBg ? bgStyle : gradStyle}
