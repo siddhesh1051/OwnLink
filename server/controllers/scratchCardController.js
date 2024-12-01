@@ -88,11 +88,11 @@ module.exports.getScratchCardsByUser = async (req, res) => {
   try {
     const scratchCards = await ScratchCard.find({ promoter: promoterId });
 
-    if (!scratchCards.length) {
-      return res
-        .status(404)
-        .json({ error: "No scratch cards found for this promoter." });
-    }
+    // if (!scratchCards.length) {
+    //   return res
+    //     .status(404)
+    //     .json({ error: "No scratch cards found for this promoter." });
+    // }
 
     res.status(200).json(scratchCards);
   } catch (err) {
