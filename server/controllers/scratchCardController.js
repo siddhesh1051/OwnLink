@@ -42,9 +42,11 @@ module.exports.addscratchcard = async (req, res) => {
             await sendNotification(
               promoter.deviceToken,
               "Scratch Card Added 🎉",
-              "We have added a new scratch card for promoting your favourite creator."
+              "We have added a scratch card for promoting your favourite creator."
             );
           }
+
+          console.log("after notification", scratchCard._id);
           return {
             message: `Created a scratchCard with id: ${scratchCard._id}`,
             scratchCard,
