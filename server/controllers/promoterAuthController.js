@@ -79,6 +79,7 @@ module.exports.getPromoterById = asyncHandler(async (req, res) => {
 });
 
 module.exports.saveDeviceToken = async (req, res) => {
+  console.log("saving token saveDeviceToken", req.body);
   const { promoterId, deviceToken } = req.body;
 
   if (!promoterId || !deviceToken) {
