@@ -4,6 +4,7 @@ const { Expo } = require("expo-server-sdk");
 const expo = new Expo();
 
 async function sendNotification(deviceToken, title, body) {
+  console.log("Sending notification to:", deviceToken);
   // Create a message
   const messages = [];
   if (!Expo.isExpoPushToken(deviceToken)) {
