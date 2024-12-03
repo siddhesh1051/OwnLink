@@ -11,6 +11,8 @@ const createToken = (id) => {
 module.exports.promoterRegister = asyncHandler(async (req, res) => {
   const { email, password, deviceToken } = req.body;
 
+  console.log("login devidetoken", deviceToken);
+
   if (!email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
