@@ -11,7 +11,7 @@ const createToken = (id) => {
 module.exports.promoterRegister = asyncHandler(async (req, res) => {
   const { email, password, deviceToken } = req.body;
 
-  console.log("login devidetoken", deviceToken);
+  console.log("regi login devidetoken", deviceToken);
 
   if (!email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
@@ -43,7 +43,7 @@ module.exports.promoterRegister = asyncHandler(async (req, res) => {
 module.exports.promoterLogin = asyncHandler(async (req, res) => {
   const { email, password, deviceToken } = req.body;
 
-  console.log("deviceToken", deviceToken);
+  console.log("login devidetoken", deviceToken);
 
   const promoter = await Promoter.findOne({ email });
 
