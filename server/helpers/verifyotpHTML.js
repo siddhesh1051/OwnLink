@@ -42,7 +42,7 @@ exports.verifyotpHTML = (otp, requiredPoints) => {
               <td>
                 <img
                   alt=""
-                  src="https://ownlink.vercel.app/static/media/logo-3d-2.def374ebc20e2f4daf5e.png"
+                  src="https://ownlink.live/static/media/logo-3d-2.def374ebc20e2f4daf5e.png"
                   height="100px"
                 />
               </td>
