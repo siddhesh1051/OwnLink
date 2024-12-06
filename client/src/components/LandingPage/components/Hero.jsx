@@ -142,7 +142,7 @@ const Hero = () => {
                     </div>
                     <div className="relative w-full text-lg">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-100 font-medium">
-                        ownlink.me/
+                        ownlink.live/
                       </span>
                       <input
                         autoComplete="text"
