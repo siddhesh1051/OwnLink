@@ -247,7 +247,7 @@ exports.mailHTML = (email) => {
                                        <tr>
                                          <td align="left" style="font-size:0;padding:10px 25px;padding-top:0;padding-right:100px;padding-bottom:0;padding-left:30px;word-break:break-word">
                                            <div style="font-family:Helvetica;font-size:16px;font-weight:400;letter-spacing:0;line-height:1.5;text-align:left;color:#61618f">
-                                             <p style="line-height:1.5"><span style="color:#fff;font-family:Helvetica,serif;font-size:17px"><strong>Create a single link</strong> for all your social media links with <b>Ownlink</b>.</span></p>
+                                             <p style="line-height:1.5"><span style="color:#fff;font-family:Helvetica,serif;font-size:17px"><strong>Create a single link</strong> for all your social media handles with <b>Ownlink</b>.</span></p>
                                            </div>
                                          </td>
                                        </tr>
