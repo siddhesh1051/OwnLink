@@ -12,12 +12,12 @@ import CTARewards from "./CTARewards";
 
 const RewardsLandingPage = () => {
   const handleApkDownload = () => {
-    // try {
-    //   saveAs(OwnlinkRewardsApk, "ownlink-rewards.apk");
-    //   toast.success("Downloading APK");
-    // } catch (error) {
-    //   toast.error("Download Failed");
-    // }
+    try {
+      saveAs(OwnlinkRewardsApk, "ownlink-rewards.apk");
+      toast.success("Downloading APK");
+    } catch (error) {
+      toast.error("Download Failed");
+    }
   };
   return (
     <div className="font-[Urbanist] bg-[#0A101E] ">
