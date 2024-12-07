@@ -237,7 +237,8 @@ const Footer = () => {
                 </div>
                 <div className="flex justify-between border-t border-gray-800 py-4 pb-8 md:pl-16">
                   <span>
-                    &copy; Ownlink 2023 <span id="year"></span>{" "}
+                    &copy; Ownlink {new Date().getFullYear()}{" "}
+                    <span id="year"></span>{" "}
                   </span>
                   <span>All right reserved</span>
                 </div>
