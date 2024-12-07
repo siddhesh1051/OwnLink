@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; // Import motion
 import { FaArrowRight, FaUser } from "react-icons/fa";
 
-const Hero = () => {
+const Hero = ({ showRewards }) => {
   const navigate = useNavigate();
 
   const animationProps = {
@@ -68,19 +68,23 @@ const Hero = () => {
               </label>
 
               {/* Rewards Button */}
-              <div className="hidden lg:flex">
-                <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
-                  <span>
-                    <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
-                  </span>
-                  <span className="backdrop absolute inset-[1px] rounded-full bg-[#1b0130] transition-colors duration-200 group-hover:bg-[#330359]" />
-                  <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1">
-                    ✨ Introducing Ownlink Rewards
-                    <FaArrowRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-                  </span>
-                </button>
-              </div>
-
+              {showRewards && (
+                <div
+                  onClick={() => navigate("/routes/rewards")}
+                  className="hidden lg:flex"
+                >
+                  <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
+                    <span>
+                      <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
+                    </span>
+                    <span className="backdrop absolute inset-[1px] rounded-full bg-[#1b0130] transition-colors duration-200 group-hover:bg-[#330359]" />
+                    <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1">
+                      ✨ Introducing Ownlink Rewards
+                      <FaArrowRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+                    </span>
+                  </button>
+                </div>
+              )}
               {/* Nav Menu */}
               <div className="navmenu hidden w-full flex-wrap justify-end items-center mb-16 space-y-8 p-6 border rounded-3xl shadow-2xl shadow-gray-300/20 bg-gray-800 lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-auto lg:shadow-none border-gray-700 lg:border-0">
                 <div className="w-full space-y-2 border-gray-700 flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l">
@@ -109,18 +113,23 @@ const Hero = () => {
       {/* Hero Section */}
       <div className="pt-24 md:py-12 xl:container m-auto px-6 md:px-20">
         {/* Rewards Button */}
-        <div className="lg:hidden flex mb-8 justify-center items-center">
-          <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
-            <span>
-              <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
-            </span>
-            <span className="backdrop absolute inset-[1px] rounded-full bg-neutral-900 transition-colors duration-200 group-hover:bg-neutral-800" />
-            <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1">
-              ✨ Introducing Ownlink Rewards
-              <FaArrowRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-            </span>
-          </button>
-        </div>
+        {showRewards && (
+          <div
+            onClick={() => navigate("/routes/rewards")}
+            className="lg:hidden flex mb-8 justify-center items-center"
+          >
+            <button className="group relative grid overflow-hidden rounded-full px-4 py-1 shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset] transition-colors duration-200">
+              <span>
+                <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
+              </span>
+              <span className="backdrop absolute inset-[1px] rounded-full bg-neutral-900 transition-colors duration-200 group-hover:bg-neutral-800" />
+              <span className="z-10 py-0.5 text-sm text-neutral-100 flex items-center justify-center gap-1">
+                ✨ Introducing Ownlink Rewards
+                <FaArrowRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
+              </span>
+            </button>
+          </div>
+        )}
         <motion.div {...animationProps}>
           <div
             aria-hidden="true"

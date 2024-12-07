@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import ReactGA from "react-ga4";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Orders from "./components/Orders";
+import RewardsLandingPage from "./pages/Rewards/RewardsLandingPage";
 
 const TRACKING_ID = "G-EH75TZQPC6";
 ReactGA.initialize(TRACKING_ID);
@@ -74,6 +75,7 @@ function App() {
       <Routes>
         <Route path="/routes/auth" element={<Authentication />} />
         <Route path="/routes/welcome" element={<LandingPage />} />
+        <Route path="/routes/rewards" element={<RewardsLandingPage />} />
         <Route path="/routes/orders" element={<Orders />} />
         <Route path="/" element={<Home />} />
         {isMobile ? (
