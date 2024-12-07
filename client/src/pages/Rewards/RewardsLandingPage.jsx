@@ -6,19 +6,18 @@ import Step2Image from "./assets/step2.webp";
 import Step3Image from "./assets/step3.webp";
 import StepComponent from "./steps/StepComponent";
 import toast from "react-hot-toast";
-import OwnlinkRewardsApk from "./assets/ownlink-rewards.apk";
+// import OwnlinkRewardsApk from "./assets/ownlink-rewards.apk";
 import { saveAs } from "file-saver";
 import CTARewards from "./CTARewards";
 
 const RewardsLandingPage = () => {
   const handleApkDownload = () => {
-    console.log("insie");
-    try {
-      saveAs(OwnlinkRewardsApk, "ownlink-rewards.apk");
-      toast.success("Downloading APK");
-    } catch (error) {
-      toast.error("Download Failed");
-    }
+    // try {
+    //   saveAs(OwnlinkRewardsApk, "ownlink-rewards.apk");
+    //   toast.success("Downloading APK");
+    // } catch (error) {
+    //   toast.error("Download Failed");
+    // }
   };
   return (
     <div className="font-[Urbanist] bg-[#0A101E] ">
