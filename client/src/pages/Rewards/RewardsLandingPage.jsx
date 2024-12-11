@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import OwnlinkRewardsApk from "./assets/ownlink-rewards.apk";
 import { saveAs } from "file-saver";
 import CTARewards from "./CTARewards";
+import ProductHuntBadge from "../../components/ProductHuntBadge";
 
 const RewardsLandingPage = () => {
   const handleApkDownload = () => {
@@ -53,6 +54,7 @@ const RewardsLandingPage = () => {
       />
       <CTARewards handleApkDownload={handleApkDownload} />
       <Footer />
+      <ProductHuntBadge />
     </div>
   );
 };

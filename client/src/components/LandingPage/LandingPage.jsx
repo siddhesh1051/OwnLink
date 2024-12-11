@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Testimonials from "./components/Testimonials";
 import Content2 from "./components/Content2";
 import Pricing from "./components/Pricing";
+import ProductHuntBadge from "../ProductHuntBadge";
 
 const LandingPage = () => {
   return (
@@ -19,6 +20,7 @@ const LandingPage = () => {
       {/* <Pricing /> */}
       <CTA />
       <Footer />
+      <ProductHuntBadge />
     </div>
   );
 };
