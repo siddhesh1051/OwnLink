@@ -27,6 +27,14 @@ const promoterSchema = new mongoose.Schema({
     type: String, // Device token for push notifications
     required: false,
   },
+  isPushNotificationEnabled: {
+    type: Boolean,
+    default: true,
+  },
+  isEmailNotificationEnabled: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 promoterSchema.methods.matchPassword = async function (enteredPassword) {

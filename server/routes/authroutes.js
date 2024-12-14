@@ -43,6 +43,8 @@ const {
   promoterLogin,
   getPromoterById,
   saveDeviceToken,
+  updateEmailNotificationPreference,
+  updatePushNotificationPreference,
 } = require("../controllers/promoterAuthController");
 const {
   redeemPoints,
@@ -73,6 +75,11 @@ router.post("/savedevicetoken", saveDeviceToken);
 router.post("/addscratchcard", addscratchcard);
 router.get("/getscratchcardsbyuser/:promoterId", getScratchCardsByUser);
 router.post("/openscratchcard", openScratchCard);
+router.post(
+  "/updatepushnotificationpreference",
+  updatePushNotificationPreference
+);
+router.post("/updateemailpreference", updateEmailNotificationPreference);
 
 // promter redeem routes
 

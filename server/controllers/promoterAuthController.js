@@ -43,8 +43,6 @@ module.exports.promoterRegister = asyncHandler(async (req, res) => {
 module.exports.promoterLogin = asyncHandler(async (req, res) => {
   const { email, password, deviceToken } = req.body;
 
-  console.log("login devidetoken", deviceToken);
-
   const promoter = await Promoter.findOne({ email });
 
   if (promoter && (await promoter.matchPassword(password))) {
@@ -93,6 +91,42 @@ module.exports.saveDeviceToken = async (req, res) => {
     res.status(200).json({ message: "Device token saved successfully." });
   } catch (error) {
     console.error("Error saving device token:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
+
+module.exports.updatePushNotificationPreference = async (req, res) => {
+  const { promoterId, isPushNotificationEnabled } = req.body;
+
+  if (!promoterId || typeof isPushNotificationEnabled === "undefined") {
+    return res.status(400).json({ error: "Missing fields." });
+  }
+
+  try {
+    await Promoter.findByIdAndUpdate(promoterId, {
+      isPushNotificationEnabled,
+    });
+    res.status(200).json({ message: "Preference updated successfully." });
+  } catch (error) {
+    console.error("Error updating push notification preference:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+};
+
+module.exports.updateEmailNotificationPreference = async (req, res) => {
+  const { promoterId, isEmailNotificationEnabled } = req.body;
+
+  if (!promoterId || typeof isEmailNotificationEnabled === "undefined") {
+    return res.status(400).json({ error: "Missing fields." });
+  }
+
+  try {
+    await Promoter.findByIdAndUpdate(promoterId, {
+      isEmailNotificationEnabled,
+    });
+    res.status(200).json({ message: "Preference updated successfully." });
+  } catch (error) {
+    console.error("Error updating email notification preference:", error);
     res.status(500).json({ error: "Internal server error." });
   }
 };

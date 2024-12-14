@@ -38,7 +38,11 @@ module.exports.addscratchcard = async (req, res) => {
             promoter: promoterId,
           });
           console.log("scratchCard", scratchCard);
-          if (promoter && promoter.deviceToken) {
+          if (
+            promoter &&
+            promoter.deviceToken &&
+            promoter.isPushNotificationEnabled
+          ) {
             await sendNotification(
               promoter.deviceToken,
               "Scratch Card Added 🎉",
@@ -75,7 +79,11 @@ module.exports.addscratchcard = async (req, res) => {
           todayscCount: promoter.todayscCount + 1, // Increment by 1
         });
 
-        if (promoter && promoter.deviceToken) {
+        if (
+          promoter &&
+          promoter.deviceToken &&
+          promoter.isPushNotificationEnabled
+        ) {
           await sendNotification(
             promoter.deviceToken,
             "Scratch Card Added 🎉",
