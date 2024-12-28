@@ -11,8 +11,8 @@ const Authentication = () => {
   const [isNew, setisNew] = useState(false);
 
   return (
-    <div className="flex bg-gradient-to-br from-[#d6d2db] to-[#c2bccb] min-h-[100vh] w-full">
-      <div className="container bg-white flex justify-center items-center h-full  mx-[8%] my-10 rounded-xl lg:rounded-none p-1 lg:p-0">
+    <div className="flex justify-center items-center bg-gradient-to-br from-[#d6d2db] to-[#c2bccb] min-h-[100vh] w-full">
+      <div className="container bg-white/30 flex justify-center items-center h-full  mx-[8%] my-10 rounded-xl lg:rounded-xl p-1 lg:p-0 shadow-xl">
         {isNew ? (
           <Register isNew={isNew} setisNew={setisNew} />
         ) : (
