@@ -83,8 +83,8 @@ const Screen = ({ update }) => {
     <motion.div
       className="screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus "
       style={isBg ? bgStyle : gradStyle}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
         type: "spring",
         stiffness: 260,

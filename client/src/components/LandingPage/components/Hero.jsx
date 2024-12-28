@@ -169,12 +169,12 @@ const Hero = () => {
                         className="relative h-12 w-20 sm:w-auto ml-auto sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
                         onClick={() => navigate("/routes/auth")}
                       >
-                        <span className="relative hidden w-max text-gray-900 font-semibold md:block">
+                        <span className="relative hidden w-max text-gray-200 font-semibold md:block">
                           Get Started
                         </span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="relative h-6 w-6 mx-auto text-gray-900 md:hidden"
+                          className="relative h-6 w-6 mx-auto text-gray-300 md:hidden"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

@@ -61,10 +61,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
   const usernameVar = useSelector((state) => state.username);
   const nameVar = useSelector((state) => state.name);
   const bioVar = useSelector((state) => state.bio);
-  // const profilepicVar = useSelector(state => state.pic)
-  // console.log(profilepicVar)
 
-  const socials = socialVar.socials;
   const currUsername = usernameVar.username;
   const currName = nameVar.name;
   const currBio = bioVar.bio;
@@ -261,9 +258,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
 
   const handleDispatch = async (email, link) => {
     link = handleSocialNavigation(link, acc);
-    // console.log(email, link,acc)
 
-    // console.log(email, link, acc)
     const { data } = await axios.post(
       process.env.REACT_APP_API + "/addsocial",
       {
@@ -278,8 +273,6 @@ const Right = ({ text, update, setUpdate }, ref) => {
   };
 
   const handleAddlink = async (email, UrlLink, title, linkImage) => {
-    // console.log(email, UrlLink, title,linkImage)
-
     UrlLink = handleNavigation(UrlLink);
 
     const { data } = await axios.post(process.env.REACT_APP_API + "/addlink", {
@@ -356,8 +349,8 @@ const Right = ({ text, update, setUpdate }, ref) => {
       ref={ref}
       className="flex-1"
       animate={{ x: 0 }}
-      initial={{ x: 1000 }}
-      transition={{ duration: 0.6 }}
+      initial={{ x: 500 }}
+      transition={{ duration: 0.4 }}
     >
       <Tabs
         size={isMobile ? "sm" : "lg"}

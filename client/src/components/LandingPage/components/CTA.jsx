@@ -16,15 +16,15 @@ const CTA = () => (
           to="/routes/auth"
           className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max bg-primaryLight rounded-full hover:scale-105 active:scale-95 duration-200"
         >
-          <span className="relative text-base font-semibold text-gray-900">
+          <span className="relative text-base font-semibold text-white">
             Get Started
           </span>
         </Link>
         <Link
           to="/routes/auth"
-          className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-gray-700 before:bg-gray-800 sm:w-max"
+          className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 before:border-gray-700 hover:scale-105 duration-200 before:bg-gray-800 sm:w-max"
         >
-          <span className="relative text-base font-semibold text-white">
+          <span className="relative text-base font-semibold text-gray-300">
             Learn More
           </span>
         </Link>

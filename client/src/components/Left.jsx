@@ -23,6 +23,7 @@ const Left = ({ handleCustomize, update }, ref) => {
   const [clicked, setclicked] = useState(false);
   const [open, setOpen] = useState(false);
   const [cardOpen, setCardOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const username = useSelector((state) => state.username.username);
   const dispatch = useDispatch();
@@ -141,8 +142,8 @@ const Left = ({ handleCustomize, update }, ref) => {
   const profileLink = `${process.env.REACT_APP_CLIENT_API}/${username}`;
   return (
     <motion.div
-      animate={{ x: 0 }}
-      initial={{ x: -1000 }}
+      // animate={{ x: 0 }}
+      // initial={{ x: -1000 }}
       transition={{ duration: 0.6 }}
       className="flex-1 flex flex-col justify-start p-2 pl-0"
     >
@@ -215,39 +216,62 @@ const Left = ({ handleCustomize, update }, ref) => {
           aria-labelledby="basic-modal-dialog-title"
           aria-describedby="basic-modal-dialog-description"
           sx={{
-            maxWidth: 500,
-            padding: 2,
+            maxWidth: 700,
+            padding: 8,
             margin: "auto",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             paddingTop: 6,
             paddingBottom: 4,
+            backgroundColor: "#07000e",
+            borderRadius: 10,
+            border: "1px solid #31224E",
           }}
         >
-          <Typography id="basic-modal-dialog-title" component="h2">
+          <Typography
+            sx={{
+              color: "white",
+              textAlign: "center",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              marginBottom: "2rem",
+              fontFamily: "Poppins, sans-serif",
+            }}
+            id="basic-modal-dialog-title"
+            component="h2"
+          >
             Your Profile QR Code
           </Typography>
           <Typography id="basic-modal-dialog-description" sx={{ mt: 2 }}>
+            {loading && (
+              <div className="flex justify-center items-center">
+                <div className="animate-spin rounded-full h-[100px] w-[100px] border-t-2 border-b-2 border-violet-500"></div>
+              </div>
+            )}
+
             <motion.img
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${profileLink}`}
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${profileLink}&bgcolor=7-0-14&color=240-216-255`}
               alt="qr"
               animate={{ scale: 1 }}
               initial={{ scale: 0 }}
               transition={{ duration: 0.5 }}
+              onLoad={() => setLoading(false)}
+              loading="lazy"
+              className={`${loading ? "invisible" : "visible"}`}
             />
-            <div className="flex justify-center items-center text-black mt-5">
+
+            <div className="flex justify-center items-center text-white font-semibold mt-8">
               <motion.button
-                className="px-4 py-2 rounded-lg bg-violet-500 flex justify-center items-center text-center mt-2"
+                className="px-4 py-2 rounded-lg bg-primaryLight flex justify-center items-center text-center mt-2"
                 onClick={() =>
                   handleDownload(
-                    "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${profileLink}"
+                    `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${profileLink}&bgcolor=7-0-14&color=240-216-255`
                   )
                 }
                 animate={{ y: 0, opacity: 1 }}
                 initial={{ y: 30, opacity: 0 }}
                 transition={{ duration: 0.2, delay: 0.1 }}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Download QR
