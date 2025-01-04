@@ -134,7 +134,7 @@ const Hero = () => {
           />
           <div className="relative lg:flex lg:items-center lg:gap-12">
             <div className="text-center lg:text-left md:mt-12 lg:mt-0 sm:w-10/12 md:w-2/3 sm:mx-auto lg:mr-auto lg:w-6/12">
-              <h1 className="font-bold text-4xl md:text-6xl lg:text-5xl xl:text-6xl text-white">
+              <h1 className="font-semibold text-4xl md:text-6xl lg:text-5xl xl:text-6xl text-white">
                 Create a single link for all your social media handles with{" "}
                 <span className="text-purple-500">Ownlink</span>
               </h1>
