@@ -131,6 +131,9 @@ const Features = () => {
                 className="w-full transition-all duration-300 group-hover:blur-sm border border-primaryLight/30 rounded-xl"
               />
 
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90" />
+
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex items-center justify-center">
@@ -151,7 +154,6 @@ const Features = () => {
             </div>
           </div>
         </div>
-
         {/* Video Modal */}
         <VideoModal
           isOpen={isModalOpen}
