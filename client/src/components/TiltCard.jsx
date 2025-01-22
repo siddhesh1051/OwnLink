@@ -8,6 +8,10 @@ const TiltCard = ({ setCardOpen, cardOpen, username }) => {
   const profileLink = `${process.env.REACT_APP_CLIENT_API}/${username}`;
   const [loading, setLoading] = useState(true);
 
+  console.log(
+    `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${profileLink}&bgcolor=56-39-90&color=240-216-255`
+  );
+
   return (
     <div className="w-[100vw] h-[100vh] flex justify-center items-center">
       <motion.div
@@ -41,29 +45,15 @@ const TiltCard = ({ setCardOpen, cardOpen, username }) => {
             size={25}
             onClick={() => setCardOpen(!cardOpen)}
           />
-          {loading && (
-            <div className="flex flex-col justify-center items-center gap-4 w-full">
-              <div className="animate-spin rounded-full h-[70px] w-[70px] border-t-2 border-b-2 border-violet-500"></div>
-              <p className="text-purple-500 font-[poppins]">@{username}</p>
-            </div>
-          )}
+
           <div className="flex flex-col justify-center items-center gap-2">
             <img
               src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${profileLink}&bgcolor=56-39-90&color=240-216-255`}
               alt="qr"
-              className={`md:w-[90px] md:h-[90px] w-[90px] h-[90px] ${
-                loading ? "hidden" : "flex"
-              }`}
-              onLoad={() => setLoading(false)}
-              loading="lazy"
+              className={`md:w-[90px] md:h-[90px] w-[90px] h-[90px] 
+              `}
             />
-            <p
-              className={`text-purple-500 font-[poppins] ${
-                loading ? "hidden" : "flex"
-              }`}
-            >
-              @{username}
-            </p>
+            <p className={`text-purple-500 font-[poppins] `}>@{username}</p>
           </div>
           <p className=" text-purple-900 absolute bottom-1 right-2 ">
             Ownlink &copy;
