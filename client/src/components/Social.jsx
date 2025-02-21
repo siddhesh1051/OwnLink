@@ -41,6 +41,7 @@ const Social = ({ setacc, setOpen, social, pic, setLink, setUpdate, update }) =>
 
     setacc(social);
     setOpen(true);
+    
 
   }
 

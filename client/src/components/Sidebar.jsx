@@ -169,7 +169,7 @@ const Sidebar = ({ update, handleQrOpen, handleCardOpen, username }) => {
             >
               My Orders
             </motion.a>
-            <motion.a
+            {/* <motion.a
               initial={{ x: -90, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -183,7 +183,7 @@ const Sidebar = ({ update, handleQrOpen, handleCardOpen, username }) => {
               }}
             >
               My Account
-            </motion.a>
+            </motion.a> */}
             <motion.a
               initial={{ x: -90, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

@@ -56,6 +56,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
   const [title, settitle] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const [linkImage, setLinkImage] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const socialVar = useSelector((state) => state.social);
   const usernameVar = useSelector((state) => state.username);
@@ -240,20 +241,61 @@ const Right = ({ text, update, setUpdate }, ref) => {
     return UrlLink;
   };
 
-  const handleDataSubmit = (e) => {
+  const handleDataSubmit = async (e) => {
     e.preventDefault();
     try {
-      handleAddUsername(email, username);
-      handleAddName(email, name);
-      handleAddBio(email, bio);
+      // Handle username update
+      const usernameResponse = await axios.post(
+        process.env.REACT_APP_API + "/addusername",
+        {
+          email,
+          username_from_body: username,
+        }
+      );
+
+      if (usernameResponse.data.status === 200) {
+        localStorage.setItem("username", username);
+        // Immediately update Redux store with new username
+        dispatch({
+          type: "username/setUsername",
+          payload: username,
+        });
+      } else if (
+        localUsername !== username &&
+        usernameResponse.data.status === 401
+      ) {
+        toast.error(usernameResponse.data.msg);
+        return; // Stop if username update failed
+      }
+
+      // Handle name update
+      await axios.post(process.env.REACT_APP_API + "/addname", {
+        email,
+        name_from_body: name,
+      });
+      // Update Redux store with new name
+      dispatch({
+        type: "name/setName",
+        payload: name,
+      });
+
+      // Handle bio update
+      await axios.post(process.env.REACT_APP_API + "/addbio", {
+        email,
+        bio_from_body: bio,
+      });
+      // Update Redux store with new bio
+      dispatch({
+        type: "bio/setBio",
+        payload: bio,
+      });
 
       toast.success("Saved");
-      // window.location.reload();
-    } catch {
+      setUpdate(!update);
+    } catch (err) {
+      console.error(err);
       toast.error("Something Went Wrong !!");
     }
-
-    setUpdate(!update);
   };
 
   const handleDispatch = async (email, link) => {
@@ -272,56 +314,61 @@ const Right = ({ text, update, setUpdate }, ref) => {
     setUpdate(!update);
   };
 
-  const handleAddlink = async (email, UrlLink, title, linkImage) => {
-    UrlLink = handleNavigation(UrlLink);
-
-    const { data } = await axios.post(process.env.REACT_APP_API + "/addlink", {
-      email,
-      link: UrlLink,
-      title,
-      linkImage,
-      linkClicks: 0,
-    });
-    console.log(data);
-    setUpdate(!update);
-  };
-
-  const handleAddUsername = async (email, username) => {
-    console.log(email, username);
-    const { data } = await axios.post(
-      process.env.REACT_APP_API + "/addusername",
-      {
-        email,
-        username_from_body: username,
+  const validateUrl = (url) => {
+    try {
+      // Try to construct a URL object
+      new URL(url);
+      return true;
+    } catch (err) {
+      // If URL is invalid, try adding https:// and check again
+      try {
+        new URL(`https://${url}`);
+        return true;
+      } catch (err) {
+        return false;
       }
-    );
-    if (data.status === 200) {
-      localStorage.setItem("username", username);
     }
-    if (localUsername !== username && data.status === 401) {
-      toast.error(data.msg);
+  };
+
+  const handleAddlink = async (email, UrlLink, title, linkImage) => {
+    // Validate URL
+    if (!validateUrl(UrlLink)) {
+      toast.error("Please enter a valid URL");
+      return;
     }
-    console.log(data);
-    setUpdate(!update);
+
+    // Format URL if needed
+    let formattedUrl = UrlLink;
+    if (!UrlLink.startsWith("http://") && !UrlLink.startsWith("https://")) {
+      formattedUrl = `https://${UrlLink}`;
+    }
+
+    try {
+      await axios.post(process.env.REACT_APP_API + "/addlink", {
+        email,
+        link: formattedUrl,
+        title,
+        linkImage,
+        linkClicks: 0,
+      });
+
+      // Clear form fields
+      setUrlLink("");
+      settitle("");
+      setLinkImage("");
+
+      // Update links in Redux
+      dispatch(getLinks(email));
+      toast.success(
+        isEditing ? "Link Updated Successfully" : "Link Added Successfully"
+      );
+      setUpdate(!update);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something Went Wrong !!");
+    }
   };
-  const handleAddName = async (email, name) => {
-    console.log(email, name);
-    const { data } = await axios.post(process.env.REACT_APP_API + "/addname", {
-      email,
-      name_from_body: name,
-    });
-    console.log(data);
-    setUpdate(!update);
-  };
-  const handleAddBio = async (email, bio) => {
-    console.log(email, bio);
-    const { data } = await axios.post(process.env.REACT_APP_API + "/addbio", {
-      email,
-      bio_from_body: bio,
-    });
-    console.log(data);
-    setUpdate(!update);
-  };
+
   const handleAddProfilePic = async (email, profilePic) => {
     console.log(email, profilePic);
     const { data } = await axios.post(
@@ -712,13 +759,14 @@ const Right = ({ text, update, setUpdate }, ref) => {
             setUrlLink={setUrlLink}
             setLinkImage={setLinkImage}
             linkImage={linkImage}
+            setIsEditing={setIsEditing}
           />
         </TabPanel>
         <TabPanel value={3}>
           <Appearence />
         </TabPanel>
         <TabPanel value={4}>
-          <Analytics />
+          <Analytics setTabValue={setvalue} />
         </TabPanel>
         {/* <TabPanel value={5}>
           <GoogleAnalyticsComponent />
@@ -749,6 +797,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
               // console.log(email);
               handleDispatch(email, link);
               setOpen(false);
+              setLink("");
             }}
           >
             <Stack spacing={2}>
@@ -768,7 +817,16 @@ const Right = ({ text, update, setUpdate }, ref) => {
         </ModalDialog>
       </Modal>
 
-      <Modal open={LinkModal} onClose={() => setLinkModal(false)}>
+      <Modal
+        open={LinkModal}
+        onClose={() => {
+          setLinkModal(false);
+          setUrlLink("");
+          settitle("");
+          setLinkImage("");
+          setIsEditing(false);
+        }}
+      >
         <ModalDialog
           aria-labelledby="basic-modal-dialog-title"
           aria-describedby="basic-modal-dialog-description"
@@ -780,8 +838,11 @@ const Right = ({ text, update, setUpdate }, ref) => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              handleAddlink(email, UrlLink, title, linkImage);
-              setLinkModal(false);
+              if (UrlLink && title) {
+                handleAddlink(email, UrlLink, title, linkImage);
+                setLinkModal(false);
+                setIsEditing(false);
+              }
             }}
           >
             <Stack spacing={2}>
@@ -792,6 +853,7 @@ const Right = ({ text, update, setUpdate }, ref) => {
                   required
                   value={title}
                   onChange={(e) => handleTitleInputChange(e)}
+                  disabled={isEditing}
                 />
               </FormControl>
               <FormControl>
@@ -818,13 +880,13 @@ const Right = ({ text, update, setUpdate }, ref) => {
                   >
                     Preview
                   </Typography>
-                  <div className="flex justify-center items-cente">
-                    <img src={linkImage} alt="" className="h-[200px] " />
+                  <div className="flex justify-center items-center">
+                    <img src={linkImage} alt="" className="h-[200px]" />
                   </div>
                 </div>
               )}
 
-              <Button type="submit">Add</Button>
+              <Button type="submit">{isEditing ? "Update" : "Add"}</Button>
             </Stack>
           </form>
         </ModalDialog>
