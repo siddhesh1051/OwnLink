@@ -158,7 +158,7 @@ const Features = () => {
         <VideoModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          videoId="7cfNgqLXggs"
+          videoId="K4gDbhORX-E"
         />
 
         {/* Features Section */}
