@@ -614,6 +614,7 @@ module.exports.removeSocial = async (req, res) => {
 
 module.exports.trackOwnlinkViews = async (req, res) => {
   try {
+    console.log("trackOwnlinkViews");
     const { username } = req.params;
     const user = await User.findOne({ username });
 
@@ -623,35 +624,22 @@ module.exports.trackOwnlinkViews = async (req, res) => {
 
     // Update the ownlinkViews count
     user.ownlinkViews++;
-    
-    // Add view with timestamp
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    // Find if there's an existing entry for today
-    const existingViewIndex = user.viewsHistory.findIndex(view => {
-      const viewDate = new Date(view.timestamp);
-      viewDate.setHours(0, 0, 0, 0);
-      return viewDate.getTime() === today.getTime();
-    });
 
-    if (existingViewIndex !== -1) {
-      // Update existing count for today
-      user.viewsHistory[existingViewIndex].count++;
-    } else {
-      // Add new entry for today
-      user.viewsHistory.push({
-        timestamp: today,
-        count: 1
-      });
-    }
+    // Add current timestamp in IST to viewsHistory
+    const currentTimestamp = new Date();
+    console.log("currentTimestamp", currentTimestamp);
+    // Convert to IST by adding 5 hours and 30 minutes
+    currentTimestamp.setHours(currentTimestamp.getHours() + 5);
+    currentTimestamp.setMinutes(currentTimestamp.getMinutes() + 30);
+
+    user.viewsHistory.push({ timestamp: currentTimestamp });
 
     await user.save();
 
     return res.json({
-      message: "Redirecting to ownlink",
+      message: "Redirecting to eweew",
       ownlink: user.ownlink,
-      count: user.ownlinkViews
+      count: user.ownlinkViews,
     });
   } catch (error) {
     console.error(error);
@@ -659,7 +647,7 @@ module.exports.trackOwnlinkViews = async (req, res) => {
   }
 };
 
-// Add new endpoint to get views history
+// Update getViewsHistory to aggregate the timestamps by day
 module.exports.getViewsHistory = async (req, res) => {
   try {
     const { username } = req.params;
@@ -669,24 +657,34 @@ module.exports.getViewsHistory = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Get last 7 days of views
+    // Get current date in IST
+    const currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + 5);
+    currentDate.setMinutes(currentDate.getMinutes() + 30);
+
+    // Get last 7 days including today in IST
     const last7Days = [...Array(7)].map((_, i) => {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
+      const date = new Date(currentDate);
+      date.setDate(date.getDate() - (6 - i)); // Subtract from 6 down to 0 to get last 7 days including today
       date.setHours(0, 0, 0, 0);
       return date;
-    }).reverse();
+    });
 
-    const viewsData = last7Days.map(date => {
-      const view = user.viewsHistory.find(v => {
-        const viewDate = new Date(v.timestamp);
-        viewDate.setHours(0, 0, 0, 0);
-        return viewDate.getTime() === date.getTime();
-      });
+    const viewsData = last7Days.map((date) => {
+      // Get start and end of the day in IST
+      const dayStart = new Date(date);
+      const dayEnd = new Date(date);
+      dayEnd.setHours(23, 59, 59, 999);
+
+      // Count views for this day
+      const dayViews = user.viewsHistory.filter((view) => {
+        const viewTime = new Date(view.timestamp);
+        return viewTime >= dayStart && viewTime <= dayEnd;
+      }).length;
 
       return {
-        date: date.toISOString().split('T')[0],
-        views: view ? view.count : 0
+        date: date.toISOString().split("T")[0],
+        views: dayViews,
       };
     });
 

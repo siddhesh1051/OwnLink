@@ -60,6 +60,8 @@ const Analytics = () => {
     }
   };
 
+  console.log(viewsHistory);
+
   return (
     <div className="p-5 rounded-xl bg-[#222430] w-full flex flex-col">
       <SyncButton />
