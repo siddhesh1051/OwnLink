@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex lg:flex-row flex-col gap-2 w-full h-full bg-[#161a23] text-white">
+      <div className="flex lg:flex-row flex-col gap-2 pb-6 w-full h-full bg-[#161a23] text-white">
         <Left
           handleCustomize={handleCustomize}
           ref={previewRef}
