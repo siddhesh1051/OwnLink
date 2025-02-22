@@ -615,10 +615,6 @@ module.exports.removeSocial = async (req, res) => {
 module.exports.trackOwnlinkViews = async (req, res) => {
   try {
     const { username } = req.params;
-
-    // console.log(username);
-
-    // Find the user document with the provided username
     const user = await User.findOne({ username });
 
     if (!user) {
@@ -627,17 +623,77 @@ module.exports.trackOwnlinkViews = async (req, res) => {
 
     // Update the ownlinkViews count
     user.ownlinkViews++;
+    
+    // Add view with timestamp
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Find if there's an existing entry for today
+    const existingViewIndex = user.viewsHistory.findIndex(view => {
+      const viewDate = new Date(view.timestamp);
+      viewDate.setHours(0, 0, 0, 0);
+      return viewDate.getTime() === today.getTime();
+    });
+
+    if (existingViewIndex !== -1) {
+      // Update existing count for today
+      user.viewsHistory[existingViewIndex].count++;
+    } else {
+      // Add new entry for today
+      user.viewsHistory.push({
+        timestamp: today,
+        count: 1
+      });
+    }
+
     await user.save();
 
-    // Redirect to the ownlink
     return res.json({
       message: "Redirecting to ownlink",
       ownlink: user.ownlink,
-      count: user.ownlinkViews,
+      count: user.ownlinkViews
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Add new endpoint to get views history
+module.exports.getViewsHistory = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Get last 7 days of views
+    const last7Days = [...Array(7)].map((_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    }).reverse();
+
+    const viewsData = last7Days.map(date => {
+      const view = user.viewsHistory.find(v => {
+        const viewDate = new Date(v.timestamp);
+        viewDate.setHours(0, 0, 0, 0);
+        return viewDate.getTime() === date.getTime();
+      });
+
+      return {
+        date: date.toISOString().split('T')[0],
+        views: view ? view.count : 0
+      };
+    });
+
+    res.json(viewsData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 

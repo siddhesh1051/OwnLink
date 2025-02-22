@@ -55,6 +55,16 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  viewsHistory: [{
+    timestamp: {
+      type: Date,
+      default: Date.now
+    },
+    count: {
+      type: Number,
+      default: 1
+    }
+  }],
   orders: {
     type: Array,
     default: [],

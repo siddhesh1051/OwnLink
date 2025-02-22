@@ -37,6 +37,7 @@ const {
   getAllCreators,
   getCreator,
   getValidCreators,
+  getViewsHistory,
 } = require("../controllers/authcontroller");
 const {
   promoterRegister,
@@ -134,5 +135,7 @@ router.post("/submitOrder", submitOrder);
 router.get("/getOrders/:email", getOrders);
 
 router.delete("/cancelOrder/:order_id", cancelOrder);
+
+router.get("/viewshistory/:username", getViewsHistory);
 
 module.exports = router;
