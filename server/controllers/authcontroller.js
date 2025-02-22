@@ -627,7 +627,6 @@ module.exports.trackOwnlinkViews = async (req, res) => {
 
     // Add current timestamp in IST to viewsHistory
     const currentTimestamp = new Date();
-    console.log("currentTimestamp", currentTimestamp);
     // Convert to IST by adding 5 hours and 30 minutes
     currentTimestamp.setHours(currentTimestamp.getHours() + 5);
     currentTimestamp.setMinutes(currentTimestamp.getMinutes() + 30);
@@ -637,7 +636,7 @@ module.exports.trackOwnlinkViews = async (req, res) => {
     await user.save();
 
     return res.json({
-      message: "Redirecting to eweew",
+      message: "Redirecting to Ownlink",
       ownlink: user.ownlink,
       count: user.ownlinkViews,
     });
