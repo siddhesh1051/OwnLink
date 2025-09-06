@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBg } from "../store/bgSlice";
-import { getAppearance, setAppearance } from "../store/appearanceSlice";
+import { getAppearance, setAppearance, setAppearanceLocal } from "../store/appearanceSlice";
 import { LuArrowDownRight, LuArrowRight } from "react-icons/lu";
 import { motion } from "framer-motion";
 
@@ -126,15 +126,23 @@ const Appearence = () => {
     e.preventDefault();
     setSelectedFont(font);
     
+    // Immediately update the local Redux state
+    dispatch(setAppearanceLocal({ font }));
+    
     try {
       await dispatch(setAppearance({ 
         email, 
-        appearance: { font } 
+        appearance: { 
+          ...appearance,
+          font 
+        } 
       })).unwrap();
       toast.success("Font Changed Successfully");
     } catch (err) {
       console.log(err);
       toast.error("Something Went Wrong !!");
+      // Revert the local state if server update fails
+      dispatch(setAppearanceLocal({ font: appearance?.font || "Inter" }));
     }
   };
 
@@ -142,15 +150,23 @@ const Appearence = () => {
     e.preventDefault();
     setSelectedShape(shape);
     
+    // Immediately update the local Redux state
+    dispatch(setAppearanceLocal({ buttonShape: shape }));
+    
     try {
       await dispatch(setAppearance({ 
         email, 
-        appearance: { buttonShape: shape } 
+        appearance: { 
+          ...appearance,
+          buttonShape: shape 
+        } 
       })).unwrap();
       toast.success("Button Shape Changed Successfully");
     } catch (err) {
       console.log(err);
       toast.error("Something Went Wrong !!");
+      // Revert the local state if server update fails
+      dispatch(setAppearanceLocal({ buttonShape: appearance?.buttonShape || "rounded" }));
     }
   };
 
