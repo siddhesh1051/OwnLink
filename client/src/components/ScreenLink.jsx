@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { getUsername } from "../store/usernameSlice";
 
-const ScreenLink = ({ link, title, linkImage, index }) => {
+const ScreenLink = ({ link, title, linkImage, index, buttonShape, fontFamily }) => {
   const dispatch = useDispatch();
   const email = localStorage.getItem("email");
   const username = useSelector((state) => state.username.username);
@@ -43,7 +43,7 @@ const ScreenLink = ({ link, title, linkImage, index }) => {
 
   return (
     <div
-      className={`flex text-white mt-2 w-[87%] min-w-[80%] rounded-xl aspect-video relative cursor-pointer min-h-[150px]`}
+      className={`flex text-white mt-2 w-[87%] min-w-[80%] ${buttonShape || 'rounded-xl'} aspect-video relative cursor-pointer min-h-[150px]`}
     >
       <div className="aspect-video relative">
         <a
@@ -52,7 +52,7 @@ const ScreenLink = ({ link, title, linkImage, index }) => {
           className="place-self-center"
           onClick={trackLinkClick}
         >
-          <img src={getBg(linkImage)} className="h-full w-full rounded-xl" />
+          <img src={getBg(linkImage)} className={`h-full w-full ${buttonShape || 'rounded-xl'}`} />
           <div
             className="overlay-link"
             style={{
@@ -60,7 +60,7 @@ const ScreenLink = ({ link, title, linkImage, index }) => {
                 "linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 90%)",
             }}
           >
-            <p className="ml-4">{title}</p>
+            <p className="ml-4" style={{ fontFamily: fontFamily || 'Inter, sans-serif' }}>{title}</p>
           </div>
         </a>
       </div>

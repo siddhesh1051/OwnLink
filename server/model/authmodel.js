@@ -47,6 +47,16 @@ const userSchema = mongoose.Schema({
     default:
       "https://res.cloudinary.com/dvdox1fzz/image/upload/v1687116969/Background%20Images/ozvno1ml5j6pq1qccbxs.jpg",
   },
+  appearance: {
+    font: {
+      type: String,
+      default: "Inter",
+    },
+    buttonShape: {
+      type: String,
+      default: "rounded",
+    },
+  },
   ownlink: {
     type: String,
     default: "",

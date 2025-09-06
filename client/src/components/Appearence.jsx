@@ -3,22 +3,36 @@ import BgImage from "./bgImage";
 import defaultBg from "./img/defaultBg.jpg";
 import GradientComp from "./GradientComp";
 import SolidColor from "./SolidColor";
+import FontSelector from "./FontSelector";
+import ButtonShapeSelector from "./ButtonShapeSelector";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBg } from "../store/bgSlice";
+import { getAppearance, setAppearance } from "../store/appearanceSlice";
 import { LuArrowDownRight, LuArrowRight } from "react-icons/lu";
 import { motion } from "framer-motion";
 
 const Appearence = () => {
   const [selected, setSelected] = useState("");
+  const [selectedFont, setSelectedFont] = useState("");
+  const [selectedShape, setSelectedShape] = useState("");
   const email = localStorage.getItem("email");
   const dispatch = useDispatch();
   const bgVar = useSelector((state) => state.bg?.bg);
+  const appearance = useSelector((state) => state.appearance?.appearance);
 
   useEffect(() => {
     dispatch(getBg(email));
+    dispatch(getAppearance(email));
   }, []);
+
+  useEffect(() => {
+    if (appearance) {
+      setSelectedFont(appearance.font || "Inter");
+      setSelectedShape(appearance.buttonShape || "rounded");
+    }
+  }, [appearance]);
 
   const handleSelect = async (e, bg) => {
     e.preventDefault();
@@ -104,6 +118,38 @@ const Appearence = () => {
     } catch (err) {
       console.log(err);
       toast.dismiss();
+      toast.error("Something Went Wrong !!");
+    }
+  };
+
+  const handleFontSelect = async (e, font) => {
+    e.preventDefault();
+    setSelectedFont(font);
+    
+    try {
+      await dispatch(setAppearance({ 
+        email, 
+        appearance: { font } 
+      })).unwrap();
+      toast.success("Font Changed Successfully");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something Went Wrong !!");
+    }
+  };
+
+  const handleShapeSelect = async (e, shape) => {
+    e.preventDefault();
+    setSelectedShape(shape);
+    
+    try {
+      await dispatch(setAppearance({ 
+        email, 
+        appearance: { buttonShape: shape } 
+      })).unwrap();
+      toast.success("Button Shape Changed Successfully");
+    } catch (err) {
+      console.log(err);
       toast.error("Something Went Wrong !!");
     }
   };
@@ -286,6 +332,30 @@ const Appearence = () => {
           index={4}
         />
       </div>
+
+      <div className="flex mt-8 justify-center">
+        <p className="font-light text-sm text-gray-400 my-4">
+          Choose a Font
+        </p>
+      </div>
+
+      <FontSelector
+        selectedFont={selectedFont}
+        handleFontSelect={handleFontSelect}
+        index={1}
+      />
+
+      <div className="flex mt-8 justify-center">
+        <p className="font-light text-sm text-gray-400 my-4">
+          Choose Button Shape
+        </p>
+      </div>
+
+      <ButtonShapeSelector
+        selectedShape={selectedShape}
+        handleShapeSelect={handleShapeSelect}
+        index={1}
+      />
     </div>
   );
 };

@@ -7,6 +7,7 @@ import bioReducer from './bioSlice';
 import emailReducer from './emailSlice';
 import picReducer from './picSlice'
 import bgReducer from './bgSlice'
+import appearanceReducer from './appearanceSlice'
 import ownlinkViewsreducer from './getviewsSlice'
 import socialsViewsReducer from './getAllSocialsViews'
 import linksViewsReducer from './getAllLinksViews'
@@ -29,6 +30,7 @@ const store = configureStore({
         email: emailReducer,
         pic: picReducer,
         bg: bgReducer,
+        appearance: appearanceReducer,
         ownlinkViews: ownlinkViewsreducer,
         socialsViews: socialsViewsReducer,
         linksViews: linksViewsReducer
