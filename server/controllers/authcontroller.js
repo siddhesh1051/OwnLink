@@ -220,6 +220,26 @@ module.exports.addBg = async (req, res) => {
   }
 };
 
+module.exports.addAppearance = async (req, res) => {
+  try {
+    const { email, appearance } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      // User found, update the existing appearance settings
+      user.appearance = { ...user.appearance, ...appearance };
+      await user.save();
+      return res.json({ msg: "Successfully Updated" });
+    } else {
+      // User not found, create a new user with the provided email and appearance
+      await User.create({ email, appearance });
+      return res.json({ msg: "Successfully Added" });
+    }
+  } catch (error) {
+    return res.json({ msg: "Error adding/updating appearance" });
+  }
+};
+
 // module.exports.addLink = async (req, res) => {
 //   try {
 //     const { email, link, title,linkImage } = req.body;
@@ -390,6 +410,21 @@ module.exports.getBg = async (req, res) => {
   }
 };
 
+module.exports.getAppearance = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.json({ 
+        msg: "success", 
+        appearance: user.appearance || { font: "Inter", buttonShape: "rounded" }
+      });
+    } else return res.json({ msg: "User with given email not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching appearance." });
+  }
+};
+
 module.exports.getLinks = async (req, res) => {
   try {
     const { email } = req.params;
@@ -516,6 +551,21 @@ module.exports.getBgFromUsername = async (req, res) => {
     } else return res.json({ msg: "User with given usernambge not found." });
   } catch (error) {
     return res.json({ msg: "Error fetching bg." });
+  }
+};
+
+module.exports.getAppearanceFromUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    if (user) {
+      return res.json({ 
+        msg: "success", 
+        appearance: user.appearance || { font: "Inter", buttonShape: "rounded" }
+      });
+    } else return res.json({ msg: "User with given username not found." });
+  } catch (error) {
+    return res.json({ msg: "Error fetching appearance." });
   }
 };
 

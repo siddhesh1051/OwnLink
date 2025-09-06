@@ -24,6 +24,9 @@ const {
   addBg,
   getBg,
   getBgFromUsername,
+  addAppearance,
+  getAppearance,
+  getAppearanceFromUsername,
   trackOwnlinkViews,
   getViewsInformation,
   increaseSocialsViews,
@@ -101,6 +104,7 @@ router.post("/addprofilepic", addProfilePic);
 router.post("/addlink", addLink);
 router.post("/addsocial", addSocial);
 router.post("/addbg", addBg);
+router.post("/addappearance", addAppearance);
 router.get("/username/:email", getUsername);
 router.get("/name/:email", getName);
 router.get("/getuserinfo/:username", getUserFromUsername);
@@ -114,6 +118,8 @@ router.get("/profilepic/:email", getProfilePic);
 router.get("/profilepicfromusername/:username", getProfilePicFromUsername);
 router.get("/bg/:email", getBg);
 router.get("/bgfromusername/:username", getBgFromUsername);
+router.get("/appearance/:email", getAppearance);
+router.get("/appearancefromusername/:username", getAppearanceFromUsername);
 router.get("/links/:email", getLinks);
 router.get("/linksfromusername/:username", getLinksFromUsername);
 router.get("/socials/:email", getSocials);

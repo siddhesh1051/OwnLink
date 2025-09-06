@@ -10,6 +10,8 @@ import { getNameFromUsername } from "../store/nameSlice";
 import { getBioFromUsername } from "../store/bioSlice";
 import { getLinksFromUsername } from "../store/linkSlice";
 import { getEmailFromUsername } from "../store/emailSlice";
+import { getAppearanceFromUsername } from "../store/appearanceSlice";
+import { getFontClass, getButtonShapeClass, getFontFamily } from "../utils/appearanceUtils";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import { STATUSES } from "../store/store";
@@ -25,6 +27,7 @@ const Fullscreen = () => {
   const link = useSelector((state) => state.link);
   const emailFromUsername = useSelector((state) => state.email?.email);
   const bgVar = useSelector((state) => state.bg?.bg);
+  const appearance = useSelector((state) => state.appearance?.appearance);
   const usernameStatus = useSelector((state) => state.username.status);
   const bioStatus = useSelector((state) => state.bio.status);
 
@@ -44,6 +47,10 @@ const Fullscreen = () => {
 
   const socials = social.socials;
   const links = link.links;
+  
+  const fontClass = getFontClass(appearance?.font || "Inter");
+  const buttonShapeClass = getButtonShapeClass(appearance?.buttonShape || "rounded");
+  const fontFamily = getFontFamily(appearance?.font || "Inter");
   // console.log(emailFromUsername);
 
   useEffect(() => {
@@ -52,6 +59,7 @@ const Fullscreen = () => {
     dispatch(getLinksFromUsername(username));
     dispatch(getEmailFromUsername(username));
     dispatch(getNameFromUsername(username));
+    dispatch(getAppearanceFromUsername(username));
     handleGetProfilePicfromusername(username);
     handleGetBgfromusername(username);
     fetchOwnlinkViews();
@@ -156,10 +164,13 @@ const Fullscreen = () => {
       ) : (
         <div className="iphone-x lg:scale-75">
           <div
-            className={` 'screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px] '`}
-            style={isBg ? bgStyle : gradStyle}
+            className={`screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar lg:rounded-[40px] ${fontClass}`}
+            style={{
+              ...(isBg ? bgStyle : gradStyle),
+              fontFamily: fontFamily
+            }}
           >
-            <div className="flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]">
+            <div className={`flex flex-col text-white gap-1 w-[88%]  p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] ${buttonShapeClass} bg-gray-50 bg-opacity-10 shadow-3xl  backdrop-blur-[10px]`}>
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 transition={{
@@ -192,6 +203,7 @@ const Fullscreen = () => {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   className="text-white"
+                  style={{ fontFamily: fontFamily }}
                 >{`@${username}`}</motion.h2>
               )}
 
@@ -207,6 +219,7 @@ const Fullscreen = () => {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   className="mt-2"
+                  style={{ fontFamily: fontFamily }}
                 >
                   {bio.bio ? `${bio.bio}` : null}{" "}
                 </motion.p>
@@ -221,7 +234,7 @@ const Fullscreen = () => {
               }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              className="text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar whitespace-nowrap p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]"
+              className={`text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar whitespace-nowrap p-1 py-4 mt- ${buttonShapeClass} bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]`}
             >
               <motion.div className="flex h-full w-full items-center justify-start mx-auto my-0 px-1">
                 {socials?.length !== 0 &&
@@ -246,7 +259,7 @@ const Fullscreen = () => {
                 viewport={{ once: true }}
                 className="flex items-center justify-center flex-col text-white gap-1 w-[100%] min-w-[80%] "
               >
-                <h1 className="text-center text-xl mt-2">Links</h1>
+                <h1 className="text-center text-xl mt-2" style={{ fontFamily: fontFamily }}>Links</h1>
                 {links?.length !== 0 &&
                   links?.map((item, index) =>
                     linkStatus === STATUSES.LOADING ? (
@@ -262,6 +275,8 @@ const Fullscreen = () => {
                         title={item.title}
                         linkImage={item?.linkImage}
                         index={index}
+                        buttonShape={buttonShapeClass}
+                        fontFamily={fontFamily}
                       />
                     )
                   )}

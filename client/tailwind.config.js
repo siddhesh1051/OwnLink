@@ -15,6 +15,20 @@ module.exports = {
         "sky-100": "#A855F7", // Define your custom color here
         darker: "#090E1A",
       },
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'opensans': ['Open Sans', 'sans-serif'],
+        'lato': ['Lato', 'sans-serif'],
+        'nunito': ['Nunito', 'sans-serif'],
+        'sourcesans': ['Source Sans Pro', 'sans-serif'],
+        'raleway': ['Raleway', 'sans-serif'],
+        'playfair': ['Playfair Display', 'serif'],
+        'oswald': ['Oswald', 'sans-serif'],
+        'merriweather': ['Merriweather', 'serif'],
+      },
 
       animation: {
         flip: "flip 6s infinite steps(2, end)",

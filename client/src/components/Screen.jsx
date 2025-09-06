@@ -8,6 +8,8 @@ import { getUsername } from "../store/usernameSlice";
 import { getName } from "../store/nameSlice";
 import { getBio } from "../store/bioSlice";
 import { getLinks } from "../store/linkSlice";
+import { getAppearance } from "../store/appearanceSlice";
+import { getFontClass, getButtonShapeClass, getFontFamily } from "../utils/appearanceUtils";
 import axios from "axios";
 
 const Screen = ({ update }) => {
@@ -17,6 +19,7 @@ const Screen = ({ update }) => {
   const bio = useSelector((state) => state.bio);
   const link = useSelector((state) => state.link);
   const bgVar = useSelector((state) => state.bg.bg);
+  const appearance = useSelector((state) => state.appearance?.appearance);
 
   const [profilePic, setProfilePic] = useState("");
   const [bg, setBg] = useState(null);
@@ -26,6 +29,10 @@ const Screen = ({ update }) => {
 
   const socials = social.socials;
   const links = link.links;
+  
+  const fontClass = getFontClass(appearance?.font || "Inter");
+  const buttonShapeClass = getButtonShapeClass(appearance?.buttonShape || "rounded");
+  const fontFamily = getFontFamily(appearance?.font || "Inter");
 
   useEffect(() => {
     const initBackground = async () => {
@@ -62,6 +69,7 @@ const Screen = ({ update }) => {
       dispatch(getName(email));
       dispatch(getBio(email));
       dispatch(getLinks(email));
+      dispatch(getAppearance(email));
 
       try {
         const { data } = await axios.get(
@@ -94,10 +102,13 @@ const Screen = ({ update }) => {
 
   return (
     <div
-      className="screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus"
-      style={isBg ? bgStyle : gradStyle}
+      className={`screen-bg flex justify-start items-center w-full h-full flex-col gap-2 overflow-scroll no-scrollbar rounded-[40px] jus ${fontClass}`}
+      style={{
+        ...(isBg ? bgStyle : gradStyle),
+        fontFamily: fontFamily
+      }}
     >
-      <div className="flex flex-col text-white gap-1 w-[88%] p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]">
+      <div className={`flex flex-col text-white gap-1 w-[88%] p-3 py-6 mt-16 rounded-tl-[60px] rounded-tr-[60px] ${buttonShapeClass} bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]`}>
         <div className="flex justify-center items-center">
           <Avatar
             alt="Remy Sharp"
@@ -106,11 +117,11 @@ const Screen = ({ update }) => {
           />
         </div>
 
-        <h2>{username.username ? `@${username.username}` : null}</h2>
-        <p className="mt-2">{bio.bio ? `${bio.bio}` : null}</p>
+        <h2 style={{ fontFamily: fontFamily }}>{username.username ? `@${username.username}` : null}</h2>
+        <p className="mt-2" style={{ fontFamily: fontFamily }}>{bio.bio ? `${bio.bio}` : null}</p>
       </div>
 
-      <div className="text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar p-1 py-4 mt- rounded-xl bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]">
+      <div className={`text-white w-[90%] min-h-[80px] overflow-x-scroll no-scrollbar p-1 py-4 mt- ${buttonShapeClass} bg-gray-50 bg-opacity-10 shadow-3xl backdrop-blur-[10px]`}>
         <div className="flex h-full w-full items-center justify-start mx-auto my-0 px-1">
           {socials?.length !== 0 &&
             socials?.map((item, index) => (
@@ -126,7 +137,7 @@ const Screen = ({ update }) => {
 
       {links?.length !== 0 && (
         <div className="flex items-center justify-start flex-col text-white gap-1 w-[100%] min-w-[80%]">
-          <h1 className="text-center text-xl mt-2">Links</h1>
+          <h1 className="text-center text-xl mt-2" style={{ fontFamily: fontFamily }}>Links</h1>
           {links?.map((item, index) => (
             <ScreenLink
               key={index}
@@ -134,6 +145,8 @@ const Screen = ({ update }) => {
               title={item.title}
               linkImage={item?.linkImage}
               index={index}
+              buttonShape={buttonShapeClass}
+              fontFamily={fontFamily}
             />
           ))}
         </div>
